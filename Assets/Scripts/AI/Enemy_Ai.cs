@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent (typeof(Animator))]
 public class Enemy_Ai : MonoBehaviour
 {
     [ReadOnly] [SerializeField] private int m_aiId;
@@ -13,10 +14,14 @@ public class Enemy_Ai : MonoBehaviour
 
     [SerializeField] private UnityEvent OnDeath;
 
+    [SerializeField] private Animator m_animator;
+
 
     private void Start()
     {
         m_aiId = Ai_Manager.GetNewAiId();
+        if (!m_animator) m_animator = GetComponent<Animator>();
+
         StartCoroutine(StateCheckCoroutine());
     }
 
@@ -27,6 +32,7 @@ public class Enemy_Ai : MonoBehaviour
 
     private IEnumerator StateCheckCoroutine()
     {
+        m_timeToStateCheck = Random.Range(0.0f, m_stateCheckInterval);
         while(m_aiState != Ai_State.Dead)
         {
             if(m_timeToStateCheck <= 0.0f)
