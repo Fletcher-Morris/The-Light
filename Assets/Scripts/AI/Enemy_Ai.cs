@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy_Ai : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Enemy_Ai : MonoBehaviour
     [ReadOnly] [SerializeField] private Ai_State m_prevAiState;
     [SerializeField] private float m_stateCheckInterval = 1.0f;
     private float m_timeToStateCheck = 0.0f;
+
+    [SerializeField] private UnityEvent OnDeath;
 
 
     private void Start()
@@ -37,7 +40,7 @@ public class Enemy_Ai : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
-
+        Death();
         yield return null;
     }
     private void CheckAiState()
@@ -50,6 +53,10 @@ public class Enemy_Ai : MonoBehaviour
     public void Kill()
     {
         m_aiState = Ai_State.Dead;
+    }
+    private void Death()
+    {
+        Debug.Log("Enemy " + m_aiId + " Died!");
     }
 
 }
