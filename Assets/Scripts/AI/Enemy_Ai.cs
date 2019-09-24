@@ -51,7 +51,39 @@ public class Enemy_Ai : MonoBehaviour
     }
     private void CheckAiState()
     {
-        if (m_prevAiState != m_aiState) Debug.Log("Ai " + m_aiId + " State : " + m_aiState.ToString());
+        if (m_prevAiState != m_aiState)
+        {
+            switch (m_aiState)
+            {
+                case Ai_State.Idle:
+                    SetAnimState("idle");
+                    break;
+                case Ai_State.Wandering:
+                    SetAnimState("walking");
+                    break;
+                case Ai_State.Searching:
+                    SetAnimState("walking");
+                    break;
+                case Ai_State.Chasing:
+                    SetAnimState("running");
+                    break;
+                case Ai_State.Attacking:
+                    SetAnimState("attacking");
+                    break;
+                case Ai_State.Stunned:
+                    SetAnimState("stunned");
+                    break;
+                case Ai_State.Dead:
+                    break;
+                case Ai_State.Fleeing:
+                    SetAnimState("running");
+                    break;
+                default:
+                    break;
+            }
+            Debug.Log("Ai " + m_aiId + " State : " + m_aiState.ToString());
+        }       
+
         m_prevAiState = m_aiState;
     }
 
@@ -62,7 +94,18 @@ public class Enemy_Ai : MonoBehaviour
     }
     private void Death()
     {
+        SetAnimState("dead");
         Debug.Log("Enemy " + m_aiId + " Died!");
+    }
+
+    private void SetAnimState(string _state)
+    {
+        //return;
+        foreach(AnimatorControllerParameter param in m_animator.parameters)
+        {
+            if(param.type == AnimatorControllerParameterType.Bool)
+            m_animator.SetBool(param.name, param.name == _state);
+        }
     }
 
 }

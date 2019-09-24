@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: kill
+    m_ConditionEvent: dead
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3856437028458712721}
@@ -86,7 +86,7 @@ AnimatorStateMachine:
     m_Position: {x: 0, y: 100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3856437028458712721}
-    m_Position: {x: 250, y: 600, z: 0}
+    m_Position: {x: 220, y: 600, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4024351998979979777}
     m_Position: {x: 0, y: 500, z: 0}
@@ -108,7 +108,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 270, y: 300, z: 0}
-  m_EntryPosition: {x: 270, y: -100, z: 0}
+  m_EntryPosition: {x: 260, y: -130, z: 0}
   m_ExitPosition: {x: 270, y: 700, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 3229111775648037915}
@@ -570,12 +570,6 @@ AnimatorController:
   m_Name: Enemy_Anim_Controller
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: kill
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: attacking
     m_Type: 4
     m_DefaultFloat: 0
@@ -601,6 +595,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: idle
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 1
+    m_Controller: {fileID: 0}
+  - m_Name: dead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0

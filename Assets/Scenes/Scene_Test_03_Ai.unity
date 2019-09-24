@@ -403,7 +403,7 @@ MonoBehaviour:
   m_aiId: 0
   m_aiState: 0
   m_prevAiState: 0
-  m_stateCheckInterval: 5
+  m_stateCheckInterval: 1
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -420,7 +420,7 @@ Animator:
   m_GameObject: {fileID: 928312588}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ce6cd099032ff9848b91cef5620caee7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -648,7 +648,7 @@ Animator:
   m_GameObject: {fileID: 1615238673}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ce6cd099032ff9848b91cef5620caee7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
