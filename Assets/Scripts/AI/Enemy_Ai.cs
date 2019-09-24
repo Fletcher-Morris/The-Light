@@ -100,7 +100,6 @@ public class Enemy_Ai : MonoBehaviour
 
     private void SetAnimState(string _state)
     {
-        //return;
         foreach(AnimatorControllerParameter param in m_animator.parameters)
         {
             if(param.type == AnimatorControllerParameterType.Bool)
