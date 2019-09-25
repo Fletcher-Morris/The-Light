@@ -22,6 +22,7 @@ public class Enemy_Ai : MonoBehaviour
     [SerializeField] private Ai_Settings m_aiSettings;
 
     [ReadOnly] [SerializeField] private bool m_playerVisible;
+    [SerializeField] private bool m_debug;
 
 
     private void Start()
@@ -111,32 +112,28 @@ public class Enemy_Ai : MonoBehaviour
 
     private void CheckForPlayer()
     {
-        Debug.Log("A");
         if (m_aiSettings.targetPlayer == false) return;
-
-        Debug.Log("B");
         Transform player = Ai_Manager.GetPlayerTransform();
+        m_playerVisible = false;
         if(player)
         {
-            Debug.Log("C");
             Vector3 dir = player.position - transform.position;
             Ray ray = new Ray(transform.position, dir);
             RaycastHit hit;
-            Physics.Raycast(ray, out hit);
-            if(hit.collider.transform == player)
+            Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.AllLayers().RemoveLayer("Enemy"));
+            if(hit.collider)
             {
-                Debug.Log("D");
-                m_navMeshAgent.SetDestination(player.position);
-                m_playerVisible = true;
+                if (hit.collider.transform == player)
+                {
+                    m_navMeshAgent.SetDestination(player.position);
+                    m_playerVisible = true;
+                    if(m_debug) Debug.DrawLine(transform.position, hit.point, Color.red);
+                }
+                else
+                {
+                    if(m_debug) Debug.DrawLine(transform.position, hit.point, Color.yellow);
+                }
             }
-            else
-            {
-                m_playerVisible = false;
-            }
-        }
-        else
-        {
-            m_playerVisible = false;
         }
     }
 
