@@ -73,7 +73,7 @@ public class Enemy_Ai : MonoBehaviour
     private void CheckAiState()
     {
         CheckForPlayer();
-
+        UpdateNavAgent();
         if (m_prevAiState != m_aiState)
         {
             switch (m_aiState)
@@ -127,13 +127,49 @@ public class Enemy_Ai : MonoBehaviour
                 {
                     m_navMeshAgent.SetDestination(player.position);
                     m_playerVisible = true;
+                    m_aiState = Ai_State.Chasing;
                     if(m_debug) Debug.DrawLine(transform.position, hit.point, Color.red);
                 }
                 else
                 {
+                    m_aiState = Ai_State.Wandering;
                     if(m_debug) Debug.DrawLine(transform.position, hit.point, Color.yellow);
                 }
             }
+        }
+    }
+
+    private void UpdateNavAgent()
+    {
+        switch (m_aiState)
+        {
+            case Ai_State.Idle:
+                m_navMeshAgent.speed = m_aiSettings.wanderMoveSpeed;
+                break;
+            case Ai_State.Wandering:
+                m_navMeshAgent.speed = m_aiSettings.wanderMoveSpeed;
+                break;
+            case Ai_State.Searching:
+                m_navMeshAgent.speed = m_aiSettings.searchMoveSpeed;
+                break;
+            case Ai_State.Chasing:
+                m_navMeshAgent.speed = m_aiSettings.chaseMoveSpeed;
+                break;
+            case Ai_State.Attacking:
+                m_navMeshAgent.speed = m_aiSettings.chaseMoveSpeed;
+                break;
+            case Ai_State.Stunned:
+                m_navMeshAgent.speed = 0.0f;
+                break;
+            case Ai_State.Dead:
+                m_navMeshAgent.speed = 0.0f;
+                break;
+            case Ai_State.Fleeing:
+                m_navMeshAgent.speed = m_aiSettings.chaseMoveSpeed;
+                break;
+            default:
+                m_navMeshAgent.speed = m_aiSettings.wanderMoveSpeed;
+                break;
         }
     }
 

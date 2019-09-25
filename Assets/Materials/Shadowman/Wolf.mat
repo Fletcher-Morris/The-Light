@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3515271916429498452
+--- !u!114 &-2483863812848452555
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Green
-  m_Shader: {fileID: -6465566751694194690, guid: 98950080f2c2418439a6e2bda4a2185f,
+  m_Name: Wolf
+  m_Shader: {fileID: -6465566751694194690, guid: 415a264cdae7fd04099da5fcee81605e,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -33,24 +33,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_19227F21:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_2C78A989:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_6F736C42:
-        m_Texture: {fileID: 2800000, guid: 826e9d3791e89174dbf3097b7e192aa1, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_AD0E370:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_CA06D581:
-        m_Texture: {fileID: 0}
+    - Texture2D_B8277102:
+        m_Texture: {fileID: 2800000, guid: d9338484b6e63a241b3ae72d1df3680e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -77,19 +61,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2DLOD_3F4B40DF_Texture_1:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_545D481A: 0
-    - Vector1_774CD834: 0
-    - Vector1_B13B9FC4: 1
-    - Vector1_D6AB7C20: 0.033
+    - Boolean_5B5AB773: 0
+    - Boolean_AFAC2AC0: 0
+    - Vector1_502739A1: 2
+    - Vector1_6FD05DCA: 0.07
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -112,7 +92,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_7EDF7FDF: {r: 0.12663871, g: 0.2264151, b: 0.12281951, a: 1}
+    - Color_3EFE1479: {r: 0, g: 0, b: 0, a: 1}
+    - Color_A2FBF02C: {r: 1, g: 1, b: 1, a: 1}
+    - Vector2_9F5FA600: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
