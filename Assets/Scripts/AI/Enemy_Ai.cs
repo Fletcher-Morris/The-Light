@@ -19,6 +19,10 @@ public class Enemy_Ai : MonoBehaviour
     private Animator m_animator;
     private NavMeshAgent m_navMeshAgent;
 
+    [SerializeField] private Ai_Settings m_aiSettings;
+
+    [ReadOnly] [SerializeField] private bool m_playerVisible;
+
 
     private void Start()
     {
@@ -60,13 +64,15 @@ public class Enemy_Ai : MonoBehaviour
             {
                 m_timeToStateCheck -= Time.deltaTime;
             }
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         Death();
         yield return null;
     }
     private void CheckAiState()
     {
+        CheckForPlayer();
+
         if (m_prevAiState != m_aiState)
         {
             switch (m_aiState)
@@ -101,6 +107,37 @@ public class Enemy_Ai : MonoBehaviour
         }       
 
         m_prevAiState = m_aiState;
+    }
+
+    private void CheckForPlayer()
+    {
+        Debug.Log("A");
+        if (m_aiSettings.targetPlayer == false) return;
+
+        Debug.Log("B");
+        Transform player = Ai_Manager.GetPlayerTransform();
+        if(player)
+        {
+            Debug.Log("C");
+            Vector3 dir = player.position - transform.position;
+            Ray ray = new Ray(transform.position, dir);
+            RaycastHit hit;
+            Physics.Raycast(ray, out hit);
+            if(hit.collider.transform == player)
+            {
+                Debug.Log("D");
+                m_navMeshAgent.SetDestination(player.position);
+                m_playerVisible = true;
+            }
+            else
+            {
+                m_playerVisible = false;
+            }
+        }
+        else
+        {
+            m_playerVisible = false;
+        }
     }
 
 

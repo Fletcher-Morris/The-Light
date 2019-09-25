@@ -10,4 +10,9 @@ public static class Ai_Manager
         m_lastAiId++;
         return m_lastAiId;
     }
+
+    private static Transform m_playerTransform;
+    public static Transform GetPlayerTransform() { return m_playerTransform; }
+    public static void SetPlayerTransform(Transform _player) { m_playerTransform = _player; }
+
 }
