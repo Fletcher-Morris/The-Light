@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.AI;
 
 [RequireComponent (typeof(Animator))]
+[RequireComponent (typeof(NavMeshAgent))]
 public class Enemy_Ai : MonoBehaviour
 {
     [ReadOnly] [SerializeField] private int m_aiId;
@@ -14,20 +16,34 @@ public class Enemy_Ai : MonoBehaviour
 
     [SerializeField] private UnityEvent OnDeath;
 
-    [SerializeField] private Animator m_animator;
+    private Animator m_animator;
+    private NavMeshAgent m_navMeshAgent;
 
 
     private void Start()
     {
         m_aiId = Ai_Manager.GetNewAiId();
-        if (!m_animator) m_animator = GetComponent<Animator>();
-
+        GetComponentsOnStart();
         StartCoroutine(StateCheckCoroutine());
+    }
+
+    private void GetComponentsOnStart()
+    {
+        if (!m_animator) m_animator = GetComponent<Animator>();
+        if (!m_navMeshAgent) m_navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
-        
+        if(Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit))
+            {
+                m_navMeshAgent.SetDestination(hit.point);
+            }
+        }
     }
 
     private IEnumerator StateCheckCoroutine()
