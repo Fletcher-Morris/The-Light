@@ -8,24 +8,38 @@ using UnityEngine.AI;
 [RequireComponent (typeof(NavMeshAgent))]
 public class Enemy_Ai : MonoBehaviour
 {
+    //  The unique ID for this AI.
     [ReadOnly] [SerializeField] private int m_aiId;
+    //  The current state of this AI.
     [SerializeField] private Ai_State m_aiState;
+    //  The state of this AI during the previous update.
     [ReadOnly] [SerializeField] private Ai_State m_prevAiState;
-    [SerializeField] private float m_stateCheckInterval = 1.0f;
+    //  The time between AI updates.
+    [SerializeField] private float m_stateCheckInterval = 0.1f;
+    //  The time until the next AI.
     private float m_timeToStateCheck = 0.0f;
 
+    //  MEthods to be run upon the death of this AI.
     [SerializeField] private UnityEvent OnDeath;
 
+    //  The Animator component for ths AI.
     private Animator m_animator;
+    //  The NavMesh component for this AI.
     private NavMeshAgent m_navMeshAgent;
+    //  The target position for the NavMesh.
     [ReadOnly] [SerializeField] private Vector3 m_navTarget;
 
+    //  The logic settings for this AI.
     [SerializeField] private Ai_Settings m_aiSettings;
 
+    //  Does this AI have a visual on the player?
     [ReadOnly] [SerializeField] private bool m_playerVisible;
+    //  The Transform of this AI's 'eyes'.
     [SerializeField] private Transform m_eyesTransform;
 
+    //  Is this AI in debug mode?
     [SerializeField] private bool m_debug;
+    //  The original name of the GameObject.
     [ReadOnly] [SerializeField] private string m_originalObjectName;
 
 
@@ -35,6 +49,7 @@ public class Enemy_Ai : MonoBehaviour
         GetComponentsOnStart();
     }
 
+    //  A method for gathering components on Start.
     private void GetComponentsOnStart()
     {
         if (!m_animator) m_animator = GetComponent<Animator>();
@@ -60,6 +75,7 @@ public class Enemy_Ai : MonoBehaviour
         StopAllCoroutines();
     }
 
+    //  The main Update loop for this AI.
     private IEnumerator StateCheckCoroutine()
     {
         while(m_aiState != Ai_State.Dead)
@@ -78,6 +94,8 @@ public class Enemy_Ai : MonoBehaviour
         Death();
         yield return null;
     }
+
+    //  Check the state of this AI, run logic, etc.
     private void CheckAiState()
     {
         CheckForPlayer();
@@ -118,6 +136,7 @@ public class Enemy_Ai : MonoBehaviour
         m_prevAiState = m_aiState;
     }
 
+    //  Check if this AI can see the player.
     private void CheckForPlayer()
     {
         if (m_aiSettings.targetPlayer == false) return;
@@ -145,6 +164,7 @@ public class Enemy_Ai : MonoBehaviour
         }
     }
 
+    //  Update the NavAgent with relavent data.
     private void UpdateNavAgent()
     {
         m_navMeshAgent.SetDestination(m_navTarget);
@@ -180,6 +200,7 @@ public class Enemy_Ai : MonoBehaviour
         }
     }    
 
+    //  Runs the various Debug methods.
     private void DebugAi()
     {
         if (m_playerVisible) Debug.DrawLine(m_eyesTransform.position, Ai_Manager.GetPlayerTransform().position);
@@ -199,16 +220,20 @@ public class Enemy_Ai : MonoBehaviour
     }
 
 
+    // A method used to kill the AI from anyehere.
     public void Kill()
     {
         m_aiState = Ai_State.Dead;
     }
+    //  What happens when the AI dies.
     private void Death()
     {
         SetAnimState("dead");
         Debug.Log("Enemy " + m_aiId + " Died!");
+        OnDeath.Invoke();
     }
 
+    //  Set the animation state of the AI animator.
     private void SetAnimState(string _state)
     {
         foreach(AnimatorControllerParameter param in m_animator.parameters)
