@@ -18,42 +18,48 @@ public class Enemy_Ai : MonoBehaviour
 
     private Animator m_animator;
     private NavMeshAgent m_navMeshAgent;
+    [ReadOnly] [SerializeField] private Vector3 m_navTarget;
 
     [SerializeField] private Ai_Settings m_aiSettings;
 
     [ReadOnly] [SerializeField] private bool m_playerVisible;
+
     [SerializeField] private bool m_debug;
+    [ReadOnly] [SerializeField] private string m_originalObjectName;
 
 
     private void Start()
     {
         m_aiId = Ai_Manager.GetNewAiId();
         GetComponentsOnStart();
-        StartCoroutine(StateCheckCoroutine());
     }
 
     private void GetComponentsOnStart()
     {
         if (!m_animator) m_animator = GetComponent<Animator>();
         if (!m_navMeshAgent) m_navMeshAgent = GetComponent<NavMeshAgent>();
+        m_originalObjectName = transform.name;
+        if (m_aiSettings.eyesTransform == null) m_aiSettings.eyesTransform = transform;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit))
-            {
-                m_navMeshAgent.SetDestination(hit.point);
-            }
-        }
+        if (m_debug) DebugAi();
+        else NoDebug();
+    }
+
+    private void OnEnable()
+    {
+        m_timeToStateCheck = Random.Range(0.0f, m_stateCheckInterval);
+        StartCoroutine(StateCheckCoroutine());
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator StateCheckCoroutine()
     {
-        m_timeToStateCheck = Random.Range(0.0f, m_stateCheckInterval);
         while(m_aiState != Ai_State.Dead)
         {
             if(m_timeToStateCheck <= 0.0f)
@@ -105,7 +111,7 @@ public class Enemy_Ai : MonoBehaviour
                     break;
             }
             Debug.Log("Ai " + m_aiId + " State : " + m_aiState.ToString());
-        }       
+        }
 
         m_prevAiState = m_aiState;
     }
@@ -117,23 +123,21 @@ public class Enemy_Ai : MonoBehaviour
         m_playerVisible = false;
         if(player)
         {
-            Vector3 dir = player.position - transform.position;
-            Ray ray = new Ray(transform.position, dir);
+            Vector3 dir = player.position - (m_aiSettings.eyesTransform.position);
+            Ray ray = new Ray((m_aiSettings.eyesTransform.position), dir);
             RaycastHit hit;
             Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.AllLayers().RemoveLayer("Enemy"));
             if(hit.collider)
             {
                 if (hit.collider.transform == player)
                 {
-                    m_navMeshAgent.SetDestination(player.position);
+                    m_navTarget = player.position;
                     m_playerVisible = true;
                     m_aiState = Ai_State.Chasing;
-                    if(m_debug) Debug.DrawLine(transform.position, hit.point, Color.red);
                 }
                 else
                 {
                     m_aiState = Ai_State.Wandering;
-                    if(m_debug) Debug.DrawLine(transform.position, hit.point, Color.yellow);
                 }
             }
         }
@@ -141,6 +145,7 @@ public class Enemy_Ai : MonoBehaviour
 
     private void UpdateNavAgent()
     {
+        m_navMeshAgent.SetDestination(m_navTarget);
         switch (m_aiState)
         {
             case Ai_State.Idle:
@@ -171,6 +176,24 @@ public class Enemy_Ai : MonoBehaviour
                 m_navMeshAgent.speed = m_aiSettings.wanderMoveSpeed;
                 break;
         }
+    }    
+
+    private void DebugAi()
+    {
+        if (m_playerVisible) Debug.DrawLine(m_aiSettings.eyesTransform.position, Ai_Manager.GetPlayerTransform().position);
+        for(int i = 0; i < m_navMeshAgent.path.corners.Length; i++)
+        {
+            Vector3 currentPoint, nextPoint;
+            if (i == 0) { currentPoint = transform.position; nextPoint = m_navMeshAgent.path.corners[0]; }
+            else if(i == m_navMeshAgent.path.corners.Length) { currentPoint = m_navMeshAgent.path.corners[i]; nextPoint = m_navMeshAgent.destination; }
+            else { currentPoint = m_navMeshAgent.path.corners[i-1]; nextPoint = m_navMeshAgent.path.corners[i]; }
+            Debug.DrawLine(currentPoint, nextPoint, Color.blue);
+        }
+        transform.name = m_originalObjectName + " [" + m_aiState.ToString() + "]";
+    }
+    private void NoDebug()
+    {
+        transform.name = m_originalObjectName;
     }
 
 

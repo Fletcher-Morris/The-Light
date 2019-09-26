@@ -15,4 +15,6 @@ public class Ai_Settings
     public float searchMoveSpeed = 6.0f;
     public float chaseMoveSpeed = 10.0f;
     public float fleeMoveSpeed = 10.0f;
+    [Header("Vision Settings")]
+    public Transform eyesTransform;
 }
