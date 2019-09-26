@@ -17,5 +17,5 @@ public class Ai_Settings : ScriptableObject
     public float chaseMoveSpeed = 10.0f;
     public float fleeMoveSpeed = 10.0f;
     [Header("Vision Settings")]
-    public LayerMask visionObstructors = LayerTools.AllLayers().RemoveLayer("Enemy");
+    public LayerMask visionObstructors = LayerTools.AllLayers();
 }
