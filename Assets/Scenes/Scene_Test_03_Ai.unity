@@ -730,7 +730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 654207099}
   m_Layer: 0
-  m_Name: EYES_POSITION
+  m_Name: AI_EYES_TRANSFORM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1240,17 +1240,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_navTarget: {x: 0, y: 0, z: 0}
-  m_aiSettings:
-    targetPlayer: 1
-    interestRange: 30
-    chaseRange: 20
-    stopChaseRange: 30
-    wanderMoveSpeed: 3
-    searchMoveSpeed: 6
-    chaseMoveSpeed: 10
-    fleeMoveSpeed: 10
-    eyesTransform: {fileID: 0}
+  m_aiSettings: {fileID: 0}
   m_playerVisible: 0
+  m_eyesTransform: {fileID: 0}
   m_debug: 1
   m_originalObjectName: 
 --- !u!95 &928312594
@@ -1590,7 +1582,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 72a2152f2f4e6c649bf5d18067c99994,
         type: 3}
       propertyPath: m_Name
-      value: Wolf
+      value: Wolf (0)
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 72a2152f2f4e6c649bf5d18067c99994,
         type: 3}
@@ -1693,17 +1685,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_navTarget: {x: 0, y: 0, z: 0}
-  m_aiSettings:
-    targetPlayer: 1
-    interestRange: 30
-    chaseRange: 20
-    stopChaseRange: 30
-    wanderMoveSpeed: 3
-    searchMoveSpeed: 6
-    chaseMoveSpeed: 10
-    fleeMoveSpeed: 10
-    eyesTransform: {fileID: 654207099}
+  m_aiSettings: {fileID: 11400000, guid: fb4d92f660a37984ebc811635fda8067, type: 2}
   m_playerVisible: 0
+  m_eyesTransform: {fileID: 654207099}
   m_debug: 1
   m_originalObjectName: 
 --- !u!195 &1296638844

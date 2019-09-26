@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "AiSettings", menuName = "AI Settings", order = 1)]
 [System.Serializable]
-public class Ai_Settings
+public class Ai_Settings : ScriptableObject
 {
     public bool targetPlayer = true;
     [Header("Distance Settings")]
@@ -16,5 +17,5 @@ public class Ai_Settings
     public float chaseMoveSpeed = 10.0f;
     public float fleeMoveSpeed = 10.0f;
     [Header("Vision Settings")]
-    public Transform eyesTransform;
+    public LayerMask visionObstructors = LayerTools.AllLayers().RemoveLayer("Enemy");
 }

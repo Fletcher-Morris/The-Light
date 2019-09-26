@@ -23,6 +23,7 @@ public class Enemy_Ai : MonoBehaviour
     [SerializeField] private Ai_Settings m_aiSettings;
 
     [ReadOnly] [SerializeField] private bool m_playerVisible;
+    [SerializeField] private Transform m_eyesTransform;
 
     [SerializeField] private bool m_debug;
     [ReadOnly] [SerializeField] private string m_originalObjectName;
@@ -39,7 +40,8 @@ public class Enemy_Ai : MonoBehaviour
         if (!m_animator) m_animator = GetComponent<Animator>();
         if (!m_navMeshAgent) m_navMeshAgent = GetComponent<NavMeshAgent>();
         m_originalObjectName = transform.name;
-        if (m_aiSettings.eyesTransform == null) m_aiSettings.eyesTransform = transform;
+        if (m_eyesTransform == null) m_eyesTransform = transform.Find("AI_EYES_TRANSFORM");
+        if (m_eyesTransform == null) m_eyesTransform = transform;
     }
 
     private void LateUpdate()
@@ -123,8 +125,8 @@ public class Enemy_Ai : MonoBehaviour
         m_playerVisible = false;
         if(player)
         {
-            Vector3 dir = player.position - (m_aiSettings.eyesTransform.position);
-            Ray ray = new Ray((m_aiSettings.eyesTransform.position), dir);
+            Vector3 dir = player.position - m_eyesTransform.position;
+            Ray ray = new Ray(m_eyesTransform.position, dir);
             RaycastHit hit;
             Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.AllLayers().RemoveLayer("Enemy"));
             if(hit.collider)
@@ -180,7 +182,7 @@ public class Enemy_Ai : MonoBehaviour
 
     private void DebugAi()
     {
-        if (m_playerVisible) Debug.DrawLine(m_aiSettings.eyesTransform.position, Ai_Manager.GetPlayerTransform().position);
+        if (m_playerVisible) Debug.DrawLine(m_eyesTransform.position, Ai_Manager.GetPlayerTransform().position);
         for(int i = 0; i < m_navMeshAgent.path.corners.Length; i++)
         {
             Vector3 currentPoint, nextPoint;
