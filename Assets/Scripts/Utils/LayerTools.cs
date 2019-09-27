@@ -19,6 +19,16 @@ public static class LayerTools
         return CreateLayerMask(_layers);
     }
 
+    public static LayerMask CreateLayerMask(string _layer)
+    {
+        return new LayerMask().AddLayer(_layer);
+    }
+
+    public static LayerMask Default()
+    {
+        return CreateLayerMask("Default");
+    }
+
     public static LayerMask AllLayers()
     {
         return ~0;

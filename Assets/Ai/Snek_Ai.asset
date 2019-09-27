@@ -16,6 +16,7 @@ MonoBehaviour:
   interestRange: 30
   chaseRange: 20
   stopChaseRange: 30
+  attackRange: 1
   wanderMoveSpeed: 5
   searchMoveSpeed: 5
   chaseMoveSpeed: 5

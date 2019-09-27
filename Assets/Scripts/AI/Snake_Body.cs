@@ -8,6 +8,7 @@ public class Snake_Body : MonoBehaviour
     private List<Transform> m_bones;
     private void Start()
     {
+        m_bones = new List<Transform>();
         Transform boneHolder = transform.Find("Bones");
         for(int i = 0; i < boneHolder.childCount; i++)
         {
