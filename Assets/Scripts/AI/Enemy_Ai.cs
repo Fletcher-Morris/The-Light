@@ -12,6 +12,7 @@ public class Enemy_Ai : MonoBehaviour
     private int m_aiId;
     //  The current state of this AI.
     [SerializeField] private Ai_State m_aiState;
+    public Ai_State GetAiState() { return m_aiState; }
     //  The state of this AI during the previous update.
     private Ai_State m_prevAiState;
     //  The time between AI updates.
@@ -31,6 +32,7 @@ public class Enemy_Ai : MonoBehaviour
 
     //  The logic settings for this AI.
     [SerializeField] private Ai_Settings m_aiSettings;
+    public Ai_Settings GetSettings() { return m_aiSettings; }
 
     //  Does this AI have a visual on the player?
     private bool m_playerVisible;

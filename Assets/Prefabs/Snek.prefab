@@ -255,7 +255,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2140321405773510556}
   - component: {fileID: 2140321405773510559}
-  - component: {fileID: 2140321405773510557}
   m_Layer: 16
   m_Name: Bone
   m_TagString: Untagged
@@ -294,101 +293,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!153 &2140321405773510557
-ConfigurableJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2140321405773510531}
-  m_ConnectedBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 1, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 5.33, y: 0.78741294, z: 0.44921723}
-  serializedVersion: 2
-  m_SecondaryAxis: {x: 1, y: 0, z: 0}
-  m_XMotion: 0
-  m_YMotion: 0
-  m_ZMotion: 0
-  m_AngularXMotion: 2
-  m_AngularYMotion: 2
-  m_AngularZMotion: 0
-  m_LinearLimitSpring:
-    spring: 0
-    damper: 0
-  m_LinearLimit:
-    limit: 0
-    bounciness: 0
-    contactDistance: 0
-  m_AngularXLimitSpring:
-    spring: 0
-    damper: 0
-  m_LowAngularXLimit:
-    limit: 0
-    bounciness: 0
-    contactDistance: 0
-  m_HighAngularXLimit:
-    limit: 0
-    bounciness: 0
-    contactDistance: 0
-  m_AngularYZLimitSpring:
-    spring: 0
-    damper: 0
-  m_AngularYLimit:
-    limit: 0
-    bounciness: 0
-    contactDistance: 0
-  m_AngularZLimit:
-    limit: 0
-    bounciness: 0
-    contactDistance: 0
-  m_TargetPosition: {x: 0, y: 0, z: 0}
-  m_TargetVelocity: {x: 0, y: 0, z: 0}
-  m_XDrive:
-    serializedVersion: 3
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.4028233e+38
-  m_YDrive:
-    serializedVersion: 3
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.4028233e+38
-  m_ZDrive:
-    serializedVersion: 3
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.4028233e+38
-  m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
-  m_RotationDriveMode: 0
-  m_AngularXDrive:
-    serializedVersion: 3
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.4028233e+38
-  m_AngularYZDrive:
-    serializedVersion: 3
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.4028233e+38
-  m_SlerpDrive:
-    serializedVersion: 3
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.4028233e+38
-  m_ProjectionMode: 0
-  m_ProjectionDistance: 0.1
-  m_ProjectionAngle: 180
-  m_ConfiguredInWorldSpace: 0
-  m_SwapBodies: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!1 &2140321405895736067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,21 +1826,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19d3ec0eb3cac64a9cad3d2ec46a923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_aiId: 0
   m_aiState: 0
-  m_prevAiState: 0
   m_stateCheckInterval: 0.1
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_navTarget: {x: 0, y: 0, z: 0}
   m_aiSettings: {fileID: 11400000, guid: e4f65ebada5889443b20cb925747001d, type: 2}
-  m_playerVisible: 0
   m_eyesTransform: {fileID: 2140321405895736092}
   m_debug: 1
-  m_originalObjectName: 
 --- !u!114 &2140321407119951502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1949,7 +1848,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947f8e765b256ca4ab825326819e77c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bones: []
+  m_headLerp: 0.1
+  m_headHeight: 2.5
+  m_headSway: {x: 0, y: 0, z: 0}
+  m_swaySpeed: 5
 --- !u!54 &7967465792306667449
 Rigidbody:
   m_ObjectHideFlags: 0
