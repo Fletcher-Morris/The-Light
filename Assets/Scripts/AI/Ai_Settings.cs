@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AiSettings", menuName = "AI Settings", order = 1)]
+[CreateAssetMenu(fileName = "New AI", menuName = "AI Settings", order = 1)]
 [System.Serializable]
 public class Ai_Settings : ScriptableObject
 {
