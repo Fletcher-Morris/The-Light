@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4cf270383e8fef428a4819031a55bf8, type: 3}
   m_Name: Dialogue_Test_01
   m_EditorClassIdentifier: 
-  m_contents: Please kill me, this is no way to live!
+  m_contents: 'Horrific Monstrosity:
+
+
+
+    Please kill me, this is no way to live!'
   m_dialogueTitle: 
   m_paths:
   - {fileID: 11400000, guid: b56b14277d9c9d346b3a17c50c854027, type: 2}

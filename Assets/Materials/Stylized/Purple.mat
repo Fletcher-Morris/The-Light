@@ -129,7 +129,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularIntensity: 2
-    - _SpecularSoftness: 0.01
+    - _SpecularSoftness: 0.1
     - _SrcBlend: 1
     - _Surface: 0
     - _UseNormalTex: 0
@@ -138,7 +138,7 @@ Material:
     m_Colors:
     - Color_7EDF7FDF: {r: 0.40546626, g: 0.14999998, b: 1, a: 1}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _Color: {r: 0.7189002, g: 0, b: 1, a: 1}
+    - _Color: {r: 0.8095098, g: 0.32999998, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SceneColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
+    - _SceneColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
