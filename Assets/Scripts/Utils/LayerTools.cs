@@ -44,8 +44,26 @@ public static class LayerTools
         return _layerMask | 1 << LayerMask.NameToLayer(_layer);
     }
 
+    public static LayerMask AddLayers(this LayerMask _layerMask, string[] _layers)
+    {
+        foreach (string layer in _layers)
+        {
+            _layerMask.AddLayer(layer);
+        }
+        return _layerMask;
+    }
+
     public static LayerMask RemoveLayer(this LayerMask _layerMask, string _layer)
     {
         return _layerMask | 1 >> LayerMask.NameToLayer(_layer);
+    }
+
+    public static LayerMask RemoveLayers(this LayerMask _layerMask, string[] _layers)
+    {
+        foreach(string layer in _layers)
+        {
+            _layerMask.RemoveLayer(layer);
+        }
+        return _layerMask;
     }
 }

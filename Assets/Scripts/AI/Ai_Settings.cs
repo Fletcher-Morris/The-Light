@@ -29,4 +29,13 @@ public class Ai_Settings : ScriptableObject
     [Header("Vision Settings")]
     //  The layers that obstruct the AI's vision.
     public LayerMask visionObstructors = LayerTools.AllLayers();
+    [Header("Behaviour Settings")]
+    //  Should the AI be battracted to lamps?
+    public bool attractedToLight = false;
+    //  Should the AI flee from lamps?
+    public bool runAwayFromLight = true;
+    //  The minumum time the AI will flee for.
+    public float fleeDuration = 3.0f;
+    //  How many far the AI will run away from the danger.
+    public float fleeDistanceMultiplier = 3.0f;
 }

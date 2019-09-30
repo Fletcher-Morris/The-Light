@@ -38,6 +38,10 @@ public class Enemy_Ai : MonoBehaviour
     private bool m_playerVisible;
     //  The Transform of this AI's 'eyes'.
     [SerializeField] private Transform m_eyesTransform;
+    //  Is this AI in light?
+    private bool m_inLight;
+    private Vector3 m_normalisedLightDir = new Vector3();
+    private float m_fleeTime = 0.0f;
 
     //  Is this AI in debug mode?
     [SerializeField] private bool m_debug;
@@ -64,6 +68,9 @@ public class Enemy_Ai : MonoBehaviour
     {
         if (m_debug) DebugAi();
         else NoDebug();
+
+        m_fleeTime -= Time.deltaTime;
+        m_fleeTime = Mathf.Clamp(m_fleeTime, 0.0f, m_aiSettings.fleeDuration);
     }
 
     private void OnEnable()
@@ -100,6 +107,8 @@ public class Enemy_Ai : MonoBehaviour
     private void CheckAiState()
     {
         CheckForPlayer();
+        CheckForLight();
+        CalcAiState();
         UpdateNavAgent();
         if (m_prevAiState != m_aiState)
         {
@@ -148,8 +157,8 @@ public class Enemy_Ai : MonoBehaviour
             Vector3 dir = player.position - m_eyesTransform.position;
             Ray ray = new Ray(m_eyesTransform.position, dir);
             RaycastHit hit;
-            Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.AllLayers().RemoveLayer("Enemy"));
-            if(hit.collider)
+            Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.AllLayers().RemoveLayers(new string[] { "Enemy", "Player" }));
+            if (hit.collider)
             {
                 if (hit.collider.transform == player)
                 {
@@ -162,6 +171,83 @@ public class Enemy_Ai : MonoBehaviour
                     m_aiState = Ai_State.Wandering;
                 }
             }
+        }
+    }
+
+    private void CheckForLight()
+    {
+        m_inLight = false;
+        m_normalisedLightDir = new Vector3();
+        foreach(Lamp_Controller lamp in Ai_Manager.GetLamps())
+        {
+            Vector3 dir = m_eyesTransform.position - lamp.transform.position;
+            Ray ray = new Ray(lamp.transform.position, dir);
+            RaycastHit hit;
+            Physics.Raycast(ray, out hit, lamp.GetRange(), LayerTools.AllLayers().RemoveLayers(new string[] { "Enemy", "Player" }));
+            if (hit.collider)
+            {
+                if (hit.collider.transform == transform)
+                {
+                    m_inLight = true;
+                }
+            }
+            m_normalisedLightDir += dir;
+        }
+    }
+
+    private void CalcAiState()
+    {
+        if(m_fleeTime > 0.0f)
+        {
+            m_aiState = Ai_State.Fleeing;
+        }
+        else
+        {
+            if (m_playerVisible)
+            {
+                m_aiState = Ai_State.Chasing;
+            }
+            else m_aiState = Ai_State.Wandering;
+            if (m_inLight)
+            {
+                if (m_aiSettings.runAwayFromLight)
+                {
+                    m_aiState = Ai_State.Fleeing;
+                    m_fleeTime = m_aiSettings.fleeDuration;
+                }
+            }
+        }
+
+
+        switch (m_aiState)
+        {
+            case Ai_State.Idle:
+                m_navTarget = transform.position;
+                break;
+            case Ai_State.Wandering:
+                m_navTarget = transform.position;
+                break;
+            case Ai_State.Searching:
+                m_navTarget = Ai_Manager.GetPlayerTransform().position;
+                break;
+            case Ai_State.Chasing:
+                m_navTarget = Ai_Manager.GetPlayerTransform().position;
+                break;
+            case Ai_State.Attacking:
+                m_navTarget = Ai_Manager.GetPlayerTransform().position;
+                break;
+            case Ai_State.Stunned:
+                m_navTarget = transform.position;
+                break;
+            case Ai_State.Dead:
+                m_navTarget = transform.position;
+                break;
+            case Ai_State.Fleeing:
+                m_navTarget = transform.position + (m_normalisedLightDir * m_aiSettings.fleeDistanceMultiplier);
+                break;
+            default:
+                m_navTarget = Ai_Manager.GetPlayerTransform().position;
+                break;
         }
     }
 
@@ -213,6 +299,12 @@ public class Enemy_Ai : MonoBehaviour
             else { currentPoint = m_navMeshAgent.path.corners[i-1]; nextPoint = m_navMeshAgent.path.corners[i]; }
             Debug.DrawLine(currentPoint, nextPoint, Color.blue);
         }
+
+        foreach (Lamp_Controller lamp in Ai_Manager.GetLamps())
+        {
+            Debug.DrawLine(lamp.transform.position, m_eyesTransform.position, Color.red);
+        }
+
         transform.name = m_originalObjectName + " [" + m_aiState.ToString() + "]";
     }
     private void NoDebug()
