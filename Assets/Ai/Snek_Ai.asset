@@ -17,10 +17,10 @@ MonoBehaviour:
   chaseRange: 20
   stopChaseRange: 30
   attackRange: 1
-  wanderMoveSpeed: 5
-  searchMoveSpeed: 5
-  chaseMoveSpeed: 5
-  fleeMoveSpeed: 5
+  wanderMoveSpeed: 10
+  searchMoveSpeed: 10
+  chaseMoveSpeed: 10
+  fleeMoveSpeed: 10
   visionObstructors:
     serializedVersion: 2
     m_Bits: 33079
