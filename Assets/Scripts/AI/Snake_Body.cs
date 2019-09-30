@@ -13,25 +13,34 @@ public class Snake_Body : MonoBehaviour
     private List<Transform> m_bones;
 
     private Enemy_Ai m_ai;
+
+    private bool m_foundBones = false;
     private void Start()
     {
         m_ai = GetComponent<Enemy_Ai>();
         m_bones = new List<Transform>();
-        Transform boneHolder = transform.Find("Bones");
-        for(int i = 0; i < boneHolder.childCount; i++)
+        Transform boneHolder = FindBones(transform);
+        if (boneHolder != null) m_foundBones = true;
+
+        if (m_foundBones == false) return;
+
+        for (int i = 0; i < boneHolder.childCount; i++)
         {
             m_bones.Add(boneHolder.GetChild(i));
         }
         //m_bones[0].GetComponent<ConfigurableJoint>().connectedBody = GetComponent<Rigidbody>();
-        for(int i = 1; i < m_bones.Count; i++)
+        for (int i = 1; i < m_bones.Count; i++)
         {
-            m_bones[i].GetComponent<ConfigurableJoint>().connectedBody = m_bones[i-1].GetComponent<Rigidbody>();
+            m_bones[i].GetComponent<ConfigurableJoint>().connectedBody = m_bones[i - 1].GetComponent<Rigidbody>();
         }
         boneHolder.parent = null;
     }
 
     private void LateUpdate()
     {
+
+        if (m_foundBones == false) return;
+
         Transform head = m_bones[0];
 
         Vector3 targetPos;
@@ -51,5 +60,21 @@ public class Snake_Body : MonoBehaviour
                 break;
         }
 
+    }
+
+    private Transform FindBones(Transform _t)
+    {
+        for (int i = 0; i < _t.childCount; i++)
+        {
+            Transform c = _t.GetChild(i);
+            if (c.name == "Bones") return c;
+        }
+        for (int i = 0; i < _t.childCount; i++)
+        {
+            Transform c = _t.GetChild(i);
+            Transform r = FindBones(c);
+            if (r != null) return r;
+        }
+        return null;
     }
 }

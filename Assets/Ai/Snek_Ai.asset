@@ -25,6 +25,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 33079
   attractedToLight: 0
-  runAwayFromLight: 1
+  runAwayFromLight: 0
   fleeDuration: 3
   fleeDistanceMultiplier: 3
