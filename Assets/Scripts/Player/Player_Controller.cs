@@ -18,10 +18,16 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private Transform m_visual;
     [SerializeField] private float m_visualLerp = 0.5f;
 
+    [Header("Interactions")]
 
     [SerializeField] private List<Interact_Trigger> m_sceneInteractions;
     public void AddInteraction(Interact_Trigger _interaction) { m_sceneInteractions.Add(_interaction); }
     [SerializeField] private Interact_Trigger m_closestInteraction;
+    public KeyCode InteractKey = KeyCode.E;
+
+    [Header("Interactions")]
+
+    [SerializeField] private GameObject m_dialoguePrefab;
 
     private void Awake()
     {

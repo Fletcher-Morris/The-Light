@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Dialogue_Controller : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Dialogue m_dialogue;
+    [SerializeField] private bool m_pauseGame = false;
 
-    // Update is called once per frame
-    void Update()
+    public void ActivateDialogue()
     {
-        
+
     }
 }

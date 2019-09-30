@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Interact_Trigger : MonoBehaviour
 {
@@ -15,25 +16,41 @@ public class Interact_Trigger : MonoBehaviour
 
     [SerializeField] private UnityEvent OnInteract;
 
+    [SerializeField] private bool m_interactable = true;
+    public bool IsInteractable() { return m_interactable; }
+    public void SetInteractable(bool _interactable) { m_interactable = _interactable; }
+
+    [SerializeField] private bool m_onlyOnce;
+
+    [SerializeField] private GameObject m_interactUiPrefab;
+    [SerializeField] private GameObject m_interactUi;
+    [SerializeField] private Transform m_uiAnchor;
+    [SerializeField] private Vector3 m_uiOffset;
+
     private Player_Controller m_player;
 
     private void Start()
     {
         m_player = Ai_Manager.GetPlayerTransform().GetComponent<Player_Controller>();
         m_player.AddInteraction(this);
+
+        if (m_uiAnchor == null) m_uiAnchor = transform;
+        m_interactUi = GameObject.Instantiate(m_interactUiPrefab);
+        m_interactUi.transform.SetParent(m_uiAnchor);
+        Text text = m_interactUi.GetComponentInChildren<Text>();
+        text.text = m_text + " [" + m_player.InteractKey.ToString() + "]";
     }
 
     private void Update()
     {
-        if(m_isClosest)
-        {
-
-        }
+        m_interactUi.transform.position = m_uiAnchor.position + m_uiOffset;
+        m_interactUi.SetActive(m_isClosest);
     }
 
     public void TriggerInteraction()
     {
         Debug.Log("Interaction Triggered");
         OnInteract.Invoke();
+        if (m_onlyOnce) SetInteractable(false);
     }
 }
