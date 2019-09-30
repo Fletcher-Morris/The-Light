@@ -1057,7 +1057,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_range: 10
   m_mainLamp: 1
-  m_shader: {fileID: 0}
+  m_noiseScale: 1
+  m_noiseCurves:
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.0000076293945
+      inSlope: 0.7028269
+      outSlope: 0.7028269
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.24729371
+    - serializedVersion: 3
+      time: 0.31911546
+      value: 0.056363642
+      inSlope: 1.0713537
+      outSlope: 1.0713537
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19196528
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.78402793
+      value: -0.10389016
+      inSlope: 0.115147084
+      outSlope: 0.115147084
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.27780303
+    - serializedVersion: 3
+      time: 1
+      value: -0.0000076293945
+      inSlope: 0.6213563
+      outSlope: 0.6213563
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.6446436
+      outWeight: 0
+    m_PreInfinity: 1
+    m_PostInfinity: 1
+    m_RotationOrder: 0
 --- !u!1 &569320589
 GameObject:
   m_ObjectHideFlags: 0
