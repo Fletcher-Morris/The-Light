@@ -25,7 +25,7 @@ public class Interact_Trigger : MonoBehaviour
     [SerializeField] private GameObject m_interactUiPrefab;
     [SerializeField] private GameObject m_interactUi;
     [SerializeField] private Transform m_uiAnchor;
-    [SerializeField] private Vector3 m_uiOffset;
+    [SerializeField] private Vector3 m_uiOffset = Vector3.zero;
 
     private Player_Controller m_player;
 
@@ -43,7 +43,8 @@ public class Interact_Trigger : MonoBehaviour
 
     private void Update()
     {
-        m_interactUi.transform.position = m_uiAnchor.position + m_uiOffset;
+        float s = 0.25f * ((Mathf.Sin(Time.time * 1.5f)));
+        m_interactUi.transform.position = m_uiAnchor.position + m_uiOffset + new Vector3(0,s,0);
         m_interactUi.SetActive(m_isClosest);
     }
 

@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-
-//[RequireComponent(typeof(Rigidbody))]
 public class Player_Controller : MonoBehaviour
 {
 
@@ -25,9 +24,12 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private Interact_Trigger m_closestInteraction;
     public KeyCode InteractKey = KeyCode.E;
 
-    [Header("Interactions")]
+    [Header("Dialogue")]
 
-    [SerializeField] private GameObject m_dialoguePrefab;
+    [SerializeField] private Canvas m_dialogueCanvas;
+    [SerializeField] private Text m_dialogueText;
+    [SerializeField] private Transform m_dialogueOptions;
+    [SerializeField] private Dialogue m_currentDialogue;
 
     private void Awake()
     {
@@ -135,4 +137,61 @@ public class Player_Controller : MonoBehaviour
     {
 
     }
+
+    //  DIALOGUE STUFF
+    #region
+
+    public void DisplayDialogue(Dialogue _dialogue, bool _pauseGame)
+    {
+        if (_pauseGame) Time.timeScale = 0;
+        m_dialogueCanvas.gameObject.SetActive(true);
+
+        DisplayDialogueRecursive(_dialogue);
+    }
+
+    private void DisplayDialogueRecursive(Dialogue _dialogue)
+    {
+        m_currentDialogue = _dialogue;
+        foreach (Transform t in m_dialogueOptions.GetComponentInChildren<Transform>())
+        {
+            t.GetComponent<Button>().onClick.RemoveAllListeners();
+            t.gameObject.SetActive(false);
+        }
+        m_dialogueText.text = _dialogue.GetContents();
+        if (_dialogue.GetPaths().Count >= 1)
+        {
+            for (int i = 0; i < _dialogue.GetPaths().Count; i++)
+            {
+                m_dialogueOptions.GetChild(i).gameObject.SetActive(true);
+                m_dialogueOptions.GetChild(i).GetChild(0).GetComponent<Text>().text = _dialogue.GetPaths()[i].GetTitle();
+            }
+        }
+        else
+        {
+            m_dialogueOptions.GetChild(0).gameObject.SetActive(true);
+            m_dialogueOptions.GetChild(0).GetChild(0).GetComponent<Text>().text = "Close";
+        }
+    }
+
+    public void DisplayDialogFromChoice(Button _button)
+    {
+        if(m_currentDialogue != null)
+        {
+            if(m_currentDialogue.GetPaths().Count >= 1)
+            {
+                Dialogue newDialogue = m_currentDialogue.GetPaths()[_button.transform.GetSiblingIndex()];
+                if (newDialogue != null) DisplayDialogueRecursive(newDialogue);
+            }
+            else CloseCurrentDialogue();
+
+        }
+    }
+
+    public void CloseCurrentDialogue()
+    {
+        m_dialogueCanvas.gameObject.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    #endregion
 }

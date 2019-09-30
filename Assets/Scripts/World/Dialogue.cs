@@ -11,6 +11,9 @@ public class Dialogue : ScriptableObject
     private string m_contents;
     public string GetContents() { return m_contents; }
 
+    [SerializeField] [Tooltip("The title will be displayed as the optionfor this dialogue.")]
+    private string m_dialogueTitle;
+    public string GetTitle() { return m_dialogueTitle; }
 
     [SerializeField] [Tooltip("These dialogue options will be displayed at the end of the text.")]
     private List<Dialogue> m_paths;
