@@ -18,6 +18,11 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private Transform m_visual;
     [SerializeField] private float m_visualLerp = 0.5f;
 
+
+    [SerializeField] private List<Interact_Trigger> m_sceneInteractions;
+    public void AddInteraction(Interact_Trigger _interaction) { m_sceneInteractions.Add(_interaction); }
+    [SerializeField] private Interact_Trigger m_closestInteraction;
+
     private void Awake()
     {
         Ai_Manager.SetPlayerTransform(transform);
@@ -37,6 +42,7 @@ public class Player_Controller : MonoBehaviour
         GroundCheck();
         UpdateAnimations();
         Movement();
+        HandleInteractionTriggers();
     }
 
     private void LateUpdate()
@@ -44,6 +50,37 @@ public class Player_Controller : MonoBehaviour
         m_visual.position = Vector3.Lerp(m_visual.position, transform.position, m_visualLerp * Time.deltaTime);
         m_visual.localScale = Vector3.Lerp(m_visual.localScale, transform.localScale, m_visualLerp * Time.deltaTime);
         m_visual.rotation = Quaternion.Lerp(m_visual.rotation, transform.rotation, m_visualLerp * Time.deltaTime);
+    }
+
+    private void HandleInteractionTriggers()
+    {
+        m_closestInteraction = null;
+        float closestDist = 1000;
+        if (m_sceneInteractions.Count >= 1)
+        {
+            foreach(Interact_Trigger trigger in m_sceneInteractions)
+            {
+                float dist = Vector3.Distance(transform.position, trigger.transform.position);
+                if(dist <= trigger.InteractionDistance())
+                {
+                    if (dist < closestDist)
+                    {
+                        m_closestInteraction = trigger;
+                        closestDist = dist;
+                    }
+                    else
+                    {
+                        trigger.SetAsClosest(false);
+                    }
+                }
+                else
+                {
+                    trigger.SetAsClosest(false);
+                }
+            }
+        }
+        m_closestInteraction?.SetAsClosest(true);
+        if (PlayerInput.Interact) { m_closestInteraction?.TriggerInteraction(); }
     }
 
     private void GroundCheck()
@@ -71,6 +108,7 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.Jump = Input.GetButton("Jump");
         PlayerInput.Crouch = Input.GetKey(KeyCode.LeftShift);
         PlayerInput.Sprint = Input.GetKey(KeyCode.LeftControl);
+        PlayerInput.Interact = Input.GetKeyDown(KeyCode.E);
     }
 
     private void Movement()
