@@ -31,11 +31,25 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private Transform m_dialogueOptions;
     [SerializeField] private Dialogue m_currentDialogue;
 
+    [Header("Camera")]
+    [SerializeField] private Transform m_cameraPivotY;
+    [SerializeField] private Transform m_cameraPivotX;
+    [SerializeField] private Transform m_cameraTarget;
+    [SerializeField] private Camera m_camera;
+    [SerializeField] private float m_cameraCloseDist = 4.0f;
+    [SerializeField] private float m_cameraFarDist = 15.0f;
+    [SerializeField] private float m_cameraMinAngle = 0.0f;
+    [SerializeField] private float m_cameraMaxAngle = 80.0f;
+    [SerializeField] private float m_cameraLerpSpeed = 10.0f;
+    private float m_camXAngle = 45.0f;
+
     private void Awake()
     {
         Ai_Manager.SetPlayerTransform(transform);
         GatherComponents();
         m_visual.parent = null;
+        m_cameraPivotY.parent = null;
+        m_camera.transform.parent = null;
     }
 
     private void GatherComponents()
@@ -48,6 +62,7 @@ public class Player_Controller : MonoBehaviour
     {
         GatherInput();
         GroundCheck();
+        UpdateCamera();
         UpdateAnimations();
         Movement();
         HandleInteractionTriggers();
@@ -117,6 +132,7 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.Crouch = Input.GetKey(KeyCode.LeftShift);
         PlayerInput.Sprint = Input.GetKey(KeyCode.LeftControl);
         PlayerInput.Interact = Input.GetKeyDown(KeyCode.E);
+        PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
     }
 
     private void Movement()
@@ -136,6 +152,21 @@ public class Player_Controller : MonoBehaviour
     private void UpdateAnimations()
     {
 
+    }
+
+    private void UpdateCamera()
+    {
+        m_camXAngle = Mathf.Clamp(m_camXAngle - PlayerInput.MouseVector.y, m_cameraMinAngle, m_cameraMaxAngle);
+        float newDist = Mathf.Lerp(m_cameraCloseDist, m_cameraFarDist, (m_camXAngle / m_cameraMaxAngle));
+        m_cameraPivotY.position = transform.position;
+        float newYAngle = m_cameraPivotY.localEulerAngles.y + PlayerInput.MouseVector.x;
+        if (newYAngle >= 360.0f) newYAngle -= 360.0f;
+        if (newYAngle <= -360.0f) newYAngle += 360.0f;
+        m_cameraPivotY.eulerAngles = new Vector3(0.0f, newYAngle, 0.0f);
+        m_cameraPivotX.eulerAngles = new Vector3(m_camXAngle, 0.0f, 0.0f);
+        m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
+        m_camera.transform.position = Vector3.Slerp(m_camera.transform.position, m_cameraTarget.position, m_cameraLerpSpeed * Time.deltaTime);
+        m_camera.transform.rotation = Quaternion.Slerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraLerpSpeed * Time.deltaTime);
     }
 
     //  DIALOGUE STUFF
