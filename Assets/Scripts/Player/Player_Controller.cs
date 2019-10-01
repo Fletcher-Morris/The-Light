@@ -163,7 +163,7 @@ public class Player_Controller : MonoBehaviour
         if (newYAngle >= 360.0f) newYAngle -= 360.0f;
         if (newYAngle <= -360.0f) newYAngle += 360.0f;
         m_cameraPivotY.eulerAngles = new Vector3(0.0f, newYAngle, 0.0f);
-        m_cameraPivotX.eulerAngles = new Vector3(m_camXAngle, 0.0f, 0.0f);
+        m_cameraPivotX.localEulerAngles = new Vector3(m_camXAngle, 0.0f, 0.0f);
         m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
         m_camera.transform.position = Vector3.Slerp(m_camera.transform.position, m_cameraTarget.position, m_cameraLerpSpeed * Time.deltaTime);
         m_camera.transform.rotation = Quaternion.Slerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraLerpSpeed * Time.deltaTime);
