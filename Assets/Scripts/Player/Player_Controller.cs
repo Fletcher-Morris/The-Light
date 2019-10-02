@@ -41,6 +41,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float m_cameraMaxAngle = 80.0f;
     [SerializeField] private float m_cameraLerpSpeed = 10.0f;
     private float m_camXAngle = 45.0f;
+    [SerializeField] float m_pivotHeight = 1.0f;
 
     private void Awake()
     {
@@ -140,15 +141,20 @@ public class Player_Controller : MonoBehaviour
 
     private void Movement()
     {
-        if(m_isGrounded)
-        {
-            m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized;
-            m_controller.Move(m_moveDirection * Time.deltaTime * m_moveSpeed);
-        }
-        else
-        {
-            transform.position += Vector3.down * 10.0f * Time.deltaTime;
-        }
+        //if(m_isGrounded)
+        //{
+        //    m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized;
+        //    m_controller.Move(m_moveDirection * Time.deltaTime * m_moveSpeed);
+        //}
+        //else
+        //{
+        //    transform.position += Vector3.down * 10.0f * Time.deltaTime;
+        //}
+
+        m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized * m_moveSpeed;
+        Vector3 moveDirWithGravity = m_moveDirection;
+        moveDirWithGravity.y -= 10.0f;
+        m_controller.Move(moveDirWithGravity * Time.deltaTime);
 
     }
 
@@ -161,7 +167,7 @@ public class Player_Controller : MonoBehaviour
     {
         m_camXAngle = Mathf.Clamp(m_camXAngle - PlayerInput.MouseVector.y, m_cameraMinAngle, m_cameraMaxAngle);
         float newDist = Mathf.Lerp(m_cameraCloseDist, m_cameraFarDist, (m_camXAngle / m_cameraMaxAngle));
-        m_cameraPivotY.position = transform.position;
+        m_cameraPivotY.position = transform.position + new Vector3(0.0f, m_pivotHeight, 0.0f);
         float newYAngle = m_cameraPivotY.localEulerAngles.y + PlayerInput.MouseVector.x;
         if (newYAngle >= 360.0f) newYAngle -= 360.0f;
         if (newYAngle <= -360.0f) newYAngle += 360.0f;
