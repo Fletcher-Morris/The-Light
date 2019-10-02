@@ -124,8 +124,8 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpecularIntensity: 2
-    - _SpecularSoftness: 0.01
+    - _SpecularIntensity: 1
+    - _SpecularSoftness: 0.05
     - _SrcBlend: 1
     - _Surface: 0
     - _UseNormalTex: 1
