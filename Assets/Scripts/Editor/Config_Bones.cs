@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
+
 public class Config_Bones : Editor
 {
     [MenuItem("Tools/Configure Bones")]
@@ -23,3 +25,5 @@ public class Config_Bones : Editor
         }
     }
 }
+
+#endif
