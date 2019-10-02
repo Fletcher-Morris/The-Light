@@ -51,6 +51,9 @@ public class Player_Controller : MonoBehaviour
         m_visual.parent = null;
         m_cameraPivotY.parent = null;
         m_camera.transform.parent = null;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void GatherComponents()
@@ -167,6 +170,8 @@ public class Player_Controller : MonoBehaviour
 
     private void UpdateCamera()
     {
+        if (Time.timeScale <= 0) return;
+
         m_camXAngle = Mathf.Clamp(m_camXAngle - PlayerInput.MouseVector.y, m_cameraMinAngle, m_cameraMaxAngle);
         float newDist = Mathf.Lerp(m_cameraCloseDist, m_cameraFarDist, (m_camXAngle / m_cameraMaxAngle));
         m_cameraPivotY.position = transform.position + new Vector3(0.0f, m_pivotHeight, 0.0f);
@@ -214,6 +219,8 @@ public class Player_Controller : MonoBehaviour
             m_dialogueOptions.GetChild(0).gameObject.SetActive(true);
             m_dialogueOptions.GetChild(0).GetChild(0).GetComponent<Text>().text = "Close";
         }
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void DisplayDialogFromChoice(Button _button)
@@ -234,6 +241,8 @@ public class Player_Controller : MonoBehaviour
     {
         m_dialogueCanvas.gameObject.SetActive(false);
         Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     #endregion

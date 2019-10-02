@@ -29,10 +29,13 @@ public class Interact_Trigger : MonoBehaviour
 
     private Player_Controller m_player;
 
+    private Camera m_mainCam;
+
     private void Start()
     {
         m_player = Ai_Manager.GetPlayerTransform().GetComponent<Player_Controller>();
         m_player.AddInteraction(this);
+        m_mainCam = Camera.main;
 
         if (m_uiAnchor == null) m_uiAnchor = transform;
         m_interactUi = GameObject.Instantiate(m_interactUiPrefab);
@@ -46,6 +49,9 @@ public class Interact_Trigger : MonoBehaviour
         float s = 0.25f * ((Mathf.Sin(Time.time * 1.5f)));
         m_interactUi.transform.position = m_uiAnchor.position + m_uiOffset + new Vector3(0,s,0);
         m_interactUi.SetActive(m_isClosest);
+        Vector3 angles = m_interactUi.transform.eulerAngles;
+        angles.y = m_mainCam.transform.eulerAngles.y;
+        m_interactUi.transform.eulerAngles = angles;
     }
 
     public void TriggerInteraction()
