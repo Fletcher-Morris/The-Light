@@ -39,7 +39,8 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float m_cameraFarDist = 15.0f;
     [SerializeField] private float m_cameraMinAngle = 0.0f;
     [SerializeField] private float m_cameraMaxAngle = 80.0f;
-    [SerializeField] private float m_cameraLerpSpeed = 10.0f;
+    [SerializeField] private float m_cameraPositionLerp = 5.0f;
+    [SerializeField] private float m_cameraRotationLerp = 10.0f;
     private float m_camXAngle = 45.0f;
     [SerializeField] float m_pivotHeight = 1.0f;
 
@@ -63,12 +64,13 @@ public class Player_Controller : MonoBehaviour
         GatherInput();
         GroundCheck();
         UpdateCamera();
+        UpdatePlayerVisual();
         UpdateAnimations();
         Movement();
         HandleInteractionTriggers();
     }
 
-    private void LateUpdate()
+    private void UpdatePlayerVisual()
     {
         m_visual.position = Vector3.Lerp(m_visual.position, transform.position, m_visualLerp * Time.deltaTime);
         m_visual.localScale = Vector3.Lerp(m_visual.localScale, transform.localScale, m_visualLerp * Time.deltaTime);
@@ -174,8 +176,9 @@ public class Player_Controller : MonoBehaviour
         m_cameraPivotY.eulerAngles = new Vector3(0.0f, newYAngle, 0.0f);
         m_cameraPivotX.localEulerAngles = new Vector3(m_camXAngle, 0.0f, 0.0f);
         m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
-        m_camera.transform.position = Vector3.Slerp(m_camera.transform.position, m_cameraTarget.position, m_cameraLerpSpeed * Time.deltaTime);
-        m_camera.transform.rotation = Quaternion.Slerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraLerpSpeed * Time.deltaTime);
+
+        m_camera.transform.position = new Vector3(m_cameraTarget.position.x, Mathf.Lerp(m_camera.transform.position.y, m_cameraTarget.transform.position.y, m_cameraPositionLerp * Time.deltaTime), m_cameraTarget.position.z);
+        m_camera.transform.rotation = Quaternion.Lerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraRotationLerp * Time.deltaTime);
     }
 
     //  DIALOGUE STUFF
