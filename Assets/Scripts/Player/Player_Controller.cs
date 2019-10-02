@@ -180,20 +180,11 @@ public class Player_Controller : MonoBehaviour
         if (newYAngle <= -360.0f) newYAngle += 360.0f;
         m_cameraPivotY.eulerAngles = new Vector3(0.0f, newYAngle, 0.0f);
         m_cameraPivotX.localEulerAngles = new Vector3(m_camXAngle, 0.0f, 0.0f);
-
-        //  Raycasting
         Vector3 rayStart = transform.position + new Vector3(0.0f, m_pivotHeight, 0.0f);
         Ray ray = new Ray(rayStart, m_cameraTarget.position - rayStart);
         RaycastHit hit;
-        Physics.Raycast(ray, out hit, newDist + 0.25f, LayerTools.Default());
-        if (hit.collider)
-        {
-            newDist = hit.distance;
-        }
-
+        if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default())) newDist = hit.distance;
         m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
-        Debug.DrawLine(rayStart, m_cameraTarget.transform.position, Color.magenta);
-
         m_camera.transform.position = new Vector3(m_cameraTarget.position.x, Mathf.Lerp(m_camera.transform.position.y, m_cameraTarget.transform.position.y, m_cameraPositionLerp * Time.deltaTime), m_cameraTarget.position.z);
         m_camera.transform.rotation = Quaternion.Lerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraRotationLerp * Time.deltaTime);
     }
