@@ -11064,13 +11064,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7798251917668413043, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
-      propertyPath: m_cameraCloseDist
-      value: 3
+      propertyPath: m_gravity
+      value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 7798251917668413043, guid: 73be2a4fb1c78764d8c36e7d38711e18,
-        type: 3}
-      propertyPath: m_cameraFarDist
-      value: 6
+    - target: {fileID: 760530873, guid: 73be2a4fb1c78764d8c36e7d38711e18, type: 3}
+      propertyPath: far clip plane
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73be2a4fb1c78764d8c36e7d38711e18, type: 3}

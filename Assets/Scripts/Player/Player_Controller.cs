@@ -17,6 +17,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float m_visualRotationLerp = 0.5f;
     private Vector3 m_moveDirection;
     private Vector3 m_storedMoveDirection;
+    [SerializeField] private float m_gravity = 10.0f;
 
     [Header("Interactions")]
 
@@ -156,7 +157,7 @@ public class Player_Controller : MonoBehaviour
     {
         m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized * m_moveSpeed;
         Vector3 moveDirWithGravity = m_moveDirection;
-        moveDirWithGravity.y -= 10.0f;
+        moveDirWithGravity.y -= m_gravity;
         m_controller.Move(moveDirWithGravity * Time.deltaTime);
 
     }
