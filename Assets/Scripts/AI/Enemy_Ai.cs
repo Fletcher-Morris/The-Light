@@ -145,6 +145,11 @@ public class Enemy_Ai : MonoBehaviour
                     break;
             }
         }
+        if (m_navMeshAgent.CalculatePath(nextWaypoint.transform.position, new NavMeshPath()) == false)
+        {
+            Debug.LogWarning("Waypoint '" + nextWaypoint.transform.name + "' is unreachable by AI:" + m_aiId + " '" + m_originalObjectName + "'!");
+            return GetNextWaypoint(nextWaypoint);
+        }
         return nextWaypoint;
     }
 
@@ -255,7 +260,6 @@ public class Enemy_Ai : MonoBehaviour
                 default:
                     break;
             }
-            Debug.Log("Ai " + m_aiId + " State : " + m_aiState.ToString());
         }
 
         m_prevAiState = m_aiState;
