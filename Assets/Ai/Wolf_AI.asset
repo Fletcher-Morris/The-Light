@@ -17,7 +17,7 @@ MonoBehaviour:
   chaseRange: 20
   stopChaseRange: 30
   attackRange: 1
-  wanderMoveSpeed: 3
+  wanderMoveSpeed: 20
   searchMoveSpeed: 6
   chaseMoveSpeed: 10
   fleeMoveSpeed: 10
@@ -25,6 +25,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 33079
   attractedToLight: 0
-  runAwayFromLight: 0
+  runAwayFromLight: 1
   fleeDuration: 3
   fleeDistanceMultiplier: 3
+  waypointChoice: 1
+  waypointTollerance: 2
+  wanderRadius: 20

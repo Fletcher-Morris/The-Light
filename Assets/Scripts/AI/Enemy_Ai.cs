@@ -124,18 +124,16 @@ public class Enemy_Ai : MonoBehaviour
                     t = Mathf.Clamp(t, 0, m_waypoints.Count - 1);
                     if (t == m_waypoints.Count - 1)
                     {
-                        t--;
                         m_waypointPingPongDirection = -1;
                     }
                     else if (t == 0)
                     {
-                        t++;
                         m_waypointPingPongDirection = 1;
                     }
                     nextWaypoint = m_waypoints[t];
                     break;
                 case AiWaypointChoice.random:
-                    List<Ai_Waypoint> randomList = m_waypoints;
+                    List<Ai_Waypoint> randomList = new List<Ai_Waypoint>(m_waypoints);
                     randomList.Remove(_current);
                     nextWaypoint = randomList[Random.Range(0, randomList.Count - 1)];
                     break;
@@ -148,6 +146,36 @@ public class Enemy_Ai : MonoBehaviour
             }
         }
         return nextWaypoint;
+    }
+
+    private Vector3 GetBestWaypointPos(Vector3 input)
+    {
+        if (m_waypoints.Count == 0) return input;
+        else if(m_targetWaypoint != null)
+        {
+            if (Vector3.Distance(m_targetWaypoint.transform.position, transform.position) <= m_aiSettings.waypointTollerance)
+            {
+                m_prevWaypoint = m_targetWaypoint;
+                m_targetWaypoint = GetNextWaypoint(m_prevWaypoint);
+            }
+        }
+        else
+        {
+            float closestDist = Mathf.Infinity;
+            Ai_Waypoint closestWaypoint = null;
+            foreach(Ai_Waypoint waypoint in m_waypoints)
+            {
+                float dist = Vector3.Distance(waypoint.transform.position, transform.position);
+                if (dist < closestDist)
+                {
+                    closestDist = dist;
+                    closestWaypoint = waypoint;
+                }
+            }
+            m_targetWaypoint = closestWaypoint;
+        }
+        if (m_targetWaypoint == null) return m_spawnPos;
+        else return m_targetWaypoint.transform.position;
     }
 
 
@@ -312,7 +340,7 @@ public class Enemy_Ai : MonoBehaviour
                 m_navTarget = transform.position;
                 break;
             case Ai_State.Wandering:
-                m_navTarget = transform.position;
+                m_navTarget = GetBestWaypointPos(transform.position);
                 break;
             case Ai_State.Searching:
                 m_navTarget = Ai_Manager.GetPlayerTransform().position;
