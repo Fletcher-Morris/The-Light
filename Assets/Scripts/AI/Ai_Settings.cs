@@ -8,6 +8,7 @@ public class Ai_Settings : ScriptableObject
 {
     //  Should the AI target the player?
     public bool targetPlayer = true;
+
     [Header("Distance Settings")]
     //  The range at which the AI will stop wandering.
     public float interestRange = 30.0f;
@@ -17,6 +18,7 @@ public class Ai_Settings : ScriptableObject
     public float stopChaseRange = 30.0f;
     //  The range at which the AI will try to attack the player.
     public float attackRange = 1.0f;
+
     [Header("Speed Settings")]
     //  The speed at which the AI moves when wandering around.
     public float wanderMoveSpeed = 3.0f;
@@ -26,9 +28,11 @@ public class Ai_Settings : ScriptableObject
     public float chaseMoveSpeed = 10.0f;
     //  The speed at which the AI moves when fleeing a threat.
     public float fleeMoveSpeed = 10.0f;
+
     [Header("Vision Settings")]
     //  The layers that obstruct the AI's vision.
     public LayerMask visionObstructors = LayerTools.AllLayers();
+
     [Header("Behaviour Settings")]
     //  Should the AI be battracted to lamps?
     public bool attractedToLight = false;
@@ -38,4 +42,17 @@ public class Ai_Settings : ScriptableObject
     public float fleeDuration = 3.0f;
     //  How many far the AI will run away from the danger.
     public float fleeDistanceMultiplier = 3.0f;
+
+    [Header("Patrol Settings")]
+    public AiWaypointChoice waypointChoice = AiWaypointChoice.loop;
+    public float waypointTollerance = 1.0f;
+    public float wanderRadius = 30.0f;
+}
+
+public enum AiWaypointChoice
+{
+    loop,
+    pingPong,
+    random,
+    none
 }

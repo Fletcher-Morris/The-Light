@@ -29,4 +29,18 @@ public static class Ai_Manager
         }
     }
 
+    private static List<Ai_Waypoint> m_waypoints = new List<Ai_Waypoint>();
+    public static List<Ai_Waypoint> GetWaypoints() { return m_waypoints; }
+    public static void AddWaypoint(Ai_Waypoint _waypoint)
+    {
+        if(m_waypoints.Contains(_waypoint))
+        {
+
+        }
+        else
+        {
+            m_waypoints.Add(_waypoint);
+        }
+    }
+
 }

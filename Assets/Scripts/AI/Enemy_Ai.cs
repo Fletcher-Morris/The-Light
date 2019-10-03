@@ -43,6 +43,16 @@ public class Enemy_Ai : MonoBehaviour
     private Vector3 m_normalisedLightDir = new Vector3();
     private float m_fleeTime = 0.0f;
 
+    //  The position where tihs AI originally spawned.
+    private Vector3 m_spawnPos;
+    //  Should this AI automatically gather waypoints?
+    [SerializeField] private bool m_autoWaypoints = true;
+    //  The list of waypoints this AI will try to visit.
+    [SerializeField] private List<Ai_Waypoint> m_waypoints = new List<Ai_Waypoint>();
+    [SerializeField] private Ai_Waypoint m_targetWaypoint;
+    private Ai_Waypoint m_prevWaypoint;
+    private int m_waypointPingPongDirection = 1;
+
     //  Is this AI in debug mode?
     [SerializeField] private bool m_debug;
     //  The original name of the GameObject.
@@ -52,6 +62,8 @@ public class Enemy_Ai : MonoBehaviour
     {
         m_aiId = Ai_Manager.GetNewAiId();
         GetComponentsOnStart();
+        m_spawnPos = transform.position;
+        if (m_autoWaypoints) GetAutoWaypoints();
     }
 
     //  A method for gathering components on Start.
@@ -63,6 +75,81 @@ public class Enemy_Ai : MonoBehaviour
         if (m_eyesTransform == null) m_eyesTransform = transform.Find("AI_EYES_TRANSFORM");
         if (m_eyesTransform == null) m_eyesTransform = transform;
     }
+
+    private void GetAutoWaypoints()
+    {
+        foreach(Ai_Waypoint waypoint in Ai_Manager.GetWaypoints())
+        {
+            if(waypoint.GetExcludedAi().Contains(m_aiSettings))
+            {
+
+            }
+            else
+            {
+                if(Vector3.Distance(waypoint.transform.position, m_spawnPos) <= m_aiSettings.wanderRadius)
+                {
+                    m_waypoints.Add(waypoint);
+                }
+            }
+        }
+    }
+
+    private Ai_Waypoint GetNextWaypoint(Ai_Waypoint _current)
+    {
+        if(m_waypoints.Count <= 1)
+        { return _current; }
+        int currentIndex = m_waypoints.IndexOf(_current);
+        Ai_Waypoint nextWaypoint = _current;
+        if(m_waypoints.Count == 2)
+        {
+            if (currentIndex == 0) return m_waypoints[1];
+            else return m_waypoints[0];
+        }
+        else
+        {
+            switch (m_aiSettings.waypointChoice)
+            {
+                case AiWaypointChoice.loop:
+                    if (m_waypoints.Count == currentIndex + 1)
+                    {
+                        nextWaypoint = m_waypoints[0];
+                    }
+                    else
+                    {
+                        nextWaypoint = m_waypoints[currentIndex + 1];
+                    }
+                    break;
+                case AiWaypointChoice.pingPong:
+                    int t = currentIndex + m_waypointPingPongDirection;
+                    t = Mathf.Clamp(t, 0, m_waypoints.Count - 1);
+                    if (t == m_waypoints.Count - 1)
+                    {
+                        t--;
+                        m_waypointPingPongDirection = -1;
+                    }
+                    else if (t == 0)
+                    {
+                        t++;
+                        m_waypointPingPongDirection = 1;
+                    }
+                    nextWaypoint = m_waypoints[t];
+                    break;
+                case AiWaypointChoice.random:
+                    List<Ai_Waypoint> randomList = m_waypoints;
+                    randomList.Remove(_current);
+                    nextWaypoint = randomList[Random.Range(0, randomList.Count - 1)];
+                    break;
+                case AiWaypointChoice.none:
+                    nextWaypoint = _current;
+                    break;
+                default:
+                    nextWaypoint = _current;
+                    break;
+            }
+        }
+        return nextWaypoint;
+    }
+
 
     private void LateUpdate()
     {
