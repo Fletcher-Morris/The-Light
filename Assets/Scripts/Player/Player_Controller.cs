@@ -14,7 +14,9 @@ public class Player_Controller : MonoBehaviour
     private CharacterController m_controller;
     [SerializeField] private Transform m_visual;
     [SerializeField] private float m_visualLerp = 0.5f;
+    [SerializeField] private float m_visualRotationLerp = 0.5f;
     private Vector3 m_moveDirection;
+    private Vector3 m_storedMoveDirection;
 
     [Header("Interactions")]
 
@@ -66,22 +68,27 @@ public class Player_Controller : MonoBehaviour
     {
         GatherInput();
         GroundCheck();
-        UpdateCamera();
-        UpdatePlayerVisual();
         UpdateAnimations();
+        UpdateCamera();
         Movement();
         HandleInteractionTriggers();
+    }
+
+    private void LateUpdate()
+    {
+        UpdatePlayerVisual();        
     }
 
     private void UpdatePlayerVisual()
     {
         m_visual.position = Vector3.Lerp(m_visual.position, transform.position, m_visualLerp * Time.deltaTime);
         m_visual.localScale = Vector3.Lerp(m_visual.localScale, transform.localScale, m_visualLerp * Time.deltaTime);
-        if(m_moveDirection.magnitude >= 0.5f)
+        if(m_moveDirection.magnitude >= 0.1f)
         {
-            Quaternion visualRotation = Quaternion.LookRotation(m_moveDirection, Vector3.up);
-            m_visual.rotation = Quaternion.Lerp(m_visual.rotation, visualRotation, m_visualLerp * Time.deltaTime);
+            m_storedMoveDirection = m_moveDirection;
         }
+        Quaternion visualRotation = Quaternion.LookRotation(m_storedMoveDirection, Vector3.up);
+        m_visual.rotation = Quaternion.Lerp(m_visual.rotation, visualRotation, m_visualRotationLerp * Time.deltaTime);
     }
 
     private void HandleInteractionTriggers()
@@ -139,6 +146,7 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.XYZNormalized = new Vector3(PlayerInput.XYNormalized.x, 0.0f, PlayerInput.XYNormalized.y);
         PlayerInput.Jump = Input.GetButton("Jump");
         PlayerInput.Crouch = Input.GetKey(KeyCode.LeftShift);
+        PlayerInput.Hide = Input.GetKey(KeyCode.LeftShift);
         PlayerInput.Sprint = Input.GetKey(KeyCode.LeftControl);
         PlayerInput.Interact = Input.GetKeyDown(KeyCode.E);
         PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
@@ -146,16 +154,6 @@ public class Player_Controller : MonoBehaviour
 
     private void Movement()
     {
-        //if(m_isGrounded)
-        //{
-        //    m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized;
-        //    m_controller.Move(m_moveDirection * Time.deltaTime * m_moveSpeed);
-        //}
-        //else
-        //{
-        //    transform.position += Vector3.down * 10.0f * Time.deltaTime;
-        //}
-
         m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized * m_moveSpeed;
         Vector3 moveDirWithGravity = m_moveDirection;
         moveDirWithGravity.y -= 10.0f;
@@ -209,12 +207,12 @@ public class Player_Controller : MonoBehaviour
             t.gameObject.SetActive(false);
         }
         m_dialogueText.text = _dialogue.GetContents();
-        if (_dialogue.GetPaths().Count >= 1)
+        if (_dialogue.GetOptions().Count >= 1)
         {
-            for (int i = 0; i < _dialogue.GetPaths().Count; i++)
+            for (int i = 0; i < _dialogue.GetOptions().Count; i++)
             {
                 m_dialogueOptions.GetChild(i).gameObject.SetActive(true);
-                m_dialogueOptions.GetChild(i).GetChild(0).GetComponent<Text>().text = _dialogue.GetPaths()[i].GetTitle();
+                m_dialogueOptions.GetChild(i).GetChild(0).GetComponent<Text>().text = _dialogue.GetOptions()[i].GetTitle();
             }
         }
         else
@@ -230,9 +228,9 @@ public class Player_Controller : MonoBehaviour
     {
         if(m_currentDialogue != null)
         {
-            if(m_currentDialogue.GetPaths().Count >= 1)
+            if(m_currentDialogue.GetOptions().Count >= 1)
             {
-                Dialogue newDialogue = m_currentDialogue.GetPaths()[_button.transform.GetSiblingIndex()];
+                Dialogue newDialogue = m_currentDialogue.GetOptions()[_button.transform.GetSiblingIndex()];
                 if (newDialogue != null) DisplayDialogueRecursive(newDialogue);
             }
             else CloseCurrentDialogue();

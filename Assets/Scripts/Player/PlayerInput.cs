@@ -16,6 +16,7 @@ public static class PlayerInput
     public static bool Crouch;
     public static bool Sprint;
     public static bool Interact;
+    public static bool Hide;
 
     public static Vector2 MouseVector;
 }
