@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9259814ca74a084b98f3e4bbe41c199, type: 3}
   m_Name: Wolf_AI
   m_EditorClassIdentifier: 
-  targetPlayer: 0
+  targetPlayer: 1
   interestRange: 30
   chaseRange: 20
   stopChaseRange: 30
   attackRange: 1
-  wanderMoveSpeed: 20
+  wanderMoveSpeed: 6
   searchMoveSpeed: 6
   chaseMoveSpeed: 10
   fleeMoveSpeed: 10
@@ -25,9 +25,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 33079
   attractedToLight: 0
-  runAwayFromLight: 1
+  runAwayFromLight: 0
   fleeDuration: 3
   fleeDistanceMultiplier: 3
-  waypointChoice: 0
-  waypointTollerance: 1
+  waypointChoice: 2
+  waypointTollerance: 2
   wanderRadius: 100

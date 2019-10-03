@@ -45,6 +45,7 @@ public class Ai_Settings : ScriptableObject
 
     [Header("Patrol Settings")]
     public AiWaypointChoice waypointChoice = AiWaypointChoice.loop;
+    public bool randomStartWaypoint = true;
     public float waypointTollerance = 1.0f;
     public float wanderRadius = 30.0f;
 }

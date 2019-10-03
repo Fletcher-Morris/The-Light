@@ -80,16 +80,15 @@ public class Enemy_Ai : MonoBehaviour
     {
         foreach(Ai_Waypoint waypoint in Ai_Manager.GetWaypoints())
         {
-            if(waypoint.GetExcludedAi().Contains(m_aiSettings))
-            {
-
-            }
-            else
+            if(waypoint.GetIncludedAi().Contains(m_aiSettings))
             {
                 if(Vector3.Distance(waypoint.transform.position, m_spawnPos) <= m_aiSettings.wanderRadius)
                 {
                     m_waypoints.Add(waypoint);
                 }
+            }
+            else
+            {
             }
         }
     }
@@ -166,18 +165,25 @@ public class Enemy_Ai : MonoBehaviour
         }
         else
         {
-            float closestDist = Mathf.Infinity;
-            Ai_Waypoint closestWaypoint = null;
-            foreach(Ai_Waypoint waypoint in m_waypoints)
+            if(m_aiSettings.randomStartWaypoint)
             {
-                float dist = Vector3.Distance(waypoint.transform.position, transform.position);
-                if (dist < closestDist)
-                {
-                    closestDist = dist;
-                    closestWaypoint = waypoint;
-                }
+                m_targetWaypoint = m_waypoints[Random.Range(0, m_waypoints.Count - 1)];
             }
-            m_targetWaypoint = closestWaypoint;
+            else
+            {
+                float closestDist = Mathf.Infinity;
+                Ai_Waypoint closestWaypoint = null;
+                foreach (Ai_Waypoint waypoint in m_waypoints)
+                {
+                    float dist = Vector3.Distance(waypoint.transform.position, transform.position);
+                    if (dist < closestDist)
+                    {
+                        closestDist = dist;
+                        closestWaypoint = waypoint;
+                    }
+                }
+                m_targetWaypoint = closestWaypoint;
+            }
         }
         if (m_targetWaypoint == null) return m_spawnPos;
         else return m_targetWaypoint.transform.position;

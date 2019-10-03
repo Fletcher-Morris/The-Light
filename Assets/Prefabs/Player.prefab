@@ -159,7 +159,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 200
   field of view: 101
   orthographic: 0
   orthographic size: 5
@@ -7269,6 +7269,7 @@ MonoBehaviour:
   m_visual: {fileID: 2792022208322957102}
   m_visualLerp: 50
   m_visualRotationLerp: 10
+  m_gravity: 10
   m_sceneInteractions: []
   m_closestInteraction: {fileID: 0}
   InteractKey: 101
