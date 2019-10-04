@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_grass
+  m_Name: Grass_Material
   m_Shader: {fileID: -6465566751694194690, guid: 9d7fd7d3526e5b142bd8746e6d0cbe2f,
     type: 3}
   m_ShaderKeywords: 
