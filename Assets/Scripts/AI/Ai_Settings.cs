@@ -32,6 +32,7 @@ public class Ai_Settings : ScriptableObject
     [Header("Vision Settings")]
     //  The layers that obstruct the AI's vision.
     public LayerMask visionObstructors = LayerTools.AllLayers();
+    public float attentionSpan = 4.0f;
 
     [Header("Behaviour Settings")]
     //  Should the AI be battracted to lamps?

@@ -15,6 +15,9 @@ public static class Ai_Manager
     public static Transform GetPlayerTransform() { return m_playerTransform; }
     public static void SetPlayerTransform(Transform _player) { m_playerTransform = _player; }
 
+    private static float m_playerHeight = 1.75f;
+    public static float GetPlayerHeight() { return m_playerHeight; }
+
     private static List<Lamp_Controller> m_lamps = new List<Lamp_Controller>();
     public static List<Lamp_Controller> GetLamps() { return m_lamps; }
     public static void AddLamp(Lamp_Controller _lamp)

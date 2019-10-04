@@ -42,6 +42,8 @@ public class Enemy_Ai : MonoBehaviour
     private bool m_inLight;
     private Vector3 m_normalisedLightDir = new Vector3();
     private float m_fleeTime = 0.0f;
+    private float m_playerAttention = 0.0f;
+    private Vector3 m_lastKnownPlayerPosition;
 
     //  The position where tihs AI originally spawned.
     private Vector3 m_spawnPos;
@@ -197,6 +199,9 @@ public class Enemy_Ai : MonoBehaviour
 
         m_fleeTime -= Time.deltaTime;
         m_fleeTime = Mathf.Clamp(m_fleeTime, 0.0f, m_aiSettings.fleeDuration);
+
+        m_playerAttention -= Time.deltaTime;
+        m_playerAttention = Mathf.Clamp(m_playerAttention, 0.0f, m_aiSettings.attentionSpan);
     }
 
     private void OnEnable()
@@ -279,10 +284,10 @@ public class Enemy_Ai : MonoBehaviour
         m_playerVisible = false;
         if(player)
         {
-            Vector3 dir = player.position - m_eyesTransform.position;
+            Vector3 dir = (player.position + new Vector3(0, Ai_Manager.GetPlayerHeight() / 2.0f, 0)) - m_eyesTransform.position;
             Ray ray = new Ray(m_eyesTransform.position, dir);
             RaycastHit hit;
-            Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.AllLayers().RemoveLayer("Enemy"));
+            Physics.Raycast(ray, out hit, Mathf.Infinity, m_aiSettings.visionObstructors);
             if (hit.collider)
             {
                 if (hit.collider.transform == player)
@@ -290,6 +295,12 @@ public class Enemy_Ai : MonoBehaviour
                     m_navTarget = player.position;
                     m_playerVisible = true;
                     m_aiState = Ai_State.Chasing;
+                    m_playerAttention = m_aiSettings.attentionSpan;
+                    m_lastKnownPlayerPosition = Ai_Manager.GetPlayerTransform().position;
+                    if (m_debug) Debug.DrawRay(m_eyesTransform.position, dir, Color.green, m_stateCheckInterval);
+                }
+                else if (m_playerAttention > 0.0f)
+                {
                 }
                 else
                 {
@@ -328,9 +339,16 @@ public class Enemy_Ai : MonoBehaviour
         }
         else
         {
-            if (m_playerVisible)
+            if(m_playerAttention > 0.0f)
             {
-                m_aiState = Ai_State.Chasing;
+                if (m_playerVisible)
+                {
+                    m_aiState = Ai_State.Chasing;
+                }
+                else
+                {
+                    m_aiState = Ai_State.Searching;
+                }
             }
             else m_aiState = Ai_State.Wandering;
             if (m_inLight)
@@ -353,7 +371,7 @@ public class Enemy_Ai : MonoBehaviour
                 m_navTarget = GetBestWaypointPos(transform.position);
                 break;
             case Ai_State.Searching:
-                m_navTarget = Ai_Manager.GetPlayerTransform().position;
+                m_navTarget = m_lastKnownPlayerPosition;
                 break;
             case Ai_State.Chasing:
                 m_navTarget = Ai_Manager.GetPlayerTransform().position;
@@ -415,7 +433,7 @@ public class Enemy_Ai : MonoBehaviour
     //  Runs the various Debug methods.
     private void DebugAi()
     {
-        if (m_playerVisible) Debug.DrawLine(m_eyesTransform.position, Ai_Manager.GetPlayerTransform().position);
+        //if (m_playerVisible) Debug.DrawLine(m_eyesTransform.position, (Ai_Manager.GetPlayerTransform().position + new Vector3(0, Ai_Manager.GetPlayerHeight() / 2.0f, 0)));
         for(int i = 0; i < m_navMeshAgent.path.corners.Length; i++)
         {
             Vector3 currentPoint, nextPoint;
