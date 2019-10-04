@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 760530874}
   - component: {fileID: 760530873}
   - component: {fileID: 760530872}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
@@ -1541,7 +1541,8 @@ GameObject:
   - component: {fileID: 5025233314702520270}
   - component: {fileID: 1621786765054874423}
   - component: {fileID: 3309224457768879014}
-  m_Layer: 0
+  - component: {fileID: 232203365}
+  m_Layer: 15
   m_Name: Lamp_Proto_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1666,6 +1667,19 @@ MonoBehaviour:
     m_PreInfinity: 1
     m_PostInfinity: 1
     m_RotationOrder: 0
+--- !u!65 &232203365
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062119938129700843}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.23364052, y: 0.59823906, z: 0.2336405}
+  m_Center: {x: 0, y: -0.2938667, z: -0.000000007450581}
 --- !u!1 &1112951318873859296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,7 +1689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1977899972623958227}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CAMERA_TARGET_POS
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
@@ -1705,7 +1719,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5776075738094371610}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CAMERA_PIVOT_Y
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7436,7 +7450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1884804736649074037}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CAMERA_PIVOT_X
   m_TagString: Untagged
   m_Icon: {fileID: 0}

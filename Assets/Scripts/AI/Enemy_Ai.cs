@@ -20,7 +20,7 @@ public class Enemy_Ai : MonoBehaviour
     //  The time until the next AI.
     private float m_timeToStateCheck = 0.0f;
 
-    //  MEthods to be run upon the death of this AI.
+    //  Methods to be run upon the death of this AI.
     [SerializeField] private UnityEvent OnDeath;
 
     //  The Animator component for ths AI.
@@ -282,7 +282,7 @@ public class Enemy_Ai : MonoBehaviour
             Vector3 dir = player.position - m_eyesTransform.position;
             Ray ray = new Ray(m_eyesTransform.position, dir);
             RaycastHit hit;
-            Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.AllLayers().RemoveLayers(new string[] { "Enemy", "Player" }));
+            Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.AllLayers().RemoveLayer("Enemy"));
             if (hit.collider)
             {
                 if (hit.collider.transform == player)

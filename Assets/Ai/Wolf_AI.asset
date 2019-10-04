@@ -15,7 +15,7 @@ MonoBehaviour:
   targetPlayer: 1
   interestRange: 30
   chaseRange: 20
-  stopChaseRange: 30
+  stopChaseRange: 50
   attackRange: 1
   wanderMoveSpeed: 6
   searchMoveSpeed: 6
@@ -29,5 +29,6 @@ MonoBehaviour:
   fleeDuration: 3
   fleeDistanceMultiplier: 3
   waypointChoice: 2
+  randomStartWaypoint: 1
   waypointTollerance: 2
   wanderRadius: 100
