@@ -14134,6 +14134,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1245650267}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1285839675 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7798251917668413054, guid: 73be2a4fb1c78764d8c36e7d38711e18,
+    type: 3}
+  m_PrefabInstance: {fileID: 1929915992592176925}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1285839681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285839675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be45fef81b36e9488c7194d9c2d8e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isHidingLamp: 0
+  m_lampLightMaterial: {fileID: 2100000, guid: fdb9fd70336375b4eb9ac2fd8c318a14, type: 2}
+  m_lampParticleMaterial: {fileID: 2100000, guid: cef9cd294b8d14a4d986ac059857c2e3,
+    type: 2}
 --- !u!1 &1305434506 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 9329d6133e93a844ca217ce872bbe8a2,
@@ -19756,6 +19778,10 @@ PrefabInstance:
     - target: {fileID: 7798251917668413055, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081735721, guid: 73be2a4fb1c78764d8c36e7d38711e18, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2972404314991468752, guid: 73be2a4fb1c78764d8c36e7d38711e18,
