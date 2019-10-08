@@ -6,8 +6,8 @@ using UnityEngine;
 public class SetAmbientColor : MonoBehaviour
 {
 
-    [SerializeField] private Vector4 m_ambientColor = Vector4.one;
-    private Vector4 m_prevColor = Vector4.one;
+    [SerializeField] private Color m_ambientColor = Color.white;
+    private Color m_prevColor = Color.white;
 
     private void Awake()
     {

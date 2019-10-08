@@ -43,6 +43,10 @@ public class Ai_Settings : ScriptableObject
     public float fleeDuration = 3.0f;
     //  How many far the AI will run away from the danger.
     public float fleeDistanceMultiplier = 3.0f;
+    //
+    public float surpriseMultiplier = 1.0f;
+    //
+    public float surpriseThreshold = 0.5f;
 
     [Header("Patrol Settings")]
     public AiWaypointChoice waypointChoice = AiWaypointChoice.loop;

@@ -40,9 +40,16 @@ public class Enemy_Ai : MonoBehaviour
     [SerializeField] private Transform m_eyesTransform;
     //  Is this AI in light?
     private bool m_inLight;
-    private Vector3 m_normalisedLightDir = new Vector3();
     private float m_fleeTime = 0.0f;
     private float m_playerAttention = 0.0f;
+    private Vector3 m_lightDirection = new Vector3();
+    private float m_lightLevel;
+    //  The change in light levels observed by this AI.
+    private float m_lightLevelDelta;
+    //  The light level obeserved during the previous frame.
+    private float m_prevLightLevel;
+    //  Is this AI surpsise4d by the current light level?
+    private bool m_surprised = false;
     private Vector3 m_lastKnownPlayerPosition;
 
     //  The position where tihs AI originally spawned.
@@ -313,22 +320,30 @@ public class Enemy_Ai : MonoBehaviour
     private void CheckForLight()
     {
         m_inLight = false;
-        m_normalisedLightDir = new Vector3();
+        m_lightDirection = new Vector3();
+        m_prevLightLevel = m_lightLevel;
+        m_lightLevel = 0.0f;
         foreach(Lamp_Controller lamp in Ai_Manager.GetLamps())
         {
-            Vector3 dir = m_eyesTransform.position - lamp.transform.position;
-            Ray ray = new Ray(lamp.transform.position, dir);
-            RaycastHit hit;
-            Physics.Raycast(ray, out hit, lamp.GetRange(), LayerTools.AllLayers().RemoveLayers(new string[] { "Enemy", "Player" }));
-            if (hit.collider)
+            if(lamp.IsOn())
             {
-                if (hit.collider.transform == transform)
+                Vector3 dir = m_eyesTransform.position - lamp.transform.position;
+                Ray ray = new Ray(lamp.transform.position, dir);
+                RaycastHit hit;
+                Physics.Raycast(ray, out hit, lamp.GetNoisyRange(), LayerTools.AllLayers().RemoveLayer("Player"));
+                if (hit.collider)
                 {
-                    m_inLight = true;
+                    if (hit.collider.transform == transform)
+                    {
+                        m_inLight = true;
+                        m_lightLevel += Mathf.Clamp(1-(dir.magnitude / lamp.GetNoisyRange()), 0.0f, Mathf.Infinity);
+                    }
                 }
+                m_lightDirection += dir;
             }
-            m_normalisedLightDir += dir;
         }
+        m_lightLevelDelta = (m_lightLevel - m_prevLightLevel);
+        m_surprised = ((m_lightLevelDelta * m_aiSettings.surpriseMultiplier) > m_aiSettings.surpriseThreshold);
     }
 
     private void CalcAiState()
@@ -351,13 +366,10 @@ public class Enemy_Ai : MonoBehaviour
                 }
             }
             else m_aiState = Ai_State.Wandering;
-            if (m_inLight)
+            if ((m_inLight && m_aiSettings.runAwayFromLight) || m_surprised)
             {
-                if (m_aiSettings.runAwayFromLight)
-                {
-                    m_aiState = Ai_State.Fleeing;
-                    m_fleeTime = m_aiSettings.fleeDuration;
-                }
+                m_aiState = Ai_State.Fleeing;
+                m_fleeTime = m_aiSettings.fleeDuration;
             }
         }
 
@@ -386,7 +398,7 @@ public class Enemy_Ai : MonoBehaviour
                 m_navTarget = transform.position;
                 break;
             case Ai_State.Fleeing:
-                m_navTarget = transform.position + (m_normalisedLightDir * m_aiSettings.fleeDistanceMultiplier);
+                m_navTarget = transform.position + (m_lightDirection * m_aiSettings.fleeDistanceMultiplier);
                 break;
             default:
                 m_navTarget = Ai_Manager.GetPlayerTransform().position;

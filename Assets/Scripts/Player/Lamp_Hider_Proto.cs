@@ -11,6 +11,8 @@ public class Lamp_Hider_Proto : MonoBehaviour
     [SerializeField] private Material m_lampLightMaterial;
     [SerializeField] private Material m_lampParticleMaterial;
 
+    [SerializeField] private Lamp_Controller m_playerLamp;
+
     private bool m_prevState = false;
 
     private void Update()
@@ -29,7 +31,7 @@ public class Lamp_Hider_Proto : MonoBehaviour
 
             }
         }
-
+        m_playerLamp.Toggle(!PlayerInput.Hide);
         m_prevState = PlayerInput.Hide;
     }
 }
