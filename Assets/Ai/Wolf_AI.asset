@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wolf_AI
   m_EditorClassIdentifier: 
   targetPlayer: 1
-  interestRange: 30
+  interestRange: 50
   chaseRange: 20
   stopChaseRange: 50
   attackRange: 1
@@ -25,10 +25,36 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32769
   attentionSpan: 5
+  detectionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0
+      value: 0.99428576
+      inSlope: 0.013319788
+      outSlope: 0.013319788
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.85310733
+    - serializedVersion: 3
+      time: 1
+      value: 0.19318366
+      inSlope: -0.15769218
+      outSlope: -0.15769218
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.14406782
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   attractedToLight: 0
   runAwayFromLight: 0
   fleeDuration: 3
   fleeDistanceMultiplier: 3
+  surpriseMultiplier: 1
+  surpriseThreshold: 0.5
   waypointChoice: 2
   randomStartWaypoint: 1
   waypointTollerance: 2

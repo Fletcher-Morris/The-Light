@@ -32,7 +32,10 @@ public class Ai_Settings : ScriptableObject
     [Header("Vision Settings")]
     //  The layers that obstruct the AI's vision.
     public LayerMask visionObstructors = LayerTools.AllLayers();
+    //  How long the AI will search for the player after losing line of sight.
     public float attentionSpan = 4.0f;
+    //  The time required for the AI to 'notice' the player at any given range.
+    public AnimationCurve detectionCurve = AnimationCurve.Linear(0.0f, 1.0f, 1.0f, 0.0f);
 
     [Header("Behaviour Settings")]
     //  Should the AI be battracted to lamps?

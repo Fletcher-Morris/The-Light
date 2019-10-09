@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -50,7 +50,10 @@ public class Enemy_Ai : MonoBehaviour
     private float m_prevLightLevel;
     //  Is this AI surpsise4d by the current light level?
     private bool m_surprised = false;
+    //  The last known position of the player.
     private Vector3 m_lastKnownPlayerPosition;
+    //  The detection value of the player, 1.0 is fully detected.
+    private float m_playerDetectionValue = 0.0f;
 
     //  The position where tihs AI originally spawned.
     private Vector3 m_spawnPos;
@@ -294,25 +297,41 @@ public class Enemy_Ai : MonoBehaviour
             Vector3 dir = (player.position + new Vector3(0, Ai_Manager.GetPlayerHeight() / 2.0f, 0)) - m_eyesTransform.position;
             Ray ray = new Ray(m_eyesTransform.position, dir);
             RaycastHit hit;
-            Physics.Raycast(ray, out hit, Mathf.Infinity, m_aiSettings.visionObstructors);
+            Physics.SphereCast(ray, 0.5f, out hit, m_aiSettings.interestRange, m_aiSettings.visionObstructors);
             if (hit.collider)
             {
-                if (hit.collider.transform == player)
+                if (hit.collider.CompareTag("Player"))
                 {
                     m_navTarget = player.position;
                     m_playerVisible = true;
-                    m_aiState = Ai_State.Chasing;
-                    m_playerAttention = m_aiSettings.attentionSpan;
-                    m_lastKnownPlayerPosition = Ai_Manager.GetPlayerTransform().position;
-                    if (m_debug) Debug.DrawRay(m_eyesTransform.position, dir, Color.green, m_stateCheckInterval);
+
+                    if(m_playerDetectionValue >= 1.0f)
+                    {
+                        //  Player detected
+                        m_navTarget = player.position;
+                        m_aiState = Ai_State.Chasing;
+                        m_lastKnownPlayerPosition = Ai_Manager.GetPlayerTransform().position;
+                        m_playerAttention = m_aiSettings.attentionSpan;
+                    }
+                    else
+                    {
+                        //  Player undetected
+                        m_playerDetectionValue += m_aiSettings.detectionCurve.Evaluate(hit.distance/m_aiSettings.interestRange) * m_stateCheckInterval;
+                    }
+
+
+                    if (m_debug) Debug.DrawRay(m_eyesTransform.position, dir, Color.Lerp(Color.green, Color.red, m_playerDetectionValue), m_stateCheckInterval);
                 }
                 else if (m_playerAttention > 0.0f)
                 {
+                    m_playerDetectionValue -= m_stateCheckInterval;
                 }
                 else
                 {
+                    m_playerDetectionValue = 0.0f;
                     m_aiState = Ai_State.Wandering;
                 }
+                m_playerDetectionValue = Mathf.Clamp01(m_playerDetectionValue);
             }
         }
     }
@@ -452,12 +471,12 @@ public class Enemy_Ai : MonoBehaviour
             if (i == 0) { currentPoint = transform.position; nextPoint = m_navMeshAgent.path.corners[0]; }
             else if(i == m_navMeshAgent.path.corners.Length) { currentPoint = m_navMeshAgent.path.corners[i]; nextPoint = m_navMeshAgent.destination; }
             else { currentPoint = m_navMeshAgent.path.corners[i-1]; nextPoint = m_navMeshAgent.path.corners[i]; }
-            Debug.DrawLine(currentPoint, nextPoint, Color.blue);
+            Debug.DrawLine(currentPoint, nextPoint, Color.magenta);
         }
 
         foreach (Lamp_Controller lamp in Ai_Manager.GetLamps())
         {
-            Debug.DrawLine(lamp.transform.position, m_eyesTransform.position, Color.red);
+            Debug.DrawLine(lamp.transform.position, m_eyesTransform.position, Color.blue);
         }
 
         transform.name = m_originalObjectName + " [" + m_aiState.ToString() + "]";
