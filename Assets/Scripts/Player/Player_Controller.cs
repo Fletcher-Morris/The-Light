@@ -184,16 +184,30 @@ public class Player_Controller : MonoBehaviour
                 m_footstepTimer += Time.deltaTime;
                 if (m_footstepTimer >= (1.0f / m_footstepFreqency))
                 {
-                    AudioClip clip = Audio_Manager.Singleton().GetFootstepAudio(GroundAudioType.dirt, m_footstepCounter);
+                    GroundAudioType groundType = GetGroundType();
+                    AudioClip clip = Audio_Manager.Singleton().GetFootstepAudio(groundType, m_footstepCounter);
                     m_footstepSource.PlayOneShot(clip);
                     m_footstepCounter++;
-                    Debug.Log("Playing Footsteps : " + clip);
+                    Debug.Log("Playing Footsteps : " + groundType.ToString());
                     if (m_footstepCounter > Audio_Manager.Singleton().MaxFootstepId()) m_footstepCounter = 0;
                 }
                 else return;
             }
         }
         m_footstepTimer = 0.0f;
+    }
+
+    private GroundAudioType GetGroundType()
+    {
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.CreateLayerMask("GroundAudio"));
+        if (hit.collider)
+        {
+            return hit.collider.gameObject.GetComponent<Ground_Audio>().GetGroundType();
+        }
+
+        return GroundAudioType.dirt;
     }
 
     private void UpdateCamera()
