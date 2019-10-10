@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 4f2e1bb64b367f54a9893cd60578e4b7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerFootstepsDirt: {fileID: 8300000, guid: 2acb2c31f7a6bd54d9158ebce0c82fbe,
+      type: 3}
+  - playerFootstepsSand: {fileID: 8300000, guid: 2acb2c31f7a6bd54d9158ebce0c82fbe,
+      type: 3}
+  - playerFootstepsWood: {fileID: 8300000, guid: 2acb2c31f7a6bd54d9158ebce0c82fbe,
+      type: 3}
+  - playerFootstepsStone: {fileID: 8300000, guid: 2acb2c31f7a6bd54d9158ebce0c82fbe,
+      type: 3}
+  - playerFootstepsMetal: {fileID: 8300000, guid: 2acb2c31f7a6bd54d9158ebce0c82fbe,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

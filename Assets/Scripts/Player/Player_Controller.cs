@@ -47,6 +47,12 @@ public class Player_Controller : MonoBehaviour
     private float m_camXAngle = 45.0f;
     [SerializeField] float m_pivotHeight = 1.0f;
 
+    [Header("Audio")]
+    private AudioSource m_footstepSource;
+    [SerializeField] private float m_footstepFreqency = 1.0f;
+    private int m_footstepCounter = 0;
+    private float m_footstepTimer = 0.0f;
+
     private void Awake()
     {
         Ai_Manager.SetPlayerTransform(transform);
@@ -63,6 +69,7 @@ public class Player_Controller : MonoBehaviour
     {
         if (m_visual == null) m_visual = transform.GetChild(0);
         m_controller = GetComponent<CharacterController>();
+        m_footstepSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -77,7 +84,8 @@ public class Player_Controller : MonoBehaviour
 
     private void LateUpdate()
     {
-        UpdatePlayerVisual();        
+        UpdatePlayerVisual();
+        FootstepsAudio();
     }
 
     private void UpdatePlayerVisual()
@@ -165,6 +173,27 @@ public class Player_Controller : MonoBehaviour
     private void UpdateAnimations()
     {
 
+    }
+
+    private void FootstepsAudio()
+    {
+        if(m_moveDirection.magnitude >= 0.1f)
+        {
+            if(m_controller.velocity.magnitude > 0.1f)
+            {
+                m_footstepTimer += Time.deltaTime;
+                if (m_footstepTimer >= (1.0f / m_footstepFreqency))
+                {
+                    AudioClip clip = Audio_Manager.Singleton().GetFootstepAudio(GroundAudioType.dirt, m_footstepCounter);
+                    m_footstepSource.PlayOneShot(clip);
+                    m_footstepCounter++;
+                    Debug.Log("Playing Footsteps : " + clip);
+                    if (m_footstepCounter > Audio_Manager.Singleton().MaxFootstepId()) m_footstepCounter = 0;
+                }
+                else return;
+            }
+        }
+        m_footstepTimer = 0.0f;
     }
 
     private void UpdateCamera()

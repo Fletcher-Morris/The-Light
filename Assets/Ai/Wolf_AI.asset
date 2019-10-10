@@ -23,7 +23,7 @@ MonoBehaviour:
   fleeMoveSpeed: 10
   visionObstructors:
     serializedVersion: 2
-    m_Bits: 32769
+    m_Bits: 36865
   attentionSpan: 5
   detectionCurve:
     serializedVersion: 2
