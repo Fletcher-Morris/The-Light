@@ -86,6 +86,8 @@ public class Player_Controller : MonoBehaviour
     {
         UpdatePlayerVisual();
         FootstepsAudio();
+
+        if (Input.GetKeyDown(KeyCode.Backspace)) transform.position = new Vector3(0, 2, 0);
     }
 
     private void UpdatePlayerVisual()

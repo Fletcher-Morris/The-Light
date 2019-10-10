@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9259814ca74a084b98f3e4bbe41c199, type: 3}
   m_Name: Wolf_AI
   m_EditorClassIdentifier: 
-  targetPlayer: 1
+  targetPlayer: 0
   interestRange: 50
   chaseRange: 20
   stopChaseRange: 50
@@ -23,7 +23,7 @@ MonoBehaviour:
   fleeMoveSpeed: 10
   visionObstructors:
     serializedVersion: 2
-    m_Bits: 36865
+    m_Bits: 37891
   attentionSpan: 5
   detectionCurve:
     serializedVersion: 2
@@ -55,7 +55,7 @@ MonoBehaviour:
   fleeDistanceMultiplier: 3
   surpriseMultiplier: 1
   surpriseThreshold: 0.5
-  waypointChoice: 2
-  randomStartWaypoint: 1
+  waypointChoice: 0
+  randomStartWaypoint: 0
   waypointTollerance: 2
   wanderRadius: 100

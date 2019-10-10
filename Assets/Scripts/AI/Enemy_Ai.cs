@@ -294,44 +294,54 @@ public class Enemy_Ai : MonoBehaviour
         m_playerVisible = false;
         if(player)
         {
-            Vector3 dir = (player.position + new Vector3(0, Ai_Manager.GetPlayerHeight() / 2.0f, 0)) - m_eyesTransform.position;
-            Ray ray = new Ray(m_eyesTransform.position, dir);
-            RaycastHit hit;
-            Physics.SphereCast(ray, 0.5f, out hit, m_aiSettings.interestRange, m_aiSettings.visionObstructors);
-            if (hit.collider)
+            Vector3 dir;
+            Ray ray;
+            RaycastHit playerHit = new RaycastHit();
+            bool hitPlayer = false;
+            int tries = 4;
+            for(int i = 0; i < tries; i++)
             {
-                if (hit.collider.CompareTag("Player"))
+                if (hitPlayer) break;
+                dir = (player.position + new Vector3(0, Ai_Manager.GetPlayerHeight() * (i+1 / tries), 0)) - m_eyesTransform.position;
+                ray = new Ray(m_eyesTransform.position, dir);
+                hitPlayer = false;
+                Physics.Raycast(ray, out playerHit, m_aiSettings.interestRange, m_aiSettings.visionObstructors);
+                if (playerHit.collider)
                 {
-                    m_playerVisible = true;
-
-                    if(m_playerDetectionValue >= 1.0f)
+                    if (playerHit.collider.CompareTag("Player"))
                     {
-                        //  Player detected
-                        m_navTarget = player.position;
-                        m_aiState = Ai_State.Chasing;
-                        m_lastKnownPlayerPosition = Ai_Manager.GetPlayerTransform().position;
-                        m_playerAttention = m_aiSettings.attentionSpan;
+                        hitPlayer = true;
                     }
-                    else
-                    {
-                        //  Player undetected
-                        m_playerDetectionValue += m_aiSettings.detectionCurve.Evaluate(hit.distance/m_aiSettings.interestRange) * m_stateCheckInterval;
-                    }
-
-
-                    if (m_debug) Debug.DrawRay(m_eyesTransform.position, dir, Color.Lerp(Color.green, Color.red, m_playerDetectionValue), m_stateCheckInterval);
                 }
-                else if (m_playerAttention > 0.0f)
+            }
+            if (hitPlayer)
+            {
+                m_playerVisible = true;
+                if (m_playerDetectionValue >= 1.0f)
                 {
-                    m_playerDetectionValue -= m_stateCheckInterval;
+                    //  Player detected
+                    m_navTarget = player.position;
+                    m_aiState = Ai_State.Chasing;
+                    m_lastKnownPlayerPosition = Ai_Manager.GetPlayerTransform().position;
+                    m_playerAttention = m_aiSettings.attentionSpan;
                 }
                 else
                 {
-                    m_playerDetectionValue = 0.0f;
-                    m_aiState = Ai_State.Wandering;
+                    //  Player undetected
+                    m_playerDetectionValue += m_aiSettings.detectionCurve.Evaluate(playerHit.distance / m_aiSettings.interestRange) * m_stateCheckInterval;
                 }
-                m_playerDetectionValue = Mathf.Clamp01(m_playerDetectionValue);
+                if (m_debug) Debug.DrawLine(m_eyesTransform.position, playerHit.point, Color.Lerp(Color.green, Color.red, m_playerDetectionValue), m_stateCheckInterval);
             }
+            else if (m_playerAttention > 0.0f)
+            {
+                m_playerDetectionValue -= m_stateCheckInterval;
+            }
+            else
+            {
+                m_playerDetectionValue = 0.0f;
+                m_aiState = Ai_State.Wandering;
+            }
+            m_playerDetectionValue = Mathf.Clamp01(m_playerDetectionValue);
         }
     }
 
