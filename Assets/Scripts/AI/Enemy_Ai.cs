@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -302,7 +302,6 @@ public class Enemy_Ai : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Player"))
                 {
-                    m_navTarget = player.position;
                     m_playerVisible = true;
 
                     if(m_playerDetectionValue >= 1.0f)
@@ -362,7 +361,7 @@ public class Enemy_Ai : MonoBehaviour
             }
         }
         m_lightLevelDelta = (m_lightLevel - m_prevLightLevel);
-        m_surprised = ((m_lightLevelDelta * m_aiSettings.surpriseMultiplier) > m_aiSettings.surpriseThreshold);
+        m_surprised = ((m_lightLevelDelta * m_aiSettings.surpriseMultiplier * m_stateCheckInterval) > m_aiSettings.surpriseThreshold);
     }
 
     private void CalcAiState()
