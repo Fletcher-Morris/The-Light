@@ -201,7 +201,7 @@ public class Player_Controller : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
-        Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.CreateLayerMask("GroundAudio"));
+        Physics.Raycast(ray, out hit, Mathf.Infinity, LayerTools.CreateLayerMask("Ground"));
         if (hit.collider)
         {
             return hit.collider.gameObject.GetComponent<Ground_Audio>().GetGroundType();
