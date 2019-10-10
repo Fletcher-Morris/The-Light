@@ -227,7 +227,7 @@ public class Player_Controller : MonoBehaviour
         Vector3 rayStart = transform.position + new Vector3(0.0f, m_pivotHeight, 0.0f);
         Ray ray = new Ray(rayStart, m_cameraTarget.position - rayStart);
         RaycastHit hit;
-        if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default())) newDist = hit.distance;
+        if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"))) newDist = hit.distance;
         m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
         m_camera.transform.position = new Vector3(m_cameraTarget.position.x, Mathf.Lerp(m_camera.transform.position.y, m_cameraTarget.transform.position.y, m_cameraPositionLerp * Time.deltaTime), m_cameraTarget.position.z);
         m_camera.transform.rotation = Quaternion.Lerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraRotationLerp * Time.deltaTime);
