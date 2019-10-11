@@ -57,4 +57,9 @@ public class Audio_Manager : MonoBehaviour
 
         return clip;
     }
+
+
+    [Header("Enemy")]
+    public AudioClip wolfHowl;
+
 }

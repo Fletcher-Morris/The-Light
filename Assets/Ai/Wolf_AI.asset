@@ -55,7 +55,7 @@ MonoBehaviour:
   fleeDistanceMultiplier: 3
   surpriseMultiplier: 1
   surpriseThreshold: 0.1
-  waypointChoice: 0
-  randomStartWaypoint: 0
+  waypointChoice: 2
+  randomStartWaypoint: 1
   waypointTollerance: 2
   wanderRadius: 100

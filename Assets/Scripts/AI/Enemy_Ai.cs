@@ -67,6 +67,9 @@ public class Enemy_Ai : MonoBehaviour
     private Ai_Waypoint m_prevWaypoint;
     private int m_waypointPingPongDirection = 1;
 
+    //  This AI's audio source.
+    private AudioSource m_audioSource;
+
     //  Is this AI in debug mode?
     [SerializeField] private bool m_debug;
     //  The original name of the GameObject.
@@ -89,6 +92,7 @@ public class Enemy_Ai : MonoBehaviour
         m_originalObjectName = transform.name;
         if (m_eyesTransform == null) m_eyesTransform = transform.Find("AI_EYES_TRANSFORM");
         if (m_eyesTransform == null) m_eyesTransform = transform;
+        m_audioSource = GetComponent<AudioSource>();
     }
 
     private void GetAutoWaypoints()
@@ -269,6 +273,8 @@ public class Enemy_Ai : MonoBehaviour
                     break;
                 case Ai_State.Chasing:
                     SetAnimState("running");
+                    if(m_audioSource)
+                    m_audioSource.PlayOneShot(Audio_Manager.Singleton().wolfHowl);
                     break;
                 case Ai_State.Attacking:
                     SetAnimState("attacking");
