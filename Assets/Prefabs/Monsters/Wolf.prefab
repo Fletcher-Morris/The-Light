@@ -1831,7 +1831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_aiState: 0
-  m_stateCheckInterval: 0.1
+  m_updateInterval: 0.1
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -1839,6 +1839,9 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   m_aiSettings: {fileID: 11400000, guid: fb4d92f660a37984ebc811635fda8067, type: 2}
   m_eyesTransform: {fileID: 4449998852519508798}
+  m_lampTestMask:
+    serializedVersion: 2
+    m_Bits: 0
   m_autoWaypoints: 1
   m_waypoints: []
   m_targetWaypoint: {fileID: 0}

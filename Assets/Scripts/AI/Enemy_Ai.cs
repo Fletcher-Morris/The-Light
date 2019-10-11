@@ -16,7 +16,7 @@ public class Enemy_Ai : MonoBehaviour
     //  The state of this AI during the previous update.
     private Ai_State m_prevAiState;
     //  The time between AI updates.
-    [SerializeField] private float m_stateCheckInterval = 0.1f;
+    [SerializeField] private float m_updateInterval = 0.1f;
     //  The time until the next AI.
     private float m_timeToStateCheck = 0.0f;
 
@@ -54,6 +54,8 @@ public class Enemy_Ai : MonoBehaviour
     private Vector3 m_lastKnownPlayerPosition;
     //  The detection value of the player, 1.0 is fully detected.
     private float m_playerDetectionValue = 0.0f;
+    //  The layers that obstruct light.
+    private LayerMask m_lampTestMask;
 
     //  The position where tihs AI originally spawned.
     private Vector3 m_spawnPos;
@@ -76,6 +78,7 @@ public class Enemy_Ai : MonoBehaviour
         GetComponentsOnStart();
         m_spawnPos = transform.position;
         if (m_autoWaypoints) GetAutoWaypoints();
+        m_lampTestMask = LayerTools.CreateLayerMask(new string[]{ "Default", "Ground", "Terrain", "Lamp"});
     }
 
     //  A method for gathering components on Start.
@@ -216,7 +219,7 @@ public class Enemy_Ai : MonoBehaviour
 
     private void OnEnable()
     {
-        m_timeToStateCheck = Random.Range(0.0f, m_stateCheckInterval);
+        m_timeToStateCheck = Random.Range(0.0f, m_updateInterval);
         StartCoroutine(StateCheckCoroutine());
     }
     private void OnDisable()
@@ -231,7 +234,7 @@ public class Enemy_Ai : MonoBehaviour
         {
             if(m_timeToStateCheck <= 0.0f)
             {
-                m_timeToStateCheck = m_stateCheckInterval;
+                m_timeToStateCheck = m_updateInterval;
                 CheckAiState();
             }
             else
@@ -328,13 +331,13 @@ public class Enemy_Ai : MonoBehaviour
                 else
                 {
                     //  Player undetected
-                    m_playerDetectionValue += m_aiSettings.detectionCurve.Evaluate(playerHit.distance / m_aiSettings.interestRange) * m_stateCheckInterval;
+                    m_playerDetectionValue += m_aiSettings.detectionCurve.Evaluate(playerHit.distance / m_aiSettings.interestRange) * m_updateInterval;
                 }
-                if (m_debug) Debug.DrawLine(m_eyesTransform.position, playerHit.point, Color.Lerp(Color.green, Color.red, m_playerDetectionValue), m_stateCheckInterval);
+                if (m_debug) Debug.DrawLine(m_eyesTransform.position, playerHit.point, Color.Lerp(Color.green, Color.red, m_playerDetectionValue), m_updateInterval);
             }
             else if (m_playerAttention > 0.0f)
             {
-                m_playerDetectionValue -= m_stateCheckInterval;
+                m_playerDetectionValue -= m_updateInterval;
             }
             else
             {
@@ -355,23 +358,25 @@ public class Enemy_Ai : MonoBehaviour
         {
             if(lamp.IsOn())
             {
-                Vector3 dir = m_eyesTransform.position - lamp.transform.position;
-                Ray ray = new Ray(lamp.transform.position, dir);
+                Vector3 dir = lamp.transform.position - m_eyesTransform.position;
+                Ray ray = new Ray(m_eyesTransform.position, dir);
                 RaycastHit hit;
-                Physics.Raycast(ray, out hit, lamp.GetNoisyRange(), LayerTools.AllLayers().RemoveLayer("Player"));
-                if (hit.collider)
+                Physics.Raycast(ray, out hit, lamp.GetRange(), m_lampTestMask);
+                if(hit.collider)
                 {
-                    if (hit.collider.transform == transform)
+                    if (hit.collider.transform == lamp.transform)
                     {
                         m_inLight = true;
-                        m_lightLevel += Mathf.Clamp(1-(dir.magnitude / lamp.GetNoisyRange()), 0.0f, Mathf.Infinity);
+                        m_lightLevel += Mathf.Clamp(1 - (dir.magnitude / lamp.GetRange()), 0.0f, Mathf.Infinity);
+                        if (m_debug) Debug.DrawLine(lamp.transform.position, m_eyesTransform.position, Color.blue, m_updateInterval);
                     }
                 }
                 m_lightDirection += dir;
             }
         }
         m_lightLevelDelta = (m_lightLevel - m_prevLightLevel);
-        m_surprised = ((m_lightLevelDelta * m_aiSettings.surpriseMultiplier * m_stateCheckInterval) > m_aiSettings.surpriseThreshold);
+        m_lightLevelDelta = Mathf.Clamp(m_lightLevelDelta, 0.0f, Mathf.Infinity);
+        m_surprised = ((m_lightLevelDelta * m_aiSettings.surpriseMultiplier * m_updateInterval) > m_aiSettings.surpriseThreshold);
     }
 
     private void CalcAiState()
@@ -481,11 +486,6 @@ public class Enemy_Ai : MonoBehaviour
             else if(i == m_navMeshAgent.path.corners.Length) { currentPoint = m_navMeshAgent.path.corners[i]; nextPoint = m_navMeshAgent.destination; }
             else { currentPoint = m_navMeshAgent.path.corners[i-1]; nextPoint = m_navMeshAgent.path.corners[i]; }
             Debug.DrawLine(currentPoint, nextPoint, Color.magenta);
-        }
-
-        foreach (Lamp_Controller lamp in Ai_Manager.GetLamps())
-        {
-            Debug.DrawLine(lamp.transform.position, m_eyesTransform.position, Color.blue);
         }
 
         transform.name = m_originalObjectName + " [" + m_aiState.ToString() + "]";

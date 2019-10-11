@@ -85,7 +85,7 @@ public class Player_Controller : MonoBehaviour
     private void LateUpdate()
     {
         UpdatePlayerVisual();
-        FootstepsAudio();
+        Footsteps();
 
         if (Input.GetKeyDown(KeyCode.Backspace)) transform.position = new Vector3(0, 2, 0);
     }
@@ -177,7 +177,7 @@ public class Player_Controller : MonoBehaviour
 
     }
 
-    private void FootstepsAudio()
+    private void Footsteps()
     {
         if(m_moveDirection.magnitude >= 0.1f)
         {
@@ -187,7 +187,7 @@ public class Player_Controller : MonoBehaviour
                 if (m_footstepTimer >= (1.0f / m_footstepFreqency))
                 {
                     GroundAudioType groundType = GetGroundType();
-                    AudioClip clip = Audio_Manager.Singleton().GetFootstepAudio(groundType, m_footstepCounter);
+                    AudioClip clip = Audio_Manager.Singleton().GetFootstepAudio(groundType, -1);
                     m_footstepSource.PlayOneShot(clip);
                     m_footstepCounter++;
                     Debug.Log("Playing Footsteps : " + groundType.ToString());
