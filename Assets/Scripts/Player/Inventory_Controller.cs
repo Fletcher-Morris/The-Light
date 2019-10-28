@@ -13,11 +13,12 @@ public class Inventory_Controller : MonoBehaviour
         ClearInventoryItems();
     }
 
-
+    //  The individual stacks of items.
     [SerializeField] private List<ItemStack> m_itemStacks;
 
 
 
+    //  Add a quantity of items to the inventory via a reference.
     public void AddItemToInventory(InventoryItem _item, int _quantity)
     {
         //  Non-stackable items.
@@ -55,13 +56,14 @@ public class Inventory_Controller : MonoBehaviour
         Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
     }
 
+    //  Add a single item to the inventory by reference.
     public void AddItemToInventory(InventoryItem _item)
     {
         AddItemToInventory(_item, 1);
     }
 
 
-
+    //  Remove a quantity of items from the inventory via reference.
     public void RemoveItemFromInventory(InventoryItem _item, int _quantity)
     {
         int remainingToRemove = _quantity;
@@ -88,11 +90,13 @@ public class Inventory_Controller : MonoBehaviour
         Debug.Log("Removed " + _quantity + " items (" + _item.GetName() + ") from inventory.");
     }
 
+    //  Remove a single item from the inventory via reference.
     public void RemoveItemFromInventory(InventoryItem _item)
     {
         RemoveItemFromInventory(_item, 1);
     }
 
+    //  Remove all instances of an item from the inventory via reference.
     public void RemoveAllItemFromInventory(InventoryItem _item)
     {
         foreach (ItemStack stack in m_itemStacks)
@@ -105,9 +109,30 @@ public class Inventory_Controller : MonoBehaviour
         Debug.Log("Removed all of item (" + _item.GetName() + ") from inventory.");
     }
 
+    //  Remove all inventory items.
     public void ClearInventoryItems()
     {
         m_itemStacks = new List<ItemStack>();
+    }
+
+
+    //  Check if an item exists in the inventory.
+    public bool HasItemInInventory(InventoryItem _item)
+    {
+        foreach(ItemStack stack in m_itemStacks)
+        {
+            if (stack.item == _item) return true;
+        }
+        return false;
+    }
+    //  Check if an item with a given name exists in the inventory.
+    public bool HasItemInInventory(string _itemName)
+    {
+        foreach (ItemStack stack in m_itemStacks)
+        {
+            if (stack.item.GetName() == _itemName) return true;
+        }
+        return false;
     }
 
 }
