@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue", order = 1)]
-[SerializeField]
+[System.Serializable]
 public class Dialogue : ScriptableObject
 {
     [SerializeField] [Multiline] [Tooltip("The text that will be displayed to the player.")]
