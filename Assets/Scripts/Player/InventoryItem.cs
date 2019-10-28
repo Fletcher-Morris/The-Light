@@ -19,7 +19,7 @@ public class InventoryItem : ScriptableObject
     [SerializeField]
     [Tooltip("Can the item be dropped once picked up?")]
     private bool m_droppable = true;
-    public bool IsDroppabe() { return m_droppable; }
+    public bool IsDroppable() { return m_droppable; }
 
     [SerializeField]
     [Tooltip("The inventory icon for this item.")]

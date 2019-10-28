@@ -53,6 +53,8 @@ public class Player_Controller : MonoBehaviour
     private int m_footstepCounter = 0;
     private float m_footstepTimer = 0.0f;
 
+    private Inventory_Controller m_inventory;
+
     private void Awake()
     {
         Ai_Manager.SetPlayerTransform(transform);
@@ -161,6 +163,12 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.Sprint = Input.GetKey(KeyCode.LeftControl);
         PlayerInput.Interact = Input.GetKeyDown(KeyCode.E);
         PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            Inventory_Controller.Singleton().ToggleInventory();
+        }
     }
 
     private void Movement()

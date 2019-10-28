@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory_Controller : MonoBehaviour
 {
+    //  The singleton reference.
     private static Inventory_Controller m_singleton;
+    //  Access to the singleton.
     public static Inventory_Controller Singleton() { return m_singleton; }
 
     private void Awake()
@@ -16,6 +19,13 @@ public class Inventory_Controller : MonoBehaviour
     //  The individual stacks of items.
     [SerializeField] private List<ItemStack> m_itemStacks;
 
+    //  The base transform of the inventory UI.
+    [SerializeField] private Transform m_uiTransform;
+
+    //  The prefab for inventory item UIs.
+    [SerializeField] private GameObject m_itemUiPrefab;
+
+    private bool m_open;
 
 
     //  Add a quantity of items to the inventory via a reference.
@@ -133,6 +143,52 @@ public class Inventory_Controller : MonoBehaviour
             if (stack.item.GetName() == _itemName) return true;
         }
         return false;
+    }
+
+
+
+    public void OpenInventory()
+    {
+        m_uiTransform.gameObject.SetActive(true);
+        foreach (ItemStack stack in m_itemStacks)
+        {
+            InventoryItem item = stack.item;
+            if(stack.quantity <= 0 && item.IsPersistent() == false)
+            {
+
+            }
+            else
+            {
+                GameObject stackUi = GameObject.Instantiate(m_itemUiPrefab, m_uiTransform);
+                if(!item.IsDroppable())
+                {
+                    stackUi.transform.GetChild(0).GetComponent<Image>().color = Color.red;
+                }
+                stackUi.transform.GetChild(1).GetComponent<Text>().text = item.GetName();
+                stackUi.transform.GetChild(2).GetComponent<Image>().sprite = item.GetSprite();
+                if (item.DoesStack())
+                {
+                    stackUi.transform.GetChild(3).GetComponent<Text>().text = stack.quantity.ToString();
+                }
+            }
+        }
+        m_open = true;
+    }
+
+    public void CloseInventory()
+    {
+        foreach(Transform child in m_uiTransform)
+        {
+            Destroy(child.gameObject);
+        }
+        m_uiTransform.gameObject.SetActive(false);
+        m_open = false;
+    }
+
+    public void ToggleInventory()
+    {
+        if (m_open) CloseInventory();
+        else OpenInventory();
     }
 
 }
