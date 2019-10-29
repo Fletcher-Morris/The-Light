@@ -7485,7 +7485,7 @@ MonoBehaviour:
   m_sceneInteractions: []
   m_closestInteraction: {fileID: 0}
   InteractKey: 101
-  m_dialogueCanvas: {fileID: 2004513057}
+  m_dialoguePanel: {fileID: 312564822}
   m_dialogueText: {fileID: 1268384088}
   m_dialogueOptions: {fileID: 2043588734}
   m_currentDialogue: {fileID: 0}

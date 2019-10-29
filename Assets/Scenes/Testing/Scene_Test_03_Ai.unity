@@ -7509,6 +7509,7 @@ MonoBehaviour:
   m_waypoints: []
   m_targetWaypoint: {fileID: 0}
   m_debug: 1
+  m_aiEnabled: 1
 --- !u!95 &928312594
 Animator:
   serializedVersion: 3
@@ -8539,6 +8540,56 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4449998852961620805}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1023727202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023727201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d3f254a91019904aa8164b750023e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_interactDistance: 2
+  m_isClosest: 0
+  m_text: Toggle AI
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1023727205}
+        m_MethodName: ToggleAiEnabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  m_interactable: 1
+  m_onlyOnce: 0
+  m_interactUiPrefab: {fileID: 6456536924899312098, guid: 33676a5fda7a8e140881be0bbcd36f07,
+    type: 3}
+  m_interactUi: {fileID: 0}
+  m_uiAnchor: {fileID: 0}
+  m_uiOffset: {x: 0, y: 2, z: 0}
+--- !u!114 &1023727205 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4449998854223654974, guid: f1ee8f3ee0079c245aa3be1de7795f04,
+    type: 3}
+  m_PrefabInstance: {fileID: 4449998852961620805}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023727201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19d3ec0eb3cac64a9cad3d2ec46a923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &1023727208
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10287,6 +10338,7 @@ MonoBehaviour:
   m_waypoints: []
   m_targetWaypoint: {fileID: 0}
   m_debug: 1
+  m_aiEnabled: 1
 --- !u!195 &1179796398
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -17385,12 +17437,12 @@ PrefabInstance:
     - target: {fileID: 5683682879136737588, guid: f1ee8f3ee0079c245aa3be1de7795f04,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8699589642510195495, guid: f1ee8f3ee0079c245aa3be1de7795f04,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.47
+      value: 7.98
       objectReference: {fileID: 0}
     - target: {fileID: 8699589642510195495, guid: f1ee8f3ee0079c245aa3be1de7795f04,
         type: 3}
@@ -17400,7 +17452,7 @@ PrefabInstance:
     - target: {fileID: 8699589642510195495, guid: f1ee8f3ee0079c245aa3be1de7795f04,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.99
+      value: 2.65
       objectReference: {fileID: 0}
     - target: {fileID: 8699589642510195495, guid: f1ee8f3ee0079c245aa3be1de7795f04,
         type: 3}
@@ -17446,6 +17498,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Radius
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449998854223654974, guid: f1ee8f3ee0079c245aa3be1de7795f04,
+        type: 3}
+      propertyPath: m_aiEnabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1ee8f3ee0079c245aa3be1de7795f04, type: 3}

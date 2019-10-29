@@ -74,6 +74,8 @@ public class Enemy_Ai : MonoBehaviour
     [SerializeField] private bool m_debug;
     //  The original name of the GameObject.
     private string m_originalObjectName;
+    //  Is this AI enabled?
+    [SerializeField] private bool m_aiEnabled = true; 
 
     private void Start()
     {
@@ -82,6 +84,27 @@ public class Enemy_Ai : MonoBehaviour
         m_spawnPos = transform.position;
         if (m_autoWaypoints) GetAutoWaypoints();
         m_lampTestMask = LayerTools.CreateLayerMask(new string[]{ "Default", "Ground", "Terrain", "Lamp"});
+    }
+
+    //  Enable the AI.
+    public void EnableAi()
+    {
+        m_aiEnabled = true;
+    }
+    //  Disable the AI.
+    public void DisableAi()
+    {
+        m_aiEnabled = true;
+    }
+    //  Set the enabled state.
+    public void SetAiEnabled(bool _enabled)
+    {
+        m_aiEnabled = _enabled;
+    }
+    //  Toggle the enabled state.
+    public void ToggleAiEnabled()
+    {
+        m_aiEnabled = !m_aiEnabled;
     }
 
     //  A method for gathering components on Start.
@@ -387,6 +410,13 @@ public class Enemy_Ai : MonoBehaviour
 
     private void CalcAiState()
     {
+        //  Check if the AI is enabled.
+        if(m_aiEnabled == false)
+        {
+            m_navTarget = transform.position;
+            return;
+        }
+
         if(m_fleeTime > 0.0f)
         {
             m_aiState = Ai_State.Fleeing;

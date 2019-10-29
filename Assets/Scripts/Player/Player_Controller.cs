@@ -28,7 +28,7 @@ public class Player_Controller : MonoBehaviour
 
     [Header("Dialogue")]
 
-    [SerializeField] private Canvas m_dialogueCanvas;
+    [SerializeField] private Transform m_dialoguePanel;
     [SerializeField] private Text m_dialogueText;
     [SerializeField] private Transform m_dialogueOptions;
     [SerializeField] private Dialogue m_currentDialogue;
@@ -247,7 +247,7 @@ public class Player_Controller : MonoBehaviour
     public void DisplayDialogue(Dialogue _dialogue, bool _pauseGame)
     {
         if (_pauseGame) Time.timeScale = 0;
-        m_dialogueCanvas.gameObject.SetActive(true);
+        m_dialoguePanel.gameObject.SetActive(true);
 
         DisplayDialogueRecursive(_dialogue);
     }
@@ -294,7 +294,7 @@ public class Player_Controller : MonoBehaviour
 
     public void CloseCurrentDialogue()
     {
-        m_dialogueCanvas.gameObject.SetActive(false);
+        m_dialoguePanel.gameObject.SetActive(false);
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

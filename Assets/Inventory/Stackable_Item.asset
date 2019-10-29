@@ -17,4 +17,4 @@ MonoBehaviour:
   m_droppable: 1
   m_sprite: {fileID: 0}
   m_stackable: 1
-  m_persistent: 1
+  m_persistent: 0
