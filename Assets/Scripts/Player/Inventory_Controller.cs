@@ -25,6 +25,7 @@ public class Inventory_Controller : MonoBehaviour
         if(m_selectedItemSpawnedObject != null)
         {
             m_selectedItemSpawnedObject.transform.Rotate(Vector3.up, m_selectedItemRotateSpeed * Time.deltaTime);
+            m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
         }
     }
 
@@ -71,6 +72,8 @@ public class Inventory_Controller : MonoBehaviour
     [SerializeField] private Text m_selectedItemName;
     //  The UI text for the selected item description.
     [SerializeField] private Text m_selectedItemDescription;
+    //  The button that drops items from the inventory.
+    [SerializeField] private Button m_dropItemBtn;
     //  The spawned gameobject representing the selected item.
     private GameObject m_selectedItemSpawnedObject;
 
@@ -96,6 +99,7 @@ public class Inventory_Controller : MonoBehaviour
                 if(added == false) m_itemStacks.Add(new ItemStack(_item));
             }
             Debug.Log("Added " + _quantity + " non-stackable items (" + _item.GetName() + ") to inventory.");
+            RefreshInventory();
             return;
         }
 
@@ -106,10 +110,12 @@ public class Inventory_Controller : MonoBehaviour
             {
                 stack.quantity += _quantity;
                 Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
+                RefreshInventory();
                 return;
             }
         }
         m_itemStacks.Add(new ItemStack(_item, _quantity));
+        RefreshInventory();
         Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
     }
 
@@ -145,6 +151,8 @@ public class Inventory_Controller : MonoBehaviour
         }
 
         Debug.Log("Removed " + _quantity + " items (" + _item.GetName() + ") from inventory.");
+
+        RefreshInventory();
     }
 
     //  Remove a single item from the inventory via reference.
@@ -164,12 +172,14 @@ public class Inventory_Controller : MonoBehaviour
             }
         }
         Debug.Log("Removed all of item (" + _item.GetName() + ") from inventory.");
+        RefreshInventory();
     }
 
     //  Remove all inventory items.
     public void ClearInventoryItems()
     {
         m_itemStacks = new List<ItemStack>();
+        SelectItemStack(null);
     }
 
 
@@ -192,30 +202,70 @@ public class Inventory_Controller : MonoBehaviour
         return false;
     }
 
-
+    //  Drop the selected item.
+    public void DropSelectedItem()
+    {
+        TryDropItem(m_selectedStack.item);
+    }
+    //  Drop a specific item.
+    public void TryDropItem(InventoryItem _item)
+    {
+        if(HasItemInInventory(_item))
+        {
+            RemoveItemFromInventory(_item);
+            SpawnItemAtPlayer(_item);
+        }
+        RefreshInventory();
+    }
+    //  Drop a specific item.
+    public void ForceDropItem(InventoryItem _item)
+    {
+        RemoveItemFromInventory(_item);
+        SpawnItemAtPlayer(_item);
+        RefreshInventory();
+    }
+    //  Spawn a specific item at the player's location.
+    public void SpawnItemAtPlayer(InventoryItem _item)
+    {
+        if(_item.GetDroppedPrefab() != null)
+        GameObject.Instantiate(_item.GetDroppedPrefab(), transform.position, Quaternion.identity);
+    }
 
     public void OpenInventory()
     {
         m_uiTransform.gameObject.SetActive(true);
         ShowInventoryTab();
+        RefreshInventory();
+        m_open = true;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void RefreshInventory()
+    {
+        foreach (Transform child in m_inventoryItems)
+        {
+            Destroy(child.gameObject);
+        }
         foreach (ItemStack stack in m_itemStacks)
         {
             InventoryItem item = stack.item;
-            if(stack.quantity <= 0 && item.IsPersistent() == false)
+            if (stack.quantity <= 0 && item.IsPersistent() == false)
             {
 
             }
             else
             {
                 GameObject stackUi = GameObject.Instantiate(m_itemUiPrefab, m_inventoryItems);
-                if(!item.IsDroppable())
+                if (!item.IsDroppable())
                 {
                     stackUi.transform.GetChild(0).GetComponent<Image>().color = Color.red;
                 }
                 stackUi.transform.GetChild(1).GetComponent<Text>().text = item.GetName();
                 Sprite useSprite = item.GetSprite();
                 if (useSprite == null) useSprite = m_errorSprite;
-                stackUi.transform.GetChild(2).GetComponent<Image>().sprite = useSprite;                
+                stackUi.transform.GetChild(2).GetComponent<Image>().sprite = useSprite;
                 if (item.DoesStack())
                 {
                     stackUi.transform.GetChild(3).GetComponent<Text>().text = stack.quantity.ToString();
@@ -223,11 +273,29 @@ public class Inventory_Controller : MonoBehaviour
                 stackUi.GetComponent<Button>().onClick.AddListener(() => SelectItemStack(stack));
             }
         }
-        if(m_itemStacks.Count > 0) SelectItemStack(m_itemStacks[0]);
-        m_open = true;
+        SelectAppropriateStack();
+    }
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+    private void SelectAppropriateStack()
+    {
+        if (m_itemStacks.Count == 0)
+        {
+            SelectItemStack(null);
+            return;
+        }
+        if(m_selectedStack != null)
+        {
+            if (m_selectedStack.quantity > 0) return;
+        }
+        for(int i = m_itemStacks.Count - 1; i >= 0; i--)
+        {
+            if(m_itemStacks[i].item.IsPersistent() || m_itemStacks[i].quantity > 0)
+            {
+                SelectItemStack(m_itemStacks[i]);
+                return;
+            }
+        }
+        SelectItemStack(null);
     }
 
     public void CloseInventory()
@@ -241,6 +309,8 @@ public class Inventory_Controller : MonoBehaviour
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        m_selectedStack = null;
+        GameObject.Destroy(m_selectedItemSpawnedObject);
     }
 
     public void ToggleInventory()
@@ -254,7 +324,17 @@ public class Inventory_Controller : MonoBehaviour
     //  Select a given item stack.
     public void SelectItemStack(ItemStack _stack)
     {
-        if (_stack == null) return;
+        if (_stack == null)
+        {
+            if (m_selectedItemSpawnedObject != null)
+            {
+                GameObject.Destroy(m_selectedItemSpawnedObject);
+            }
+            m_selectedItemName.text = "";
+            m_selectedItemDescription.text = "";
+            m_dropItemBtn.gameObject.SetActive(false);
+            return;
+        }
 
         m_selectedStack = _stack;
         if(m_selectedItemSpawnedObject != null)
@@ -266,6 +346,8 @@ public class Inventory_Controller : MonoBehaviour
         {
             m_selectedItemSpawnedObject = Instantiate(_stack.item.GetModel(), m_selectedItemCam.transform);
             m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
+            Rigidbody b = m_selectedItemSpawnedObject.GetComponent<Rigidbody>();
+            if (b) b.isKinematic = true;
             int layer = LayerMask.NameToLayer("SelectedItem");
             foreach(Transform c in m_selectedItemSpawnedObject.transform)
             {
@@ -276,6 +358,7 @@ public class Inventory_Controller : MonoBehaviour
 
         m_selectedItemName.text = _stack.item.GetName();
         m_selectedItemDescription.text = _stack.item.GetDescription();
+        m_dropItemBtn.gameObject.SetActive((_stack.item.IsDroppable() && _stack.quantity > 0));
     }
 
 

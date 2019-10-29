@@ -20,3 +20,5 @@ MonoBehaviour:
     type: 3}
   m_stackable: 1
   m_persistent: 0
+  m_droppedPrefab: {fileID: -927199367670048503, guid: ffe0e2276639bfe48a45ce461de187ff,
+    type: 3}

@@ -12,6 +12,7 @@ public class InventoryItem : ScriptableObject
     public string GetName() { return m_itemName; }
 
     [SerializeField]
+    [Multiline]
     [Tooltip("The description of the item, visible to the player.")]
     private string m_itemDesc;
     public string GetDescription() { return m_itemDesc; }
@@ -40,4 +41,9 @@ public class InventoryItem : ScriptableObject
     [Tooltip("Does the item dissapear from inventory when depleted?")]
     private bool m_persistent = false;
     public bool IsPersistent() { return m_persistent; }
+
+    [SerializeField]
+    [Tooltip("What does this item turn into when dropped?")]
+    private GameObject m_droppedPrefab;
+    public GameObject GetDroppedPrefab() { return m_droppedPrefab; }
 }

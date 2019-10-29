@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c11f5e47599c444f9133d26a1630842, type: 3}
-  m_Name: Nonstackable_Item
+  m_Name: Mysterious_Cube
   m_EditorClassIdentifier: 
-  m_itemName: Nonstackable
-  m_itemDesc: This item should not stack
+  m_itemName: Cube Of Truth
+  m_itemDesc: 'Legend says that the Cube Of Truth knows the secrets of the universe.
+
+    Unfortunatly, cubes cannot speak, so nobody knows for sure.'
   m_droppable: 1
   m_sprite: {fileID: 0}
   m_modelPrefab: {fileID: 856110381556386264, guid: 8378484cef7bb084e8dca2e7f0e227e1,
     type: 3}
   m_stackable: 0
   m_persistent: 0
+  m_droppedPrefab: {fileID: 856110381556386264, guid: 8378484cef7bb084e8dca2e7f0e227e1,
+    type: 3}
