@@ -16,7 +16,7 @@ MonoBehaviour:
   m_itemDesc: This item should stack
   m_droppable: 1
   m_sprite: {fileID: 0}
-  m_modelPrefab: {fileID: 856110381556386264, guid: 8378484cef7bb084e8dca2e7f0e227e1,
+  m_modelPrefab: {fileID: -927199367670048503, guid: ffe0e2276639bfe48a45ce461de187ff,
     type: 3}
   m_stackable: 1
   m_persistent: 0

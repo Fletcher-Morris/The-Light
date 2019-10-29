@@ -3,7 +3,21 @@ guid: 28db8c4b7bb4dc34d8240d4686d64765
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_uiTransform: {instanceID: 0}
+  - m_inventoryPanel: {instanceID: 0}
+  - m_inventoryTab: {instanceID: 0}
+  - m_powdersMixPanel: {instanceID: 0}
+  - m_powdersMixTab: {instanceID: 0}
+  - m_powdersWheelPanel: {instanceID: 0}
+  - m_powdersWheelTab: {instanceID: 0}
+  - m_inventoryItems: {instanceID: 0}
+  - m_itemUiPrefab: {instanceID: 0}
+  - m_errorSprite: {fileID: 21300000, guid: 4a9dc560f19b6fb4da6b8abbd891e8ca, type: 3}
+  - m_selectedItemRt: {instanceID: 0}
+  - m_selectedItemImage: {instanceID: 0}
+  - m_selectedItemName: {instanceID: 0}
+  - m_selectedItemDescription: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

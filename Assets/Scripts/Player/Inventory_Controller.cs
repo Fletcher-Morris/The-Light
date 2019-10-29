@@ -34,11 +34,27 @@ public class Inventory_Controller : MonoBehaviour
     //  The base transform of the inventory UI.
     [SerializeField] private Transform m_uiTransform;
 
+    //  The transform of the main inventory panel.
+    [SerializeField] private Transform m_inventoryPanel;
+    //  The transform of the main inventory tab.
+    [SerializeField] private Image m_inventoryTab;
+    //  The transform of the powders mix panel.
+    [SerializeField] private Transform m_powdersMixPanel;
+    //  The transform of the powders mix tab.
+    [SerializeField] private Image m_powdersMixTab;
+    //  The transform of the powders wheel panel.
+    [SerializeField] private Transform m_powdersWheelPanel;
+    //  The transform of the powders wheel tab.
+    [SerializeField] private Image m_powdersWheelTab;
+
     //  The the transform where inventory item prefabs are spawned.
     [SerializeField] private Transform m_inventoryItems;
 
     //  The prefab for inventory item UIs.
     [SerializeField] private GameObject m_itemUiPrefab;
+
+    //  The sprite to use when noe is available.
+    [SerializeField] private Sprite m_errorSprite;
 
     //  Is the inventory currently open?
     private bool m_open;
@@ -181,6 +197,7 @@ public class Inventory_Controller : MonoBehaviour
     public void OpenInventory()
     {
         m_uiTransform.gameObject.SetActive(true);
+        ShowInventoryTab();
         foreach (ItemStack stack in m_itemStacks)
         {
             InventoryItem item = stack.item;
@@ -196,15 +213,21 @@ public class Inventory_Controller : MonoBehaviour
                     stackUi.transform.GetChild(0).GetComponent<Image>().color = Color.red;
                 }
                 stackUi.transform.GetChild(1).GetComponent<Text>().text = item.GetName();
-                stackUi.transform.GetChild(2).GetComponent<Image>().sprite = item.GetSprite();
+                Sprite useSprite = item.GetSprite();
+                if (useSprite == null) useSprite = m_errorSprite;
+                stackUi.transform.GetChild(2).GetComponent<Image>().sprite = useSprite;                
                 if (item.DoesStack())
                 {
                     stackUi.transform.GetChild(3).GetComponent<Text>().text = stack.quantity.ToString();
                 }
+                stackUi.GetComponent<Button>().onClick.AddListener(() => SelectItemStack(stack));
             }
         }
         if(m_itemStacks.Count > 0) SelectItemStack(m_itemStacks[0]);
         m_open = true;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void CloseInventory()
@@ -215,6 +238,9 @@ public class Inventory_Controller : MonoBehaviour
         }
         m_uiTransform.gameObject.SetActive(false);
         m_open = false;
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void ToggleInventory()
@@ -240,7 +266,12 @@ public class Inventory_Controller : MonoBehaviour
         {
             m_selectedItemSpawnedObject = Instantiate(_stack.item.GetModel(), m_selectedItemCam.transform);
             m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
-            m_selectedItemSpawnedObject.layer = LayerMask.NameToLayer("SelectedItem");
+            int layer = LayerMask.NameToLayer("SelectedItem");
+            foreach(Transform c in m_selectedItemSpawnedObject.transform)
+            {
+                c.gameObject.layer = layer;
+            }
+            m_selectedItemSpawnedObject.layer = layer;
         }
 
         m_selectedItemName.text = _stack.item.GetName();
@@ -261,6 +292,40 @@ public class Inventory_Controller : MonoBehaviour
             m_selectedItemCam.targetTexture = m_selectedItemRt;
             m_selectedItemCam.clearFlags = CameraClearFlags.Depth;
         }
+    }
+
+
+
+
+    //  Show the main inventory tab.
+    public void ShowInventoryTab()
+    {
+        m_inventoryPanel.gameObject.SetActive(true);
+        m_inventoryTab.enabled = true;
+        m_powdersMixPanel.gameObject.SetActive(false);
+        m_powdersMixTab.enabled = false;
+        m_powdersWheelPanel.gameObject.SetActive(false);
+        m_powdersWheelTab.enabled = false;
+    }
+    //  Show the powders mix tab.
+    public void ShowPowdersMixTab()
+    {
+        m_inventoryPanel.gameObject.SetActive(false);
+        m_inventoryTab.enabled = false;
+        m_powdersMixPanel.gameObject.SetActive(true);
+        m_powdersMixTab.enabled = true;
+        m_powdersWheelPanel.gameObject.SetActive(false);
+        m_powdersWheelTab.enabled = false;
+    }
+    //  Show the powders wheel tab.
+    public void ShowPowdersWheelTab()
+    {
+        m_inventoryPanel.gameObject.SetActive(false);
+        m_inventoryTab.enabled = false;
+        m_powdersMixPanel.gameObject.SetActive(false);
+        m_powdersMixTab.enabled = false;
+        m_powdersWheelPanel.gameObject.SetActive(true);
+        m_powdersWheelTab.enabled = true;
     }
 
 }
