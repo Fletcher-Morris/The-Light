@@ -27,6 +27,11 @@ public class InventoryItem : ScriptableObject
     public Sprite GetSprite() { return m_sprite; }
 
     [SerializeField]
+    [Tooltip("The inventory model for this item.")]
+    private GameObject m_modelPrefab;
+    public GameObject GetModel() { return m_modelPrefab; }
+
+    [SerializeField]
     [Tooltip("Does the item stack, e.g. powder.")]
     private bool m_stackable = true;
     public bool DoesStack() { return m_stackable; }

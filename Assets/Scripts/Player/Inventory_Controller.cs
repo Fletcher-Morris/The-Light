@@ -10,10 +10,22 @@ public class Inventory_Controller : MonoBehaviour
     //  Access to the singleton.
     public static Inventory_Controller Singleton() { return m_singleton; }
 
+    //  The speed at which the selected item rotates.
+    [SerializeField] private float m_selectedItemRotateSpeed = 15.0f;
+
     private void Awake()
     {
         m_singleton = this;
         ClearInventoryItems();
+        SetupRtCamera();
+    }
+
+    private void Update()
+    {
+        if(m_selectedItemSpawnedObject != null)
+        {
+            m_selectedItemSpawnedObject.transform.Rotate(Vector3.up, m_selectedItemRotateSpeed * Time.deltaTime);
+        }
     }
 
     //  The individual stacks of items.
@@ -22,10 +34,29 @@ public class Inventory_Controller : MonoBehaviour
     //  The base transform of the inventory UI.
     [SerializeField] private Transform m_uiTransform;
 
+    //  The the transform where inventory item prefabs are spawned.
+    [SerializeField] private Transform m_inventoryItems;
+
     //  The prefab for inventory item UIs.
     [SerializeField] private GameObject m_itemUiPrefab;
 
+    //  Is the inventory currently open?
     private bool m_open;
+
+    //  The currently selected item stack
+    private ItemStack m_selectedStack;
+    //  The individual stacks of items.
+    [SerializeField] private RenderTexture m_selectedItemRt;
+    //  The camera for the render texture.
+    private Camera m_selectedItemCam;
+    //  The UI image for the selected item.
+    [SerializeField] private RawImage m_selectedItemImage;
+    //  The UI text for the selected item name.
+    [SerializeField] private Text m_selectedItemName;
+    //  The UI text for the selected item description.
+    [SerializeField] private Text m_selectedItemDescription;
+    //  The spawned gameobject representing the selected item.
+    private GameObject m_selectedItemSpawnedObject;
 
 
     //  Add a quantity of items to the inventory via a reference.
@@ -159,7 +190,7 @@ public class Inventory_Controller : MonoBehaviour
             }
             else
             {
-                GameObject stackUi = GameObject.Instantiate(m_itemUiPrefab, m_uiTransform);
+                GameObject stackUi = GameObject.Instantiate(m_itemUiPrefab, m_inventoryItems);
                 if(!item.IsDroppable())
                 {
                     stackUi.transform.GetChild(0).GetComponent<Image>().color = Color.red;
@@ -172,12 +203,13 @@ public class Inventory_Controller : MonoBehaviour
                 }
             }
         }
+        if(m_itemStacks.Count > 0) SelectItemStack(m_itemStacks[0]);
         m_open = true;
     }
 
     public void CloseInventory()
     {
-        foreach(Transform child in m_uiTransform)
+        foreach(Transform child in m_inventoryItems)
         {
             Destroy(child.gameObject);
         }
@@ -189,6 +221,46 @@ public class Inventory_Controller : MonoBehaviour
     {
         if (m_open) CloseInventory();
         else OpenInventory();
+    }
+
+
+
+    //  Select a given item stack.
+    public void SelectItemStack(ItemStack _stack)
+    {
+        if (_stack == null) return;
+
+        m_selectedStack = _stack;
+        if(m_selectedItemSpawnedObject != null)
+        {
+            GameObject.Destroy(m_selectedItemSpawnedObject);
+        }
+
+        if(_stack.item.GetModel() != null)
+        {
+            m_selectedItemSpawnedObject = Instantiate(_stack.item.GetModel(), m_selectedItemCam.transform);
+            m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
+            m_selectedItemSpawnedObject.layer = LayerMask.NameToLayer("SelectedItem");
+        }
+
+        m_selectedItemName.text = _stack.item.GetName();
+        m_selectedItemDescription.text = _stack.item.GetDescription();
+    }
+
+
+
+    //  Set up the render texture and camera for the selected item.
+    private void SetupRtCamera()
+    {
+        if(m_selectedItemCam == null)
+        {
+            GameObject newCam = new GameObject("INVENTORY_ITEM_CAMERA");
+            m_selectedItemCam = newCam.AddComponent<Camera>();
+            m_selectedItemCam.transform.position = new Vector3(0, -1000, 0);
+            m_selectedItemCam.cullingMask = LayerTools.CreateLayerMask("SelectedItem");
+            m_selectedItemCam.targetTexture = m_selectedItemRt;
+            m_selectedItemCam.clearFlags = CameraClearFlags.Depth;
+        }
     }
 
 }
