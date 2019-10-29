@@ -60,4 +60,10 @@ public class Interact_Trigger : MonoBehaviour
         OnInteract.Invoke();
         if (m_onlyOnce) SetInteractable(false);
     }
+
+    public void DestroyTrigger()
+    {
+        GameObject.Destroy(m_interactUi);
+        Destroy(this);
+    }
 }

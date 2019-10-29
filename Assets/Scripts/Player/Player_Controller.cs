@@ -112,22 +112,28 @@ public class Player_Controller : MonoBehaviour
         {
             foreach(Interact_Trigger trigger in m_sceneInteractions)
             {
-                float dist = Vector3.Distance(transform.position, trigger.transform.position);
-                if(dist <= trigger.InteractionDistance())
+                if(trigger != null)
                 {
-                    if (dist < closestDist)
+                    if (trigger.enabled == true)
                     {
-                        m_closestInteraction = trigger;
-                        closestDist = dist;
+                        float dist = Vector3.Distance(transform.position, trigger.transform.position);
+                        if (dist <= trigger.InteractionDistance())
+                        {
+                            if (dist < closestDist)
+                            {
+                                m_closestInteraction = trigger;
+                                closestDist = dist;
+                            }
+                            else
+                            {
+                                trigger.SetAsClosest(false);
+                            }
+                        }
+                        else
+                        {
+                            trigger.SetAsClosest(false);
+                        }
                     }
-                    else
-                    {
-                        trigger.SetAsClosest(false);
-                    }
-                }
-                else
-                {
-                    trigger.SetAsClosest(false);
                 }
             }
         }
