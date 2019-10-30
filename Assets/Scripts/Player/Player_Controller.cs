@@ -169,9 +169,10 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.Sprint = Input.GetKey(KeyCode.LeftControl);
         PlayerInput.Interact = Input.GetKeyDown(KeyCode.E);
         PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        PlayerInput.PowderWheel = Input.GetKey(KeyCode.Q);
 
 
-        if(Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             Inventory_Controller.Singleton().ToggleInventory();
         }

@@ -308,7 +308,6 @@ public class Inventory_Controller : MonoBehaviour
         }
         m_uiTransform.gameObject.SetActive(false);
         m_open = false;
-        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         m_selectedStack = null;

@@ -19,4 +19,6 @@ public static class PlayerInput
     public static bool Hide;
 
     public static Vector2 MouseVector;
+
+    public static bool PowderWheel;
 }
