@@ -49,9 +49,7 @@ public class Interact_Trigger : MonoBehaviour
         float s = 0.25f * ((Mathf.Sin(Time.time * 1.5f)));
         m_interactUi.transform.position = m_uiAnchor.position + m_uiOffset + new Vector3(0,s,0);
         m_interactUi.SetActive(m_isClosest);
-        Vector3 angles = m_interactUi.transform.eulerAngles;
-        angles.y = m_mainCam.transform.eulerAngles.y;
-        m_interactUi.transform.eulerAngles = angles;
+        m_interactUi.transform.rotation = m_mainCam.transform.rotation;
     }
 
     public void TriggerInteraction()

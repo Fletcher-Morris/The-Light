@@ -26,7 +26,7 @@ public class Powder_Wheel : MonoBehaviour
     {
         if(m_prevWheelInput != PlayerInput.PowderWheel)
         {
-            if (PlayerInput.PowderWheel) OpenWheel();
+            if (PlayerInput.PowderWheel && GameTime.IsPaused() == false) OpenWheel();
         }
         m_prevWheelInput = PlayerInput.PowderWheel;
 

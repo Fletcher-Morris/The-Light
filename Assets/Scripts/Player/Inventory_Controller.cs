@@ -24,7 +24,7 @@ public class Inventory_Controller : MonoBehaviour
     {
         if(m_selectedItemSpawnedObject != null)
         {
-            m_selectedItemSpawnedObject.transform.Rotate(Vector3.up, m_selectedItemRotateSpeed * GameTime.deltaTime);
+            m_selectedItemSpawnedObject.transform.Rotate(Vector3.up, m_selectedItemRotateSpeed * Time.deltaTime);
             m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
         }
     }
@@ -59,6 +59,7 @@ public class Inventory_Controller : MonoBehaviour
 
     //  Is the inventory currently open?
     private bool m_open;
+    public bool IsOpen() { return m_open; }
 
     //  The currently selected item stack
     private ItemStack m_selectedStack;

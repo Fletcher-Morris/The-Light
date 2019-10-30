@@ -55,6 +55,8 @@ public class Player_Controller : MonoBehaviour
 
     private Inventory_Controller m_inventory;
 
+    [SerializeField] private Transform m_pauseMenu;
+
     private void Awake()
     {
         Ai_Manager.SetPlayerTransform(transform);
@@ -76,13 +78,13 @@ public class Player_Controller : MonoBehaviour
 
     private void Update()
     {
+        HandlePause();
         GatherInput();
         GroundCheck();
         UpdateAnimations();
         UpdateCamera();
         Movement();
         HandleInteractionTriggers();
-        HandlePause();
     }
 
     private void HandlePause()
@@ -188,10 +190,29 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         PlayerInput.PowderWheel = Input.GetKey(KeyCode.Q);
 
+        KeyCode escKeyCode = KeyCode.Escape;
+        if (Application.isEditor) escKeyCode = KeyCode.Tab;
+
+        if(Input.GetKeyDown(escKeyCode))
+        {
+            if(m_pauseMenu.gameObject.activeInHierarchy)
+            {
+                ClosePauseMenu();
+            }
+            else if (Inventory_Controller.Singleton().IsOpen())
+            {
+                Inventory_Controller.Singleton().CloseInventory();
+            }
+            else
+            {
+                OpenPauseMenu();
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Inventory_Controller.Singleton().ToggleInventory();
+            if (Inventory_Controller.Singleton().IsOpen()) Inventory_Controller.Singleton().CloseInventory();
+            else if (GameTime.IsPaused() == false) Inventory_Controller.Singleton().OpenInventory();
         }
     }
 
@@ -325,4 +346,15 @@ public class Player_Controller : MonoBehaviour
     }
 
     #endregion
+
+    public void ClosePauseMenu()
+    {
+        m_pauseMenu.gameObject.SetActive(false);
+        GameTime.UnPause();
+    }
+    public void OpenPauseMenu()
+    {
+        m_pauseMenu.gameObject.SetActive(true);
+        GameTime.Pause();
+    }
 }
