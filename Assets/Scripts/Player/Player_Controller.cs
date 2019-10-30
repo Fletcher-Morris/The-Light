@@ -246,7 +246,7 @@ public class Player_Controller : MonoBehaviour
 
     private void UpdateCamera()
     {
-        if (Time.timeScale <= 0) return;
+        if (GameTime.IsPaused()) return;
 
         m_camXAngle = Mathf.Clamp(m_camXAngle - PlayerInput.MouseVector.y, m_cameraMinAngle, m_cameraMaxAngle);
         float newDist = Mathf.Lerp(m_cameraCloseDist, m_cameraFarDist, (m_camXAngle / m_cameraMaxAngle));

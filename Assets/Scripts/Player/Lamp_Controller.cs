@@ -20,6 +20,8 @@ public class Lamp_Controller : MonoBehaviour
     [SerializeField] private bool m_on = true;
     public bool IsOn() { return m_on; }
 
+    private float m_animTime = 0.0f;
+
     private void Start()
     {
         Ai_Manager.AddLamp(this);
@@ -36,7 +38,7 @@ public class Lamp_Controller : MonoBehaviour
         float newRange = GetRange();
         foreach (AnimationCurve curve in m_noiseCurves)
         {
-            newRange += (curve.Evaluate(Time.time) * m_noiseScale);
+            newRange += (curve.Evaluate(m_animTime) * m_noiseScale);
         }
         return newRange;
     }
@@ -49,7 +51,9 @@ public class Lamp_Controller : MonoBehaviour
 
     private void Update()
     {
-        if(m_mainLamp)
+        m_animTime += GameTime.deltaTime;
+
+        if (m_mainLamp)
         {
             Shader.SetGlobalFloat("LampRange", GetNoisyEnabledRange());
             Shader.SetGlobalVector("LampPosition", transform.position);

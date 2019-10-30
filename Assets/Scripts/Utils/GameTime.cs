@@ -8,6 +8,8 @@ public static class GameTime
     private static bool m_paused = false;
     //  Return the paused state of the game.
     public static bool IsPaused() { return m_paused; }
+    //  Return the paused state of the game as an int.
+    public static int IsPausedInt() { return m_paused ? 0 : 1; }
     //  Set the paused state of the game.
     public static void SetPaused(bool _pause) { m_paused = _pause; }
     //  Pause the game.
@@ -18,6 +20,4 @@ public static class GameTime
 
     //  Return deltaTime, or 0.0f if paused.
     public static float deltaTime { get { return m_paused ? 0.0f : Time.deltaTime; } }
-    //  Return deltaTime, or 0.0f if paused.
-    //public static float deltaTime { get { return m_paused ? 0.0f : Time.deltaTime; } }
 }

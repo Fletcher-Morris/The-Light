@@ -242,6 +242,8 @@ public class Enemy_Ai : MonoBehaviour
 
         m_playerAttention -= GameTime.deltaTime;
         m_playerAttention = Mathf.Clamp(m_playerAttention, 0.0f, m_aiSettings.attentionSpan);
+
+        m_animator.speed = GameTime.IsPausedInt();
     }
 
     private void OnEnable()
