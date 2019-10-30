@@ -237,10 +237,10 @@ public class Enemy_Ai : MonoBehaviour
         if (m_debug) DebugAi();
         else NoDebug();
 
-        m_fleeTime -= Time.deltaTime;
+        m_fleeTime -= GameTime.deltaTime;
         m_fleeTime = Mathf.Clamp(m_fleeTime, 0.0f, m_aiSettings.fleeDuration);
 
-        m_playerAttention -= Time.deltaTime;
+        m_playerAttention -= GameTime.deltaTime;
         m_playerAttention = Mathf.Clamp(m_playerAttention, 0.0f, m_aiSettings.attentionSpan);
     }
 
@@ -266,7 +266,7 @@ public class Enemy_Ai : MonoBehaviour
             }
             else
             {
-                m_timeToStateCheck -= Time.deltaTime;
+                m_timeToStateCheck -= GameTime.deltaTime;
             }
             yield return null;
         }

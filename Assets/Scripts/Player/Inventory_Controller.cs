@@ -24,7 +24,7 @@ public class Inventory_Controller : MonoBehaviour
     {
         if(m_selectedItemSpawnedObject != null)
         {
-            m_selectedItemSpawnedObject.transform.Rotate(Vector3.up, m_selectedItemRotateSpeed * Time.deltaTime);
+            m_selectedItemSpawnedObject.transform.Rotate(Vector3.up, m_selectedItemRotateSpeed * GameTime.deltaTime);
             m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
         }
     }
@@ -240,6 +240,8 @@ public class Inventory_Controller : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        GameTime.Pause();
     }
 
     public void RefreshInventory()
@@ -311,6 +313,7 @@ public class Inventory_Controller : MonoBehaviour
         Cursor.visible = false;
         m_selectedStack = null;
         GameObject.Destroy(m_selectedItemSpawnedObject);
+        GameTime.UnPause();
     }
 
     public void ToggleInventory()

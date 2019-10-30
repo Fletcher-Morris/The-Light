@@ -49,13 +49,13 @@ public class Snake_Body : MonoBehaviour
             case Ai_State.Idle:
                 targetPos = transform.position + new Vector3(0.0f, m_headHeight, 0.0f);
                 targetPos += head.right * m_headSway.x * Mathf.Sin(Time.time * m_swaySpeed);
-                head.position = Vector3.Lerp(head.position, targetPos, m_headLerp * Time.deltaTime);
+                head.position = Vector3.Lerp(head.position, targetPos, m_headLerp * GameTime.deltaTime);
                 head.rotation = Quaternion.Lerp(head.rotation, transform.rotation, 0.5f);
                 break;
             default:
                 targetPos = transform.position + new Vector3(0.0f, m_headHeight / 2.0f, 0.0f);
                 targetPos += head.right * m_headSway.x * 5 * Mathf.Sin(Time.time * m_ai.GetSettings().chaseMoveSpeed);
-                head.position = Vector3.Lerp(head.position, targetPos, m_headLerp * Time.deltaTime);
+                head.position = Vector3.Lerp(head.position, targetPos, m_headLerp * GameTime.deltaTime);
                 head.rotation = Quaternion.Lerp(head.rotation, transform.rotation, 0.5f);
                 break;
         }

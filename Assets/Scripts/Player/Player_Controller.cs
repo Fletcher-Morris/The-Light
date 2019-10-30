@@ -94,14 +94,14 @@ public class Player_Controller : MonoBehaviour
 
     private void UpdatePlayerVisual()
     {
-        m_visual.position = Vector3.Lerp(m_visual.position, transform.position, m_visualLerp * Time.deltaTime);
-        m_visual.localScale = Vector3.Lerp(m_visual.localScale, transform.localScale, m_visualLerp * Time.deltaTime);
+        m_visual.position = Vector3.Lerp(m_visual.position, transform.position, m_visualLerp * GameTime.deltaTime);
+        m_visual.localScale = Vector3.Lerp(m_visual.localScale, transform.localScale, m_visualLerp * GameTime.deltaTime);
         if(m_moveDirection.magnitude >= 0.1f)
         {
             m_storedMoveDirection = m_moveDirection;
         }
         Quaternion visualRotation = Quaternion.LookRotation(m_storedMoveDirection, Vector3.up);
-        m_visual.rotation = Quaternion.Lerp(m_visual.rotation, visualRotation, m_visualRotationLerp * Time.deltaTime);
+        m_visual.rotation = Quaternion.Lerp(m_visual.rotation, visualRotation, m_visualRotationLerp * GameTime.deltaTime);
     }
 
     private void HandleInteractionTriggers()
@@ -182,7 +182,7 @@ public class Player_Controller : MonoBehaviour
         m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized * m_moveSpeed;
         Vector3 moveDirWithGravity = m_moveDirection;
         moveDirWithGravity.y -= m_gravity;
-        m_controller.Move(moveDirWithGravity * Time.deltaTime);
+        m_controller.Move(moveDirWithGravity * GameTime.deltaTime);
 
     }
 
@@ -197,7 +197,7 @@ public class Player_Controller : MonoBehaviour
         {
             if(m_controller.velocity.magnitude > 0.1f)
             {
-                m_footstepTimer += Time.deltaTime;
+                m_footstepTimer += GameTime.deltaTime;
                 if (m_footstepTimer >= (1.0f / m_footstepFreqency))
                 {
                     GroundAudioType groundType = GetGroundType();
@@ -243,8 +243,8 @@ public class Player_Controller : MonoBehaviour
         RaycastHit hit;
         if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"))) newDist = hit.distance;
         m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
-        m_camera.transform.position = new Vector3(m_cameraTarget.position.x, Mathf.Lerp(m_camera.transform.position.y, m_cameraTarget.transform.position.y, m_cameraPositionLerp * Time.deltaTime), m_cameraTarget.position.z);
-        m_camera.transform.rotation = Quaternion.Lerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraRotationLerp * Time.deltaTime);
+        m_camera.transform.position = new Vector3(m_cameraTarget.position.x, Mathf.Lerp(m_camera.transform.position.y, m_cameraTarget.transform.position.y, m_cameraPositionLerp * GameTime.deltaTime), m_cameraTarget.position.z);
+        m_camera.transform.rotation = Quaternion.Lerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraRotationLerp * GameTime.deltaTime);
     }
 
     //  DIALOGUE STUFF
