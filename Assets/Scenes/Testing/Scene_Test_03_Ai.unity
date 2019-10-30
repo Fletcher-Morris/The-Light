@@ -17466,6 +17466,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4449998854223654974, guid: f1ee8f3ee0079c245aa3be1de7795f04,
+        type: 3}
+      propertyPath: m_aiEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8699589642510195495, guid: f1ee8f3ee0079c245aa3be1de7795f04,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17525,11 +17530,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Radius
       value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4449998854223654974, guid: f1ee8f3ee0079c245aa3be1de7795f04,
-        type: 3}
-      propertyPath: m_aiEnabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1ee8f3ee0079c245aa3be1de7795f04, type: 3}

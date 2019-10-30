@@ -236,12 +236,8 @@ public class Inventory_Controller : MonoBehaviour
         m_uiTransform.gameObject.SetActive(true);
         ShowInventoryTab();
         RefreshInventory();
-        m_open = true;
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
         GameTime.Pause();
+        m_open = true;
     }
 
     public void RefreshInventory()
@@ -308,8 +304,6 @@ public class Inventory_Controller : MonoBehaviour
         }
         m_uiTransform.gameObject.SetActive(false);
         m_open = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         m_selectedStack = null;
         GameObject.Destroy(m_selectedItemSpawnedObject);
         GameTime.UnPause();

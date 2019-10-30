@@ -82,6 +82,23 @@ public class Player_Controller : MonoBehaviour
         UpdateCamera();
         Movement();
         HandleInteractionTriggers();
+        HandlePause();
+    }
+
+    private void HandlePause()
+    {
+        if(GameTime.IsPaused())
+        {
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     private void LateUpdate()
