@@ -18,6 +18,15 @@ public class Inventory_Controller : MonoBehaviour
         m_singleton = this;
         ClearInventoryItems();
         SetupRtCamera();
+
+        while(m_powderQuantities.Count < m_allPowders.Count)
+        {
+            m_powderQuantities.Add(0);
+        }
+        while (m_powderQuantities.Count > m_allPowders.Count)
+        {
+            m_powderQuantities.RemoveAt(m_powderQuantities.Count - 1);
+        }
     }
 
     private void Update()
@@ -34,7 +43,6 @@ public class Inventory_Controller : MonoBehaviour
 
     //  The base transform of the inventory UI.
     [SerializeField] private Transform m_uiTransform;
-
     //  The transform of the main inventory panel.
     [SerializeField] private Transform m_inventoryPanel;
     //  The transform of the main inventory tab.
@@ -48,19 +56,19 @@ public class Inventory_Controller : MonoBehaviour
     //  The transform of the powders wheel tab.
     [SerializeField] private Image m_powdersWheelTab;
 
+
+    [Header("Main Inventory")]
+
+
     //  The the transform where inventory item prefabs are spawned.
     [SerializeField] private Transform m_inventoryItems;
-
     //  The prefab for inventory item UIs.
     [SerializeField] private GameObject m_itemUiPrefab;
-
     //  The sprite to use when noe is available.
     [SerializeField] private Sprite m_errorSprite;
-
     //  Is the inventory currently open?
     private bool m_open;
     public bool IsOpen() { return m_open; }
-
     //  The currently selected item stack
     private ItemStack m_selectedStack;
     //  The individual stacks of items.
@@ -77,6 +85,20 @@ public class Inventory_Controller : MonoBehaviour
     [SerializeField] private Button m_dropItemBtn;
     //  The spawned gameobject representing the selected item.
     private GameObject m_selectedItemSpawnedObject;
+
+
+    [Header("Powders Inventory")]
+
+    //  All powders used in the game.
+    [SerializeField] private List<Powder> m_allPowders = new List<Powder>();
+    //  The quantities of powders possessed by the player.
+    [SerializeField] private List<int> m_powderQuantities = new List<int>();
+    //  The transform of the powders wheel.
+    [SerializeField] private Transform m_powdersWheel;
+    //  The transform where powder ui items are spawned.
+    [SerializeField] private Transform m_powdersItems;
+    //  The sprite used for powders.
+    [SerializeField] private Sprite m_powderSprite;
 
 
     //  Add a quantity of items to the inventory via a reference.
@@ -100,7 +122,7 @@ public class Inventory_Controller : MonoBehaviour
                 if(added == false) m_itemStacks.Add(new ItemStack(_item));
             }
             Debug.Log("Added " + _quantity + " non-stackable items (" + _item.GetName() + ") to inventory.");
-            RefreshInventory();
+            RefreshMainInventory();
             return;
         }
 
@@ -111,12 +133,12 @@ public class Inventory_Controller : MonoBehaviour
             {
                 stack.quantity += _quantity;
                 Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
-                RefreshInventory();
+                RefreshMainInventory();
                 return;
             }
         }
         m_itemStacks.Add(new ItemStack(_item, _quantity));
-        RefreshInventory();
+        RefreshMainInventory();
         Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
     }
 
@@ -153,7 +175,7 @@ public class Inventory_Controller : MonoBehaviour
 
         Debug.Log("Removed " + _quantity + " items (" + _item.GetName() + ") from inventory.");
 
-        RefreshInventory();
+        RefreshMainInventory();
     }
 
     //  Remove a single item from the inventory via reference.
@@ -173,7 +195,7 @@ public class Inventory_Controller : MonoBehaviour
             }
         }
         Debug.Log("Removed all of item (" + _item.GetName() + ") from inventory.");
-        RefreshInventory();
+        RefreshMainInventory();
     }
 
     //  Remove all inventory items.
@@ -216,14 +238,14 @@ public class Inventory_Controller : MonoBehaviour
             RemoveItemFromInventory(_item);
             SpawnItemAtPlayer(_item);
         }
-        RefreshInventory();
+        RefreshMainInventory();
     }
     //  Drop a specific item.
     public void ForceDropItem(InventoryItem _item)
     {
         RemoveItemFromInventory(_item);
         SpawnItemAtPlayer(_item);
-        RefreshInventory();
+        RefreshMainInventory();
     }
     //  Spawn a specific item at the player's location.
     public void SpawnItemAtPlayer(InventoryItem _item)
@@ -236,13 +258,13 @@ public class Inventory_Controller : MonoBehaviour
     {
         m_uiTransform.gameObject.SetActive(true);
         ShowInventoryTab();
-        RefreshInventory();
         GameTime.Pause();
         m_open = true;
     }
 
-    public void RefreshInventory()
+    public void RefreshMainInventory()
     {
+        if (!m_inventoryPanel.gameObject.activeInHierarchy) return;
         foreach (Transform child in m_inventoryItems)
         {
             Destroy(child.gameObject);
@@ -386,6 +408,7 @@ public class Inventory_Controller : MonoBehaviour
         m_powdersMixTab.enabled = false;
         m_powdersWheelPanel.gameObject.SetActive(false);
         m_powdersWheelTab.enabled = false;
+        RefreshMainInventory();
     }
     //  Show the powders mix tab.
     public void ShowPowdersMixTab()
@@ -406,6 +429,68 @@ public class Inventory_Controller : MonoBehaviour
         m_powdersMixTab.enabled = false;
         m_powdersWheelPanel.gameObject.SetActive(true);
         m_powdersWheelTab.enabled = true;
+        RefreshPowdersInventory();
+    }
+
+
+
+    public int GetPowderId(Powder _powder)
+    {
+        int id = -1;
+        for (int i = 0; i < m_allPowders.Count; i++)
+        {
+            if (m_allPowders[i] == _powder)
+            {
+                id = i;
+                break;
+            }
+        }
+        return id;
+    }
+
+    public void AddPowderToInventory(Powder _powder)
+    {
+        AddPowderToInventory(_powder, 1);
+    }
+    public void AddPowderToInventory(Powder _powder, int _quantity)
+    {
+        int id = GetPowderId(_powder);
+        if (id == -1)
+        {
+            id = m_allPowders.Count;
+            m_allPowders.Add(_powder);
+            m_powderQuantities.Add(_quantity);
+        }
+        RefreshPowdersInventory();
+    }
+
+    public void RefreshPowdersInventory()
+    {
+        if (!m_powdersWheelPanel.gameObject.activeInHierarchy) return;
+        foreach (Transform child in m_powdersItems)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Powder powder in m_allPowders)
+        {
+            GameObject pow = new GameObject(powder.GetName());
+            pow.transform.SetParent(m_powdersItems);
+            Image img = pow.AddComponent<Image>();
+            img.color = powder.GetColor();
+            img.sprite = m_powderSprite;
+            Button btn = pow.AddComponent<Button>();
+            btn.onClick.AddListener(() => SelectInventoryPowder(powder));
+        }
+    }
+
+    private Powder m_selectedPowder;
+    private int m_selectedPowderId;
+
+    public void SelectInventoryPowder(Powder _powder)
+    {
+        m_selectedPowder = _powder;
+        m_selectedPowderId = GetPowderId(_powder);
+
     }
 
 }
