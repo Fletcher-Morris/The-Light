@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_powderName: Red Powder
   m_powderColor: {r: 1, g: 0, b: 0, a: 1}
-  m_recepies:
-  - Powders:
-    - {fileID: 11400000}
-    Yield: 1
+  m_description: 
+  m_recipes: []
   m_stunPower: 0

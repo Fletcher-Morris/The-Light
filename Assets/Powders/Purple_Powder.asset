@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbcf8ac9a3bd8e647bf7e9d5ba18d059, type: 3}
-  m_Name: Blue_Powder
+  m_Name: Purple_Powder
   m_EditorClassIdentifier: 
-  m_powderName: Blue Powder
-  m_powderColor: {r: 0, g: 0, b: 1, a: 1}
-  m_recepies:
+  m_powderName: Purple Powder
+  m_powderColor: {r: 0.7833333, g: 0, b: 1, a: 1}
+  m_description: 
+  m_recipes:
   - Powders:
-    - {fileID: 11400000}
-    Yield: 1
+    - {fileID: 11400000, guid: c92c4909c89b1e94bbce0bf77846c627, type: 2}
+    - {fileID: 11400000, guid: 8424bbaf598c83b4d9281a1b8ab5287d, type: 2}
+    Yield: 2
   m_stunPower: 0
