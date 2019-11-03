@@ -99,7 +99,22 @@ ModelImporter:
   - first:
       95: 9500000
     second: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Parchment
+    second: {fileID: 2100000, guid: 184923f34c483cb4bacdb9eac62a0485, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_ParchmentText
+    second: {fileID: 2100000, guid: 927f830bc6ca6a9478fa751dc4b0d897, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Wood
+    second: {fileID: 2100000, guid: a133015d2bb42a44ea44f77a6961e59c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
