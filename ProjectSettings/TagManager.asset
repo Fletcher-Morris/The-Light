@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Water
+  - Animal
+  - CorruptionCloud
+  - Fly
+  - LightRange
   layers:
   - Default
   - TransparentFX
@@ -25,7 +30,7 @@ TagManager:
   - SelectedItem
   - 
   - 
-  - 
+  - Animal
   - 
   - 
   - 
