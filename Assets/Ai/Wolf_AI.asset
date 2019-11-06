@@ -17,7 +17,7 @@ MonoBehaviour:
   chaseRange: 20
   stopChaseRange: 50
   attackRange: 1
-  wanderMoveSpeed: 6
+  wanderMoveSpeed: 5
   searchMoveSpeed: 6
   chaseMoveSpeed: 10
   fleeMoveSpeed: 10
