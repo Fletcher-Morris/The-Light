@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Player_Controller : MonoBehaviour
 {
+    private static Player_Controller m_singleton;
+    public static Player_Controller Singleton() { return m_singleton; }
+
 
     [Header("Movement Settings")]
     [SerializeField] private float m_moveSpeed = 8.0f;
@@ -59,6 +62,7 @@ public class Player_Controller : MonoBehaviour
 
     private void Awake()
     {
+        m_singleton = this;
         Ai_Manager.SetPlayerTransform(transform);
         GatherComponents();
         m_visual.parent = null;
