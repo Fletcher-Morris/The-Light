@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c11f5e47599c444f9133d26a1630842, type: 3}
+  m_Name: Parchment
+  m_EditorClassIdentifier: 
+  m_itemName: Parchment
+  m_itemDesc: "Dear villagers,\r\nI can now inform you that the lantern is officially
+    finished. As mentioned during our last meeting, everyone is responsible for the
+    safety of this lantern. Please remember to not use the lantern until the nearest
+    village\u2019s light is down.\r\nAs the chief of this village, let me share how
+    proud I am. Fighting among you to bring the light on humanity is an honour. Soon,
+    the battle will start. Many of us won\u2019t make it but we are glad to sacrifice
+    our life and let a warrior reach the main city and save us all.\r\n"
+  m_droppable: 1
+  m_sprite: {fileID: 0}
+  m_modelPrefab: {fileID: 100006, guid: 27efa65617e6a304883c31ff451ad4d2, type: 3}
+  m_stackable: 0
+  m_persistent: 0
+  m_droppedPrefab: {fileID: 100006, guid: 27efa65617e6a304883c31ff451ad4d2, type: 3}
