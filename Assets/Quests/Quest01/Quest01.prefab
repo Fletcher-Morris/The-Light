@@ -45,5 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questname: Collect Parchment
   describe: Collect Parchment at mailbox
-  nextquests: []
+  nextquests:
+  - {fileID: 6027440442571893635, guid: e2818bba237175e4b9d823d209a76f61, type: 3}
   quest_active: 1

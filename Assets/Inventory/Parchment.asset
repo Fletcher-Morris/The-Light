@@ -28,3 +28,4 @@ MonoBehaviour:
   m_persistent: 0
   m_droppedPrefab: {fileID: 642877731731530842, guid: deb5b1bd89ca5314fb9f1e97e3ac17b3,
     type: 3}
+  m_inventoryItemScale: 4.4
