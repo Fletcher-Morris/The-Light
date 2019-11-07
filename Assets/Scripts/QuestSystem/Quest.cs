@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Quest : MonoBehaviour
 {
-    [SerializeField]protected string questname;
-    [SerializeField]protected string describe;
+    [SerializeField] protected string questname;
+    [SerializeField] protected string describe;
 
-    List<Condition> conditions=new List<Condition>();
-
+    List<Condition> conditions = new List<Condition>();
+    [SerializeField] protected List<GameObject> nextquests = new List<GameObject>();
     public bool quest_active = false;
 
     /// <summary>
@@ -108,7 +108,13 @@ public class Quest : MonoBehaviour
     ///</summary>
     public virtual void OnFinish()
     {
-       
+        if (nextquests.Count > 0)
+        {
+            foreach(GameObject ga in nextquests)
+            {
+                Instantiate(ga);
+            }
+        }
     }
 
     ///<summary>

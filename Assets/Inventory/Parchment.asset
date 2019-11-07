@@ -20,9 +20,11 @@ MonoBehaviour:
     proud I am. Fighting among you to bring the light on humanity is an honour. Soon,
     the battle will start. Many of us won\u2019t make it but we are glad to sacrifice
     our life and let a warrior reach the main city and save us all.\r\n"
-  m_droppable: 1
+  m_droppable: 0
   m_sprite: {fileID: 0}
-  m_modelPrefab: {fileID: 100006, guid: 27efa65617e6a304883c31ff451ad4d2, type: 3}
+  m_modelPrefab: {fileID: 642877731731530842, guid: deb5b1bd89ca5314fb9f1e97e3ac17b3,
+    type: 3}
   m_stackable: 0
   m_persistent: 0
-  m_droppedPrefab: {fileID: 100006, guid: 27efa65617e6a304883c31ff451ad4d2, type: 3}
+  m_droppedPrefab: {fileID: 642877731731530842, guid: deb5b1bd89ca5314fb9f1e97e3ac17b3,
+    type: 3}
