@@ -21,6 +21,7 @@ public class Player_Controller : MonoBehaviour
     private Vector3 m_moveDirection;
     private Vector3 m_storedMoveDirection;
     [SerializeField] private float m_gravity = 10.0f;
+    [SerializeField] private Animator m_animator;
 
     [Header("Interactions")]
 
@@ -231,7 +232,9 @@ public class Player_Controller : MonoBehaviour
 
     private void UpdateAnimations()
     {
+        if (m_animator == null) return;
 
+        m_animator.SetFloat("move", m_moveDirection.magnitude);
     }
 
     private void Footsteps()
