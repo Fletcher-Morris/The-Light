@@ -16,8 +16,5 @@ public class Quest01 : Quest
             QuestManager.instance.FinishQuest(this);
         }
     }
-    public override void OnFinish()
-    {
-       
-    }
+ 
 }

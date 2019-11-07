@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager instance;
@@ -10,11 +10,12 @@ public class QuestManager : MonoBehaviour
 
     List<Quest> quests=new List<Quest>();
     List<string> finishedquests = new List<string>();
-    
-
     //it is not safe to add/remove elements during foreach, so use buffer to add/remove later 
     List<Quest> add_buffer = new List<Quest>();
     List<Quest> remove_buffer = new List<Quest>();
+
+    GameObject questtext;
+    string st;
 
     bool quest_check_running=false;
     static QuestManager()
@@ -24,6 +25,10 @@ public class QuestManager : MonoBehaviour
         instance=ga.AddComponent<QuestManager>();
     }
 
+    private void Awake()
+    {
+        questtext = GameObject.FindGameObjectWithTag("QuestLayer");
+    }
     /// <summary>
     /// add quest to the quest list
     /// </summary>
@@ -80,7 +85,7 @@ public class QuestManager : MonoBehaviour
     {
         foreach(Quest q in quests)
         {
-            if (q.name == qu_name)
+            if (q.Getname() == qu_name)
             {
                 return q;
             }
@@ -182,6 +187,7 @@ public class QuestManager : MonoBehaviour
 
     void Update()
     {
+        st = "";
         //add quests from addbuffer
         foreach(Quest q in add_buffer)
         {
@@ -208,11 +214,15 @@ public class QuestManager : MonoBehaviour
         {
             if(q.quest_active)
             q.Check();
-          //  Debug.Log("111");
+            st += q.Getname();
+            st += "\n";
+            st += q.Getdesc();
+            st += "\n";
+            //  Debug.Log("111");
         }
         quest_check_running = false;
        
-
+        questtext.GetComponent<Text>().text = st;
 
         //  Debug.Log(quests.Count);
         if (Input.GetKeyDown(KeyCode.L))

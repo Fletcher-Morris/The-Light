@@ -9,6 +9,8 @@ TagManager:
   - CorruptionCloud
   - Fly
   - LightRange
+  - Watermill
+  - QuestLayer
   layers:
   - Default
   - TransparentFX

@@ -93,7 +93,10 @@ public class Quest : MonoBehaviour
     {
         return this.questname;
     }
-
+    public string Getdesc()
+    {
+        return this.describe;
+    }
     ///<summary>
     ///run when quest is added to the quest list(as soon as the quest is in the scene)
     ///</summary>
