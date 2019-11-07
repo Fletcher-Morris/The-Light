@@ -59,6 +59,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 105a20790cfaee246a6230c8fd1e8643, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,7 +96,7 @@ MonoBehaviour:
   - nodeStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: 5f71f436cca5101489fbe40df8146a2d, type: 3}
         m_ScaledBackgrounds: []
         m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
@@ -162,7 +163,7 @@ MonoBehaviour:
     selectedNodeStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: e6953a04438126f4d87e925d57fffbe6, type: 3}
         m_ScaledBackgrounds: []
         m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
@@ -229,7 +230,7 @@ MonoBehaviour:
     deleteButtonStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: fd8af19349c54814ba6c38c1950b6a9e, type: 3}
         m_ScaledBackgrounds: []
         m_TextColor: {r: 0, g: 0, b: 0, a: 1}
       m_Hover:
@@ -556,7 +557,7 @@ MonoBehaviour:
   - nodeStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: 5f71f436cca5101489fbe40df8146a2d, type: 3}
         m_ScaledBackgrounds: []
         m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
@@ -623,7 +624,7 @@ MonoBehaviour:
     selectedNodeStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: e6953a04438126f4d87e925d57fffbe6, type: 3}
         m_ScaledBackgrounds: []
         m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
@@ -690,7 +691,7 @@ MonoBehaviour:
     deleteButtonStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: fd8af19349c54814ba6c38c1950b6a9e, type: 3}
         m_ScaledBackgrounds: []
         m_TextColor: {r: 0, g: 0, b: 0, a: 1}
       m_Hover:
@@ -981,7 +982,7 @@ MonoBehaviour:
   - nodeStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: 5f71f436cca5101489fbe40df8146a2d, type: 3}
         m_ScaledBackgrounds: []
         m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
@@ -1048,7 +1049,7 @@ MonoBehaviour:
     selectedNodeStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: e6953a04438126f4d87e925d57fffbe6, type: 3}
         m_ScaledBackgrounds: []
         m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
@@ -1115,7 +1116,7 @@ MonoBehaviour:
     deleteButtonStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: fd8af19349c54814ba6c38c1950b6a9e, type: 3}
         m_ScaledBackgrounds: []
         m_TextColor: {r: 0, g: 0, b: 0, a: 1}
       m_Hover:
@@ -1432,5 +1433,5 @@ MonoBehaviour:
   - 0.4
   - 0.6
   saveTreeFolder: Assets
-  polycount: 1675
+  polycount: 2671
   MtreeVersion: 2_0
