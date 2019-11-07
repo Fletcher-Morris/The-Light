@@ -475,6 +475,7 @@ public class Inventory_Controller : MonoBehaviour
         {
             GameObject pow = new GameObject(powder.GetName());
             pow.transform.SetParent(m_powdersItems);
+            pow.transform.localScale = Vector3.one;
             Image img = pow.AddComponent<Image>();
             img.color = powder.GetColor();
             img.sprite = m_powderSprite;
