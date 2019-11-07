@@ -46,4 +46,8 @@ public class InventoryItem : ScriptableObject
     [Tooltip("What does this item turn into when dropped?")]
     private GameObject m_droppedPrefab;
     public GameObject GetDroppedPrefab() { return m_droppedPrefab; }
+
+    [Tooltip("The scale of the item when viewed in the inventory.")]
+    [SerializeField] private float m_inventoryItemScale = 1.0f;
+    public float InventoryItemScale { get => m_inventoryItemScale; }
 }

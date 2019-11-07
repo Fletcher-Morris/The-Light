@@ -365,6 +365,8 @@ public class Inventory_Controller : MonoBehaviour
         {
             m_selectedItemSpawnedObject = Instantiate(_stack.item.GetModel(), m_selectedItemCam.transform);
             m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
+            float s = _stack.item.InventoryItemScale;
+            m_selectedItemSpawnedObject.transform.localScale = new Vector3(s, s, s);
             Rigidbody b = m_selectedItemSpawnedObject.GetComponent<Rigidbody>();
             if (b) b.isKinematic = true;
             int layer = LayerMask.NameToLayer("SelectedItem");
@@ -473,11 +475,11 @@ public class Inventory_Controller : MonoBehaviour
         }
         foreach (Powder powder in m_allPowders)
         {
-            GameObject pow = new GameObject(powder.GetName());
+            GameObject pow = new GameObject(powder.PowderName);
             pow.transform.SetParent(m_powdersItems);
             pow.transform.localScale = Vector3.one;
             Image img = pow.AddComponent<Image>();
-            img.color = powder.GetColor();
+            img.color = powder.PowderColor;
             img.sprite = m_powderSprite;
             Button btn = pow.AddComponent<Button>();
             btn.onClick.AddListener(() => SelectInventoryPowder(powder));
