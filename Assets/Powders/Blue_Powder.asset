@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_powderName: Blue Powder
   m_powderColor: {r: 0, g: 0, b: 1, a: 1}
-  m_description: 
+  m_description: 'Stuns enamies for a short time when burnt.
+
+    No Lingering effects.'
   m_recipes: []
-  m_stunPower: 0
+  m_stunPower: 1
