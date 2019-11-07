@@ -10,7 +10,7 @@ public class HumanCamp_Part1 : MonoBehaviour
     //Soldiers
     [Header("Soldier")]
     [SerializeField] List<AudioClip> Soldiersclips = new List<AudioClip>();
-    [SerializeField] Animator SoldierA;
+    [SerializeField] Animator SoldierA, SoldierB;
     //public bool EndRead, EndParchment, EndStandUp, EndWalk = false;
     bool SoldiersAreSitting = true;
 
@@ -34,16 +34,26 @@ public class HumanCamp_Part1 : MonoBehaviour
     }
 
     int random, previous = 0;
-    IEnumerator SoldierSitting()
+    IEnumerator SoldierSitting(Animator Soldier)
     {
         while (SoldiersAreSitting)
         {
+            yield return new WaitForSeconds(Random.Range(1f, 10f)); //Avoid the animations of soldiers to happen at the same time
+
             //Random animation IDLE for soldier
             random = Random.Range(1, 4); //4 is the number of animation available -1 (as 4 is exluded)
             while (random == previous)
                 random = Random.Range(1, 4); // Avoid having same animation several time
-            SoldierA.SetBool("IDLE_talking" + random.ToString(), true);
-            SoldierA.SetBool("IDLE_talking" + previous.ToString(), false);
+
+            //Play idle
+            Soldier.SetBool("IDLE_talking" + random.ToString(), true);
+
+            //Wait for the animation to finish
+            //yield return new WaitUntil(() => Soldier.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+            yield return new WaitForSeconds(1f); //Let the animation being done
+            //Stop idle
+            Soldier.SetBool("IDLE_talking" + random.ToString(), false); //to avoid loop
+
             previous = random;
             yield return new WaitForSeconds(Random.Range(25f,50f));
         }
@@ -53,7 +63,8 @@ public class HumanCamp_Part1 : MonoBehaviour
     //Part 1 A: Soldier talks while the chief waits
     IEnumerator SoldierTalk()
     {
-        StartCoroutine(SoldierSitting());
+        StartCoroutine(SoldierSitting(SoldierA));
+        StartCoroutine(SoldierSitting(SoldierB));
         foreach (AudioClip clip in Soldiersclips)
         {
             //Wait for the previous audio to finish
@@ -92,7 +103,6 @@ public class HumanCamp_Part1 : MonoBehaviour
         //Move the character from point A to point B
         while (Vector3.Distance(ChiefAnim.transform.position, ChiefEnd.position) >= 0.01f)
         {
-            Debug.Log(Vector3.Distance(ChiefAnim.transform.position, ChiefEnd.position));
             // Move our position a step closer to the target.
             float step = speed * Time.deltaTime; // calculate distance to move
             ChiefAnim.transform.position = Vector3.MoveTowards(ChiefAnim.transform.position, ChiefEnd.position, step);
