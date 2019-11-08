@@ -1,35 +1,89 @@
 fileFormatVersion: 2
 guid: f09b4c926b2a7114eac3a64fc0b00299
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Grounds
-    100002: LakePlatfoms
-    100004: Partfoms
-    100006: pasted__WaterMill_2
-    100008: Platform_11
-    100010: //RootNode
-    100012: WaterMillHouse
-    400000: Grounds
-    400002: LakePlatfoms
-    400004: Partfoms
-    400006: pasted__WaterMill_2
-    400008: Platform_11
-    400010: //RootNode
-    400012: WaterMillHouse
-    2100000: lambert1
-    2100002: pasted__lambert2
-    2300000: pasted__WaterMill_2
-    2300002: Platform_11
-    2300004: WaterMillHouse
-    2300006: //RootNode
-    3300000: pasted__WaterMill_2
-    3300002: Platform_11
-    3300004: WaterMillHouse
-    3300006: //RootNode
-    4300000: Platform_11
-    4300002: WaterMillHouse
-    4300004: pasted__WaterMill_2
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Grounds
+  - first:
+      1: 100002
+    second: LakePlatfoms
+  - first:
+      1: 100004
+    second: Partfoms
+  - first:
+      1: 100006
+    second: pasted__WaterMill_2
+  - first:
+      1: 100008
+    second: Platform_11
+  - first:
+      1: 100010
+    second: //RootNode
+  - first:
+      1: 100012
+    second: WaterMillHouse
+  - first:
+      4: 400000
+    second: Grounds
+  - first:
+      4: 400002
+    second: LakePlatfoms
+  - first:
+      4: 400004
+    second: Partfoms
+  - first:
+      4: 400006
+    second: pasted__WaterMill_2
+  - first:
+      4: 400008
+    second: Platform_11
+  - first:
+      4: 400010
+    second: //RootNode
+  - first:
+      4: 400012
+    second: WaterMillHouse
+  - first:
+      21: 2100000
+    second: lambert1
+  - first:
+      21: 2100002
+    second: pasted__lambert2
+  - first:
+      23: 2300000
+    second: pasted__WaterMill_2
+  - first:
+      23: 2300002
+    second: Platform_11
+  - first:
+      23: 2300004
+    second: WaterMillHouse
+  - first:
+      23: 2300006
+    second: //RootNode
+  - first:
+      33: 3300000
+    second: pasted__WaterMill_2
+  - first:
+      33: 3300002
+    second: Platform_11
+  - first:
+      33: 3300004
+    second: WaterMillHouse
+  - first:
+      33: 3300006
+    second: //RootNode
+  - first:
+      43: 4300000
+    second: Platform_11
+  - first:
+      43: 4300002
+    second: WaterMillHouse
+  - first:
+      43: 4300004
+    second: pasted__WaterMill_2
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -65,25 +119,27 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -92,10 +148,11 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -105,6 +162,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

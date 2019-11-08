@@ -12,7 +12,7 @@ public class Watermill : MonoBehaviour
         vt = wheelupplace.transform.position - waterwheel.transform.position;
         vt.x = 0;
         vt.z = 0;
-      for(int i=0;i<100; i++)
+        for (int i=0;i<100; i++)
         {
             waterwheel.transform.position += vt / 100;
             yield return new WaitForFixedUpdate();

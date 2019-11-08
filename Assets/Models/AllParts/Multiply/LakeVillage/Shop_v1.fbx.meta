@@ -1,46 +1,122 @@
 fileFormatVersion: 2
 guid: 0699223003637964a9582b28b592696b
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: FishMarket
-    100002: Grounds
-    100004: LakePlatfoms
-    100006: Partfoms
-    100008: Platform_15
-    100010: //RootNode
-    100012: Table2
-    100014: Table3
-    100016: Tent3
-    100018: Tent4
-    400000: FishMarket
-    400002: Grounds
-    400004: LakePlatfoms
-    400006: Partfoms
-    400008: Platform_15
-    400010: //RootNode
-    400012: Table2
-    400014: Table3
-    400016: Tent3
-    400018: Tent4
-    2100000: lambert1
-    2300000: Platform_15
-    2300002: Table2
-    2300004: Table3
-    2300006: Tent3
-    2300008: Tent4
-    2300010: //RootNode
-    3300000: Platform_15
-    3300002: Table2
-    3300004: Table3
-    3300006: Tent3
-    3300008: Tent4
-    3300010: //RootNode
-    4300000: Platform_15
-    4300002: Tent3
-    4300004: Table2
-    4300006: Table3
-    4300008: Tent4
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: FishMarket
+  - first:
+      1: 100002
+    second: Grounds
+  - first:
+      1: 100004
+    second: LakePlatfoms
+  - first:
+      1: 100006
+    second: Partfoms
+  - first:
+      1: 100008
+    second: Platform_15
+  - first:
+      1: 100010
+    second: //RootNode
+  - first:
+      1: 100012
+    second: Table2
+  - first:
+      1: 100014
+    second: Table3
+  - first:
+      1: 100016
+    second: Tent3
+  - first:
+      1: 100018
+    second: Tent4
+  - first:
+      4: 400000
+    second: FishMarket
+  - first:
+      4: 400002
+    second: Grounds
+  - first:
+      4: 400004
+    second: LakePlatfoms
+  - first:
+      4: 400006
+    second: Partfoms
+  - first:
+      4: 400008
+    second: Platform_15
+  - first:
+      4: 400010
+    second: //RootNode
+  - first:
+      4: 400012
+    second: Table2
+  - first:
+      4: 400014
+    second: Table3
+  - first:
+      4: 400016
+    second: Tent3
+  - first:
+      4: 400018
+    second: Tent4
+  - first:
+      21: 2100000
+    second: lambert1
+  - first:
+      23: 2300000
+    second: Platform_15
+  - first:
+      23: 2300002
+    second: Table2
+  - first:
+      23: 2300004
+    second: Table3
+  - first:
+      23: 2300006
+    second: Tent3
+  - first:
+      23: 2300008
+    second: Tent4
+  - first:
+      23: 2300010
+    second: //RootNode
+  - first:
+      33: 3300000
+    second: Platform_15
+  - first:
+      33: 3300002
+    second: Table2
+  - first:
+      33: 3300004
+    second: Table3
+  - first:
+      33: 3300006
+    second: Tent3
+  - first:
+      33: 3300008
+    second: Tent4
+  - first:
+      33: 3300010
+    second: //RootNode
+  - first:
+      43: 4300000
+    second: Platform_15
+  - first:
+      43: 4300002
+    second: Tent3
+  - first:
+      43: 4300004
+    second: Table2
+  - first:
+      43: 4300006
+    second: Table3
+  - first:
+      43: 4300008
+    second: Tent4
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -76,25 +152,27 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -103,10 +181,11 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -116,6 +195,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

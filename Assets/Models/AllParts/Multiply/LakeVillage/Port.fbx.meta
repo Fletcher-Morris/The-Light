@@ -1,29 +1,71 @@
 fileFormatVersion: 2
 guid: 9ba79feffc6dea6438e8f7a0f46c72e9
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Grounds
-    100002: LakePlatfoms
-    100004: Partfoms
-    100006: Platform_16
-    100008: Port
-    100010: //RootNode
-    400000: Grounds
-    400002: LakePlatfoms
-    400004: Partfoms
-    400006: Platform_16
-    400008: Port
-    400010: //RootNode
-    2100000: lambert1
-    2300000: Platform_16
-    2300002: Port
-    2300004: //RootNode
-    3300000: Platform_16
-    3300002: Port
-    3300004: //RootNode
-    4300000: Platform_16
-    4300002: Port
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Grounds
+  - first:
+      1: 100002
+    second: LakePlatfoms
+  - first:
+      1: 100004
+    second: Partfoms
+  - first:
+      1: 100006
+    second: Platform_16
+  - first:
+      1: 100008
+    second: Port
+  - first:
+      1: 100010
+    second: //RootNode
+  - first:
+      4: 400000
+    second: Grounds
+  - first:
+      4: 400002
+    second: LakePlatfoms
+  - first:
+      4: 400004
+    second: Partfoms
+  - first:
+      4: 400006
+    second: Platform_16
+  - first:
+      4: 400008
+    second: Port
+  - first:
+      4: 400010
+    second: //RootNode
+  - first:
+      21: 2100000
+    second: lambert1
+  - first:
+      23: 2300000
+    second: Platform_16
+  - first:
+      23: 2300002
+    second: Port
+  - first:
+      23: 2300004
+    second: //RootNode
+  - first:
+      33: 3300000
+    second: Platform_16
+  - first:
+      33: 3300002
+    second: Port
+  - first:
+      33: 3300004
+    second: //RootNode
+  - first:
+      43: 4300000
+    second: Platform_16
+  - first:
+      43: 4300002
+    second: Port
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -59,25 +101,27 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -86,10 +130,11 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -99,6 +144,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

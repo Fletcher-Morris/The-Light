@@ -55,8 +55,8 @@ public class Player_Controller : MonoBehaviour
 
     [Header("Audio")]
     private AudioSource m_footstepSource;
-    [SerializeField] private float m_runningStepMultiplier = 25.0f;
-    [SerializeField] private float m_walkingStepMultiplier = 3.0f;
+    [SerializeField] private float m_runningStepMultiplier = 1.0f;
+    [SerializeField] private float m_walkingStepMultiplier = 1.0f;
     private int m_footstepCounter = 0;
     private float m_footstepTimer = 0.0f;
 
@@ -245,10 +245,10 @@ public class Player_Controller : MonoBehaviour
         {
             if(m_controller.velocity.magnitude > 0.1f)
             {
-                float freq = m_runningStepMultiplier;
-                if (PlayerInput.Walk) freq = m_walkingStepMultiplier;
-                m_footstepTimer += GameTime.deltaTime;
-                if (m_footstepTimer >= m_moveDirection.magnitude / freq)
+                float s = m_runningStepMultiplier;
+                if (PlayerInput.Walk) s = m_walkingStepMultiplier;
+                m_footstepTimer += GameTime.deltaTime * s * m_moveDirection.magnitude;
+                if (m_footstepTimer >= 1.0f)
                 {
                     GroundAudioType groundType = GetGroundType();
                     AudioClip clip = Audio_Manager.Singleton().GetFootstepAudio(groundType, -1);
