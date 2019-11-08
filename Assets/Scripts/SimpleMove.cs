@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SimpleMove : MonoBehaviour
 {
-   public GameObject target;
+    public GameObject target;
     Vector3 vt = new Vector3();
     public float mspeed;
     // Start is called before the first frame update

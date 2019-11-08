@@ -10,7 +10,8 @@ public class Player_Controller : MonoBehaviour
 
 
     [Header("Movement Settings")]
-    [SerializeField] private float m_moveSpeed = 8.0f;
+    [SerializeField] private float m_runSpeed = 8.0f;
+    [SerializeField] private float m_walkSpeed = 3.0f;
     [SerializeField] private float m_jumpForce = 20.0f;
     [SerializeField] private float m_groundedDist = 1.05f;
     [SerializeField] private bool m_isGrounded = false;
@@ -22,6 +23,7 @@ public class Player_Controller : MonoBehaviour
     private Vector3 m_storedMoveDirection;
     [SerializeField] private float m_gravity = 10.0f;
     [SerializeField] private Animator m_animator;
+    [SerializeField] private KeyCode m_walkKey = KeyCode.LeftShift;
 
     [Header("Interactions")]
 
@@ -53,7 +55,8 @@ public class Player_Controller : MonoBehaviour
 
     [Header("Audio")]
     private AudioSource m_footstepSource;
-    [SerializeField] private float m_footstepFreqency = 1.0f;
+    [SerializeField] private float m_runningStepMultiplier = 1.0f;
+    [SerializeField] private float m_walkingStepMultiplier = 1.0f;
     private int m_footstepCounter = 0;
     private float m_footstepTimer = 0.0f;
 
@@ -112,8 +115,6 @@ public class Player_Controller : MonoBehaviour
     {
         UpdatePlayerVisual();
         Footsteps();
-
-        if (Input.GetKeyDown(KeyCode.Backspace)) transform.position = new Vector3(0, 2, 0);
     }
 
     private void UpdatePlayerVisual()
@@ -189,8 +190,8 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.XYZNormalized = new Vector3(PlayerInput.XYNormalized.x, 0.0f, PlayerInput.XYNormalized.y);
         PlayerInput.Jump = Input.GetButton("Jump");
         PlayerInput.Crouch = Input.GetKey(KeyCode.LeftShift);
-        PlayerInput.Hide = Input.GetKey(KeyCode.LeftShift);
-        PlayerInput.Sprint = Input.GetKey(KeyCode.LeftControl);
+        PlayerInput.Hide = Input.GetKey(KeyCode.LeftControl);
+        PlayerInput.Walk = Input.GetKey(m_walkKey);
         PlayerInput.Interact = Input.GetKeyDown(KeyCode.E);
         PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         PlayerInput.PowderWheel = Input.GetKey(KeyCode.Q);
@@ -223,18 +224,19 @@ public class Player_Controller : MonoBehaviour
 
     private void Movement()
     {
-        m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized * m_moveSpeed;
+        float speed = m_runSpeed;
+        if (PlayerInput.Walk) speed = m_walkSpeed;
+        m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized * speed;
         Vector3 moveDirWithGravity = m_moveDirection;
         moveDirWithGravity.y -= m_gravity;
         m_controller.Move(moveDirWithGravity * GameTime.deltaTime);
-
     }
 
     private void UpdateAnimations()
     {
         if (m_animator == null) return;
 
-        m_animator.SetFloat("move", m_moveDirection.magnitude);
+        m_animator.SetFloat("move", m_moveDirection.magnitude/m_runSpeed);
     }
 
     private void Footsteps()
@@ -243,14 +245,15 @@ public class Player_Controller : MonoBehaviour
         {
             if(m_controller.velocity.magnitude > 0.1f)
             {
-                m_footstepTimer += GameTime.deltaTime;
-                if (m_footstepTimer >= (1.0f / m_footstepFreqency))
+                float s = m_runningStepMultiplier;
+                if (PlayerInput.Walk) s = m_walkingStepMultiplier;
+                m_footstepTimer += GameTime.deltaTime * s * m_moveDirection.magnitude;
+                if (m_footstepTimer >= 1.0f)
                 {
                     GroundAudioType groundType = GetGroundType();
                     AudioClip clip = Audio_Manager.Singleton().GetFootstepAudio(groundType, -1);
                     m_footstepSource.PlayOneShot(clip);
                     m_footstepCounter++;
-                    Debug.Log("Playing Footsteps : " + groundType.ToString());
                     if (m_footstepCounter > Audio_Manager.Singleton().MaxFootstepId()) m_footstepCounter = 0;
                 }
                 else return;

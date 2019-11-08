@@ -1,49 +1,131 @@
 fileFormatVersion: 2
 guid: 984dcb44177d2ba4083f56fa54dd82ea
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: Mtree_cross
-    100004: Mtree_diamond_cross
-    100006: Mtree_diamond_lod0
-    100008: Mtree_diamond_lod1
-    100010: Mtree_long_lod0
-    100012: Mtree_long_lod1
-    100014: Camera
-    100016: Mtree_plane_lod0
-    400000: //RootNode
-    400002: Mtree_cross
-    400004: Mtree_diamond_cross
-    400006: Mtree_diamond_lod0
-    400008: Mtree_diamond_lod1
-    400010: Mtree_long_lod0
-    400012: Mtree_long_lod1
-    400014: Camera
-    400016: Mtree_plane_lod0
-    2000000: Camera
-    2100000: No Name
-    2300000: Mtree_cross
-    2300002: Mtree_diamond_cross
-    2300004: Mtree_diamond_lod0
-    2300006: Mtree_diamond_lod1
-    2300008: Mtree_long_lod0
-    2300010: Mtree_long_lod1
-    2300012: Mtree_plane_lod0
-    3300000: Mtree_cross
-    3300002: Mtree_diamond_cross
-    3300004: Mtree_diamond_lod0
-    3300006: Mtree_diamond_lod1
-    3300008: Mtree_long_lod0
-    3300010: Mtree_long_lod1
-    3300012: Mtree_plane_lod0
-    4300000: Mtree_long_lod1
-    4300002: Mtree_long_lod0
-    4300004: Mtree_cross
-    4300006: Mtree_diamond_cross
-    4300008: Mtree_diamond_lod1
-    4300010: Mtree_diamond_lod0
-    4300012: Mtree_plane_lod0
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Mtree_cross
+  - first:
+      1: 100004
+    second: Mtree_diamond_cross
+  - first:
+      1: 100006
+    second: Mtree_diamond_lod0
+  - first:
+      1: 100008
+    second: Mtree_diamond_lod1
+  - first:
+      1: 100010
+    second: Mtree_long_lod0
+  - first:
+      1: 100012
+    second: Mtree_long_lod1
+  - first:
+      1: 100014
+    second: Camera
+  - first:
+      1: 100016
+    second: Mtree_plane_lod0
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Mtree_cross
+  - first:
+      4: 400004
+    second: Mtree_diamond_cross
+  - first:
+      4: 400006
+    second: Mtree_diamond_lod0
+  - first:
+      4: 400008
+    second: Mtree_diamond_lod1
+  - first:
+      4: 400010
+    second: Mtree_long_lod0
+  - first:
+      4: 400012
+    second: Mtree_long_lod1
+  - first:
+      4: 400014
+    second: Camera
+  - first:
+      4: 400016
+    second: Mtree_plane_lod0
+  - first:
+      20: 2000000
+    second: Camera
+  - first:
+      21: 2100000
+    second: No Name
+  - first:
+      23: 2300000
+    second: Mtree_cross
+  - first:
+      23: 2300002
+    second: Mtree_diamond_cross
+  - first:
+      23: 2300004
+    second: Mtree_diamond_lod0
+  - first:
+      23: 2300006
+    second: Mtree_diamond_lod1
+  - first:
+      23: 2300008
+    second: Mtree_long_lod0
+  - first:
+      23: 2300010
+    second: Mtree_long_lod1
+  - first:
+      23: 2300012
+    second: Mtree_plane_lod0
+  - first:
+      33: 3300000
+    second: Mtree_cross
+  - first:
+      33: 3300002
+    second: Mtree_diamond_cross
+  - first:
+      33: 3300004
+    second: Mtree_diamond_lod0
+  - first:
+      33: 3300006
+    second: Mtree_diamond_lod1
+  - first:
+      33: 3300008
+    second: Mtree_long_lod0
+  - first:
+      33: 3300010
+    second: Mtree_long_lod1
+  - first:
+      33: 3300012
+    second: Mtree_plane_lod0
+  - first:
+      43: 4300000
+    second: Mtree_long_lod1
+  - first:
+      43: 4300002
+    second: Mtree_long_lod0
+  - first:
+      43: 4300004
+    second: Mtree_cross
+  - first:
+      43: 4300006
+    second: Mtree_diamond_cross
+  - first:
+      43: 4300008
+    second: Mtree_diamond_lod1
+  - first:
+      43: 4300010
+    second: Mtree_diamond_lod0
+  - first:
+      43: 4300012
+    second: Mtree_plane_lod0
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -68,6 +150,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -82,17 +165,22 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
@@ -104,10 +192,14 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -117,8 +209,8 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

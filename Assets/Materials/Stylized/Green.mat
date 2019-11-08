@@ -53,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlbedoTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 4253a798b9e853147adf917a51a2b97a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -125,11 +125,12 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Reflectivity: 0
+    - _ShineClamp: 0.5
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularIntensity: 2
-    - _SpecularSoftness: 0.01
+    - _SpecularSoftness: 0.067
     - _SrcBlend: 1
     - _Surface: 0
     - _UseNormalTex: 0
@@ -138,7 +139,7 @@ Material:
     m_Colors:
     - Color_7EDF7FDF: {r: 0.12663871, g: 0.2264151, b: 0.12281951, a: 1}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _Color: {r: 0.32999998, g: 1, b: 0.32999998, a: 1}
+    - _Color: {r: 0.3499911, g: 0.6132076, b: 0.3499911, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SceneColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

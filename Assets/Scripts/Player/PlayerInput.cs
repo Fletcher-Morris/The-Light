@@ -14,7 +14,7 @@ public static class PlayerInput
 
     public static bool Jump;
     public static bool Crouch;
-    public static bool Sprint;
+    public static bool Walk;
     public static bool Interact;
     public static bool Hide;
 
