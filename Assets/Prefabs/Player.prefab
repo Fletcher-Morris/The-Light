@@ -6690,8 +6690,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4746211373312194229}
-  m_LocalRotation: {x: -0.9065016, y: 0.15689239, z: -0.38612768, w: -0.067417}
-  m_LocalPosition: {x: -0.038, y: 0.115, z: 0.07}
+  m_LocalRotation: {x: -0.9221182, y: 0.15962023, z: -0.34718552, w: -0.060676586}
+  m_LocalPosition: {x: 0, y: 0.064, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4303539899681300942}
@@ -6802,6 +6802,7 @@ MonoBehaviour:
     m_PostInfinity: 1
     m_RotationOrder: 0
   m_on: 1
+  m_rotationLerp: 10
 --- !u!136 &5719719326575247756
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10823,7 +10824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c433f3e24e23b64449c38c236ef3c3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_moveSpeed: 10
+  m_runSpeed: 8
+  m_walkSpeed: 2
   m_jumpForce: 20
   m_groundedDist: 1.1
   m_isGrounded: 0
@@ -10832,6 +10834,7 @@ MonoBehaviour:
   m_visualRotationLerp: 10
   m_gravity: 10
   m_animator: {fileID: 2630606829920573452}
+  m_walkKey: 304
   m_sceneInteractions: []
   m_closestInteraction: {fileID: 0}
   InteractKey: 101
@@ -10850,7 +10853,8 @@ MonoBehaviour:
   m_cameraPositionLerp: 20
   m_cameraRotationLerp: 20
   m_pivotHeight: 1
-  m_footstepFreqency: 3
+  m_runningStepMultiplier: 25
+  m_walkingStepMultiplier: 3
   m_pauseMenu: {fileID: 2151810898852322563}
 --- !u!143 &8206737547771044611
 CharacterController:
