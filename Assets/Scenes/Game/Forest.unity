@@ -10880,7 +10880,6 @@ GameObject:
   m_Component:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
-  - component: {fileID: 705507996}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -10962,18 +10961,6 @@ Transform:
   m_Father: {fileID: 634400931}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 29.595001, y: 184.65298, z: -76.619}
---- !u!114 &705507996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705507993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &713656699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22237,7 +22224,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1382387223}
-  m_LocalRotation: {x: -0.8755986, y: 0.098902196, z: 0.11884551, w: 0.45762554}
+  m_LocalRotation: {x: -0.88005894, y: 0.09940605, z: 0.11945073, w: 0.44871613}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -34020,7 +34007,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2130580016}
   - component: {fileID: 2130580018}
-  - component: {fileID: 2130580017}
   m_Layer: 0
   m_Name: Aura Spot Light (10)
   m_TagString: Untagged
@@ -34042,18 +34028,6 @@ Transform:
   m_Father: {fileID: 454785062}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 78.52801, y: -22.121, z: 0}
---- !u!114 &2130580017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2130580015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &2130580018
 Light:
   m_ObjectHideFlags: 0
@@ -43214,18 +43188,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.064
-      objectReference: {fileID: 0}
-    - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      propertyPath: m_LocalRotation.w
+      value: -0.060676586
       objectReference: {fileID: 0}
     - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
@@ -43234,23 +43198,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.15962023
-      objectReference: {fileID: 0}
-    - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
-        type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.34718552
       objectReference: {fileID: 0}
     - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.060676586
-      objectReference: {fileID: 0}
-    - target: {fileID: 7101117165758894840, guid: 73be2a4fb1c78764d8c36e7d38711e18,
-        type: 3}
-      propertyPath: m_rotationLerp
-      value: 10
+      propertyPath: m_LocalRotation.y
+      value: 0.15962023
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73be2a4fb1c78764d8c36e7d38711e18, type: 3}
