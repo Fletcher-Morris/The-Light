@@ -10769,7 +10769,7 @@ MonoBehaviour:
   m_camera: {fileID: 2151810900484836047}
   m_cameraCloseDist: 4
   m_cameraFarDist: 10
-  m_cameraMinAngle: 0
+  m_cameraMinAngle: -10
   m_cameraMaxAngle: 80
   m_cameraPositionLerp: 20
   m_cameraRotationLerp: 20
