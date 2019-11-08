@@ -8113,6 +8113,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -4463141650409230864, guid: 2ad3ae5dc9ebb3d4399af6fb9659e59f,
         type: 3}
+    - target: {fileID: 5734203597085780932, guid: e016ff7326655b04db083f6c61c5a042,
+        type: 3}
+      propertyPath: m_LODs.Array.data[0].screenRelativeHeight
+      value: 0.35187963
+      objectReference: {fileID: 0}
+    - target: {fileID: 5734203597085780932, guid: e016ff7326655b04db083f6c61c5a042,
+        type: 3}
+      propertyPath: m_FadeMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5734203597085780932, guid: e016ff7326655b04db083f6c61c5a042,
+        type: 3}
+      propertyPath: m_AnimateCrossFading
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e016ff7326655b04db083f6c61c5a042, type: 3}
 --- !u!1001 &512670062
@@ -43215,6 +43230,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0.15962023
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395850806282362123, guid: 73be2a4fb1c78764d8c36e7d38711e18,
+        type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.0071500093
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395850806282362123, guid: 73be2a4fb1c78764d8c36e7d38711e18,
+        type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: -0.0029776394
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395850806282362123, guid: 73be2a4fb1c78764d8c36e7d38711e18,
+        type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.06079988
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395850806282362123, guid: 73be2a4fb1c78764d8c36e7d38711e18,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.080285475
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395850806282362123, guid: 73be2a4fb1c78764d8c36e7d38711e18,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.022004206
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395850806282362123, guid: 73be2a4fb1c78764d8c36e7d38711e18,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.08000694
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8957818951268796262, guid: 73be2a4fb1c78764d8c36e7d38711e18, type: 3}
