@@ -35,9 +35,10 @@ public class QuestManager : MonoBehaviour
     /// <param name="qu"></param>
     public void AddQuest(Quest qu)
     {
+        qu.OnAdd();
         if (!quest_check_running)
         {
-            qu.OnAdd();
+           
             quests.Add(qu);
         }
         else
@@ -69,7 +70,7 @@ public class QuestManager : MonoBehaviour
     {
         foreach (Quest q in quests)
         {
-            if (q.name == qu_name)
+            if (q.Getname() == qu_name)
             {
                 q.quest_active = true;
                 q.OnQuestSetActive();
@@ -99,12 +100,13 @@ public class QuestManager : MonoBehaviour
     public void FinishQuest(Quest qu)
     {
         qu.quest_active = false;
+        finishedquests.Add(qu.Getname());
+        qu.OnFinish();
         if (!quest_check_running)
         {
            
             quests.Remove(qu);
-            qu.OnFinish();
-            finishedquests.Add(qu.Getname());
+           
             Destroy(qu.gameObject);
         }
         else
@@ -121,11 +123,10 @@ public class QuestManager : MonoBehaviour
     public void FailQuest(Quest qu)
     {
         qu.quest_active = false;
+        qu.Onfail();
         if (!quest_check_running)
         {
-
-            quests.Remove(qu);
-            qu.Onfail();
+            quests.Remove(qu);         
             Destroy(qu.gameObject);
         }
         else
@@ -173,6 +174,19 @@ public class QuestManager : MonoBehaviour
         return active;
     }
 
+    public bool CheckQuestFinished(string q_name)
+    {
+        bool finished = false;
+        foreach(string st in finishedquests)
+        {
+            if (st == q_name)
+            {
+                finished = true;
+            }
+        }
+        return finished;
+    }
+
     public void ResetQuest(Quest q)
     {
         q.OnReset();
@@ -182,6 +196,7 @@ public class QuestManager : MonoBehaviour
         add_buffer.Clear();
         remove_buffer.Clear();
         quests.Clear();
+        finishedquests.Clear();
     }
 
 
@@ -191,17 +206,14 @@ public class QuestManager : MonoBehaviour
         //add quests from addbuffer
         foreach(Quest q in add_buffer)
         {
-           q.OnAdd();
            quests.Add(q);
- 
         }
         add_buffer.Clear();
 
         //remove quests in removebuffer
         foreach(Quest q in remove_buffer)
         {
-            quests.Remove(q); 
-            q.OnFinish(); 
+            quests.Remove(q);  
             Destroy(q.gameObject);
         }
         remove_buffer.Clear();
@@ -212,13 +224,15 @@ public class QuestManager : MonoBehaviour
         quest_check_running = true;
         foreach(Quest q in quests)
         {
-            if(q.quest_active)
-            q.Check();
-            st += q.Getname();
-            st += "\n";
-            st += q.Getdesc();
-            st += "\n";
-            //  Debug.Log("111");
+            if (q.quest_active)
+            {
+                q.Check();
+                st += q.Getname();
+                st += "\n";
+                st += q.Getdesc();
+                st += "\n";
+            }
+           
         }
         quest_check_running = false;
        

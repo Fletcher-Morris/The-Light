@@ -11,6 +11,8 @@ TagManager:
   - LightRange
   - Watermill
   - QuestLayer
+  - Lamp
+  - ObjectColletcor
   layers:
   - Default
   - TransparentFX

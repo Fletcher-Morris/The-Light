@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Quest01 : Quest
+public class Quest5 : Quest
 {
-    
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         QuestManager.instance.AddQuest(this);
     }
+
     public override void Check()
     {
-        if (this.ReadCondition("parchmentcollected") == 1)
+        this.ChangeCondition("timecount", 1);
+        if (this.ReadCondition("timecount") >= 1000 || this.ReadCondition("killcount") >= 10)
         {
             QuestManager.instance.FinishQuest(this);
         }
     }
- 
 }
