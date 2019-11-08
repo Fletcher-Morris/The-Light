@@ -22,6 +22,9 @@ public class Lamp_Controller : MonoBehaviour
 
     private float m_animTime = 0.0f;
 
+
+    [SerializeField] private float m_rotationLerp = 10.0f;
+
     private void Start()
     {
         Ai_Manager.AddLamp(this);
@@ -58,6 +61,12 @@ public class Lamp_Controller : MonoBehaviour
             Shader.SetGlobalFloat("LampRange", GetNoisyEnabledRange());
             Shader.SetGlobalVector("LampPosition", transform.position);
         }
+
+        if(m_rotationLerp >= 0.0f)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, new Quaternion(0, 0, 0, 1), m_rotationLerp * GameTime.deltaTime);
+        }
+
     }
 
     public void Toggle(bool _on)
