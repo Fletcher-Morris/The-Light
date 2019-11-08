@@ -35,5 +35,8 @@ public class TriggerDarkness : MonoBehaviour
         }
         gameObjects[0].GetComponent<ParticleSystem>().Play();
         gameObjects[1].GetComponent<ParticleSystem>().Play();
+        gameObjects[4].GetComponent<ParticleSystem>().Play();
+        gameObjects[5].GetComponent<ParticleSystem>().Play();
+        gameObjects[6].GetComponent<ParticleSystem>().Play();
     }
 }

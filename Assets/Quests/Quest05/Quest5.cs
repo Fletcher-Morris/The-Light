@@ -13,7 +13,7 @@ public class Quest5 : Quest
     public override void Check()
     {
         this.ChangeCondition("timecount", 1);
-        if (this.ReadCondition("timecount") >= 1000 || this.ReadCondition("killcount") >= 10)
+        if (this.ReadCondition("timecount") >= 1 || this.ReadCondition("killcount") >= 10)
         {
             QuestManager.instance.FinishQuest(this);
         }

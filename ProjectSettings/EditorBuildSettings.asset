@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/UI/SCREENS/1. MAIN MENU 1.unity
+    guid: 3b47a4686f9554e4b8e5268a211d79bb
+  - enabled: 1
+    path: Assets/UI/SCREENS/2. LOADING SCREEN 1.unity
+    guid: 15924d1ab5fdcfb439304bf4b59571d4
+  - enabled: 1
+    path: Assets/Scenes/Game/Forest.unity
+    guid: 5df219e3ef155ba47aeac5ae5cbcfa79
+  - enabled: 0
     path: Assets/Scenes/Testing/Scene_Test_03_Ai.unity
     guid: f88fa2149c1731b4499e5d76f4bcec99
   - enabled: 0
