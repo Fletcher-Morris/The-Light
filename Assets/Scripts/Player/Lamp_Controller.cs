@@ -12,7 +12,7 @@ public class Lamp_Controller : MonoBehaviour
         return m_range;
     }
 
-    [SerializeField] bool m_mainLamp = true;
+    [SerializeField] bool m_mainLamp = false;
 
     [SerializeField] private float m_noiseScale = 1.0f;
     [SerializeField] private List<AnimationCurve> m_noiseCurves;
@@ -62,7 +62,7 @@ public class Lamp_Controller : MonoBehaviour
             Shader.SetGlobalVector("LampPosition", transform.position);
         }
 
-        if(m_rotationLerp >= 0.0f)
+        if(m_rotationLerp > 0.0f)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, new Quaternion(0, 0, 0, 1), m_rotationLerp * GameTime.deltaTime);
         }
