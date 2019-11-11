@@ -19053,6 +19053,32 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1154344564}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1155498238 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8206737547771044616, guid: 73be2a4fb1c78764d8c36e7d38711e18,
+    type: 3}
+  m_PrefabInstance: {fileID: 3938049985032542009}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1155498239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155498238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807f6fe8e71c8ce4092bff0566166baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_health: 10
+  m_maxHealth: 10
+  m_regen: 0
+  OnHealthZero:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &1160190414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43118,16 +43144,6 @@ PrefabInstance:
     - target: {fileID: 8206737547771044617, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8206737547771044613, guid: 73be2a4fb1c78764d8c36e7d38711e18,
-        type: 3}
-      propertyPath: m_visualRotationLerp
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2151810898972965972, guid: 73be2a4fb1c78764d8c36e7d38711e18,
-        type: 3}
-      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,

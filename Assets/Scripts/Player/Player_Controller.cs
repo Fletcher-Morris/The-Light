@@ -22,8 +22,12 @@ public class Player_Controller : MonoBehaviour
     private Vector3 m_moveDirection;
     private Vector3 m_storedMoveDirection;
     [SerializeField] private float m_gravity = 10.0f;
-    [SerializeField] private Animator m_animator;
     [SerializeField] private KeyCode m_walkKey = KeyCode.LeftShift;
+    [SerializeField] private Animator m_animator;
+    private int m_animatorMoveHash;
+    private int m_animatorLanternHash;
+    private int m_animatorFlipHash;
+    private int m_animatorDeadHash;
 
     [Header("Interactions")]
 
@@ -62,6 +66,8 @@ public class Player_Controller : MonoBehaviour
 
     private Inventory_Controller m_inventory;
 
+    private Health m_health;
+
     [SerializeField] private Transform m_pauseMenu;
 
     private void Awake()
@@ -75,6 +81,11 @@ public class Player_Controller : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        m_animatorMoveHash = Animator.StringToHash("move");
+        m_animatorLanternHash = Animator.StringToHash("lantern");
+        m_animatorFlipHash = Animator.StringToHash("flip");
+        m_animatorDeadHash = Animator.StringToHash("dead");
     }
 
     private void GatherComponents()
@@ -82,6 +93,7 @@ public class Player_Controller : MonoBehaviour
         if (m_visual == null) m_visual = transform.GetChild(0);
         m_controller = GetComponent<CharacterController>();
         m_footstepSource = GetComponent<AudioSource>();
+        m_health = GetComponent<Health>();
     }
 
     private void Update()
@@ -89,10 +101,11 @@ public class Player_Controller : MonoBehaviour
         HandlePause();
         GatherInput();
         GroundCheck();
-        UpdateAnimations();
         UpdateCamera();
         Movement();
         HandleInteractionTriggers();
+        m_health.HealthUpdate(GameTime.deltaTime);
+        UpdateAnimations();
     }
 
     private void HandlePause()
@@ -236,7 +249,9 @@ public class Player_Controller : MonoBehaviour
     {
         if (m_animator == null) return;
 
-        m_animator.SetFloat("move", m_moveDirection.magnitude/m_runSpeed);
+        m_animator.SetFloat(m_animatorMoveHash, m_moveDirection.magnitude/m_runSpeed);
+        m_animator.SetBool(m_animatorDeadHash, m_health.IsDead());
+        m_animator.SetBool(m_animatorFlipHash, PlayerInput.Jump);
     }
 
     private void Footsteps()
