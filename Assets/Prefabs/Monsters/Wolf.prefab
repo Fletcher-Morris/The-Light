@@ -1767,7 +1767,7 @@ MonoBehaviour:
   m_autoWaypoints: 1
   m_waypoints: []
   m_targetWaypoint: {fileID: 0}
-  m_debug: 1
+  m_debug: 0
   m_aiEnabled: 1
 --- !u!195 &4449998854223654969
 NavMeshAgent:
