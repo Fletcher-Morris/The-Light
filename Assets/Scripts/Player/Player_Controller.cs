@@ -382,4 +382,12 @@ public class Player_Controller : MonoBehaviour
         m_pauseMenu.gameObject.SetActive(true);
         GameTime.Pause();
     }
+
+
+
+
+    public void UsePowder(Powder _powder)
+    {
+
+    }
 }

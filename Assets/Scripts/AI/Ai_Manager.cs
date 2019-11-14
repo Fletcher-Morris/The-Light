@@ -11,6 +11,26 @@ public static class Ai_Manager
         return m_lastAiId;
     }
 
+    private static List<Enemy_Ai> m_enemyAiList = new List<Enemy_Ai>();
+    public static int AddAi(Enemy_Ai _ai)
+    {
+        m_enemyAiList.Add(_ai);
+        return GetNewAiId();
+    }
+
+    public static List<Enemy_Ai> GetEnemyAiInRange(float _range, Vector3 _pos)
+    {
+        List<Enemy_Ai> inRange = new List<Enemy_Ai>();
+        foreach(Enemy_Ai enemy in m_enemyAiList)
+        {
+            if(enemy != null)
+            {
+                if (Vector3.Distance(enemy.transform.position, _pos) <= _range) inRange.Add(enemy);
+            }
+        }
+        return inRange;
+    }
+
     private static Transform m_playerTransform;
     public static Transform GetPlayerTransform() { return m_playerTransform; }
     public static void SetPlayerTransform(Transform _player) { m_playerTransform = _player; }

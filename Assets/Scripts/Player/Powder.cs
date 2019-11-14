@@ -22,6 +22,14 @@ public class Powder : ScriptableObject
     [SerializeField] private string m_description;
     public string Description { get => m_description; }
 
+    [Tooltip("When true, the effects of this powder affect the player.")]
+    [SerializeField] private bool m_affectsPlayer;
+    public bool AffectsPlayer { get => m_affectsPlayer; set => m_affectsPlayer = value; }
+
+    [Tooltip("When true, the effects of this powder affects monsters.")]
+    [SerializeField] private bool m_affectsMonsters;
+    public bool AffectsMonsters { get => m_affectsMonsters; set => m_affectsMonsters = value; }
+
 
     [Header("Recipes")]
 
@@ -44,7 +52,6 @@ public class Powder : ScriptableObject
     [Tooltip("The fear intensity of this powder, higher values scare tougher monsers.")]
     [SerializeField] private float m_fearIntensity = 0.0f;
     public float FearIntensity { get => m_fearIntensity; }
-
 }
 
 [System.Serializable]

@@ -53,8 +53,8 @@ MonoBehaviour:
   runAwayFromLight: 0
   fleeDuration: 3
   fleeDistanceMultiplier: 3
-  surpriseMultiplier: 1
-  surpriseThreshold: 0.1
+  braveness: 0
+  stunResistance: 1
   waypointChoice: 2
   randomStartWaypoint: 1
   waypointTollerance: 2

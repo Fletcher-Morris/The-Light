@@ -15,5 +15,9 @@ MonoBehaviour:
   m_powderName: Red Powder
   m_powderColor: {r: 1, g: 0, b: 0, a: 1}
   m_description: 
+  m_affectsPlayer: 0
+  m_affectsMonsters: 1
   m_recipes: []
+  m_burnTime: 1
   m_stunPower: 0
+  m_fearIntensity: 5

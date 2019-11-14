@@ -6,6 +6,10 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Lamp_Controller : MonoBehaviour
 {
+
+    [Header("LAMP SETTINGS")]
+
+
     [SerializeField] private float m_range = 7.5f;
     public float GetRange()
     {
@@ -28,7 +32,7 @@ public class Lamp_Controller : MonoBehaviour
         Ai_Manager.AddLamp(this);
     }
 
-    private float GetEnabledRange()
+    public float GetEnabledRange()
     {
         if (!m_on) return 0.0f;
         return GetRange();
@@ -58,6 +62,14 @@ public class Lamp_Controller : MonoBehaviour
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, new Quaternion(0, 0, 0, 1), m_rotationLerp * GameTime.deltaTime);
         }
+
+        if (m_repeatTime == 0.0f) return;
+        m_timer -= GameTime.deltaTime;
+        if (m_timer <= 0.0f)
+        {
+            m_timer = m_repeatTime;
+            foreach (Powder powder in m_powders) UsePowder(powder);
+        }
     }
 
     private void LateUpdate()
@@ -69,4 +81,31 @@ public class Lamp_Controller : MonoBehaviour
     {
         m_on = _on;
     }
+
+
+
+    [Header("POWDER USAGE")]
+
+
+    [SerializeField] private float m_repeatTime = 0.0f;
+    [SerializeField] private List<Powder> m_powders = new List<Powder>();
+    public void UsePowder(Powder _powder)
+    {
+        int m = 0;
+        if(_powder.AffectsMonsters)
+        {
+            foreach (Enemy_Ai enemy in Ai_Manager.GetEnemyAiInRange(GetEnabledRange(), transform.position))
+            {
+                if(enemy != null)
+                {
+                    enemy.AddPowderEffect(_powder);
+                    m++;
+                }
+            }
+        }
+
+        if(m > 0) Debug.Log("Used '" + _powder.PowderName + "' on " + m + " monsters.");
+    }
+
+    private float m_timer = 0.0f;
 }
