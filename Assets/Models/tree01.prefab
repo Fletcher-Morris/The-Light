@@ -89,6 +89,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2178827657706807733}
   - component: {fileID: 5753930940446347343}
+  - component: {fileID: 4319121367001388397}
+  - component: {fileID: 1086231236460055210}
   m_Layer: 0
   m_Name: tree01
   m_TagString: Untagged
@@ -104,7 +106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8374995642345663749}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 420.37952, y: -0, z: 843.8697}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8180619531734014696}
@@ -136,3 +138,30 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
+--- !u!136 &4319121367001388397
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8374995642345663749}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.62
+  m_Height: 27.231567
+  m_Direction: 1
+  m_Center: {x: 0, y: 10.48, z: 0}
+--- !u!114 &1086231236460055210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8374995642345663749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf98229e6aafac468f8c8d7503dd673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fspeed: 10

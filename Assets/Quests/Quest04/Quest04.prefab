@@ -47,4 +47,4 @@ MonoBehaviour:
   describe: Get the Lantern before killed by the darkness
   nextquests:
   - {fileID: 4665378051460169378, guid: 4f6fd61340ddccb43b46ce3e1a0c1168, type: 3}
-  quest_active: 1
+  quest_active: 0

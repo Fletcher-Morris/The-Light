@@ -13,6 +13,7 @@ TagManager:
   - QuestLayer
   - Lamp
   - ObjectColletcor
+  - Darkcloud
   layers:
   - Default
   - TransparentFX

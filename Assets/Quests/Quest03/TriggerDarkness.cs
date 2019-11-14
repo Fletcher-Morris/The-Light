@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Timeline;
+using UnityEngine.Playables;
 public class TriggerDarkness : MonoBehaviour
 {
     bool triggered=false;
-    public List<GameObject> gameObjects = new List<GameObject>();
+    public PlayableDirector director;
+    public List<GameObject> Darkclouds = new List<GameObject>();
+    public GameObject CM, CC,PL;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,7 @@ public class TriggerDarkness : MonoBehaviour
                 if (QuestManager.instance.CheckQuestFinished("Read Parchment") == true)
                 {
                     triggered = true;
+                    
                     QuestManager.instance.GetQuest("Go To The Tower").SetCondition("action", 1);
                     Darkcome();
                 }
@@ -29,14 +33,15 @@ public class TriggerDarkness : MonoBehaviour
     }
     void Darkcome()
     {
-        foreach(GameObject ga in gameObjects)
-        {
-            ga.SetActive(true);
-        }
-        gameObjects[0].GetComponent<ParticleSystem>().Play();
-        gameObjects[1].GetComponent<ParticleSystem>().Play();
-        gameObjects[4].GetComponent<ParticleSystem>().Play();
-        gameObjects[5].GetComponent<ParticleSystem>().Play();
-        gameObjects[6].GetComponent<ParticleSystem>().Play();
+        CM.SetActive(false);
+        PL.SetActive(false);
+        CC.SetActive(true);
+        director.Play();
+    }
+   public void BackToGame()
+    {
+        CC.SetActive(false);
+        CM.SetActive(true);
+        PL.SetActive(true);
     }
 }

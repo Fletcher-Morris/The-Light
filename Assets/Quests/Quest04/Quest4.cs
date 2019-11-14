@@ -10,7 +10,12 @@ public class Quest4 : Quest
     void Start()
     {
         QuestManager.instance.AddQuest(this);
+        
+    }
+    public override void OnQuestSetActive()
+    {
         ic = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory_Controller>();
+       
     }
     public override void OnFinish()
     {

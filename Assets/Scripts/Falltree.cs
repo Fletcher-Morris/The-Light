@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Falltree : MonoBehaviour
 {
-    public float fspeed=10f;
-    Vector3 fallaxis = new Vector3();
+    [SerializeField] private float fspeed=10f;
+    [SerializeField] Vector3 fallaxis = new Vector3();
+    [SerializeField] bool RandomFall=true;
     float angle = 0f;
     bool fallen = false;
     float No_0_random(float rmin,float rmax)
@@ -19,10 +20,14 @@ public class Falltree : MonoBehaviour
     }
   public void Fall()
     {
-        fallaxis.x = No_0_random(-1f, 1f);
-        fallaxis.y = 0;
-        fallaxis.z = No_0_random(-1f, 1f);
-        fallaxis = fallaxis.normalized;
+      //Random axis if the axis is vector(0,0,0)||choose Randomfall
+        if((fallaxis.x*fallaxis.x+fallaxis.y*fallaxis.y+fallaxis.z*fallaxis.z)==0f||RandomFall)
+        {
+            fallaxis.x = No_0_random(-1f, 1f);
+            fallaxis.y = 0;
+            fallaxis.z = No_0_random(-1f, 1f);
+        }
+        fallaxis = fallaxis.normalized; 
         StartCoroutine(TreeFall());
     }
     private void OnTriggerEnter(Collider other)
