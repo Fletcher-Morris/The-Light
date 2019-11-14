@@ -10400,7 +10400,7 @@ GameObject:
   - component: {fileID: 499611321}
   - component: {fileID: 499611322}
   m_Layer: 0
-  m_Name: WatermillControl
+  m_Name: WatermillController
   m_TagString: Watermill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18010,7 +18010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &823766622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18166,7 +18166,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823766621}
-  m_LocalRotation: {x: 0.03579328, y: 0.96373683, z: -0.20168673, w: 0.171034}
+  m_LocalRotation: {x: 0.035793282, y: 0.96373683, z: -0.20168674, w: 0.17103398}
   m_LocalPosition: {x: 126.01, y: 73.5, z: -434.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -35223,7 +35223,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292299398}
-  m_LocalRotation: {x: 0.03579328, y: 0.96373683, z: -0.20168673, w: 0.171034}
+  m_LocalRotation: {x: 0.035793282, y: 0.96373683, z: -0.20168674, w: 0.17103398}
   m_LocalPosition: {x: 126.01, y: 73.5, z: -434.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
