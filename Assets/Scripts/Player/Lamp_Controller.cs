@@ -27,6 +27,11 @@ public class Lamp_Controller : MonoBehaviour
 
     [SerializeField] private float m_rotationLerp = 10.0f;
 
+    private void Awake()
+    {
+        Ai_Manager.ResetLamps(this);
+    }
+
     private void Start()
     {
         Ai_Manager.AddLamp(this);
