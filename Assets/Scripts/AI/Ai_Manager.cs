@@ -32,6 +32,37 @@ public static class Ai_Manager
         }
     }
 
+
+    private static List<Vector4> m_lampPositions = new List<Vector4>();
+    private static List<float> m_lampRanges = new List<float>();
+    public static void UpdateShaderArray(Lamp_Controller _lamp)
+    {
+        if (m_lamps.Count <= 0) return;
+        if(m_lamps[0] == _lamp)
+        {
+            m_lampPositions = new List<Vector4>();
+            m_lampRanges = new List<float>();
+            int i = 0;
+            foreach(Lamp_Controller lamp in m_lamps)
+            {
+                if(lamp)
+                {
+                    m_lampPositions.Add(lamp.transform.position);
+                    m_lampRanges.Add(lamp.GetNoisyEnabledRange());
+                }
+                else
+                {
+                    m_lamps.RemoveAt(i);
+                    i--;
+                }
+                i++;
+            }
+            Shader.SetGlobalInt("LampCount", i);
+            Shader.SetGlobalVectorArray("LampPositionsArray", m_lampPositions);
+            Shader.SetGlobalFloatArray("LampRangesArray", m_lampRanges);
+        }
+    }
+
     private static List<Ai_Waypoint> m_waypoints = new List<Ai_Waypoint>();
     public static List<Ai_Waypoint> GetWaypoints() { return m_waypoints; }
     public static void AddWaypoint(Ai_Waypoint _waypoint)
