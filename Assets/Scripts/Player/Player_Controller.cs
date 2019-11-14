@@ -104,7 +104,7 @@ public class Player_Controller : MonoBehaviour
         UpdateCamera();
         Movement();
         HandleInteractionTriggers();
-        m_health.HealthUpdate(GameTime.deltaTime);
+        m_health?.HealthUpdate(GameTime.deltaTime);
         UpdateAnimations();
     }
 

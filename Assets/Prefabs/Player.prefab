@@ -6612,7 +6612,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4746211373312194229}
-  m_LocalRotation: {x: -0.9221182, y: 0.15962023, z: -0.34718552, w: -0.060676586}
+  m_LocalRotation: {x: -0.92211807, y: 0.1596203, z: -0.34718564, w: -0.06067671}
   m_LocalPosition: {x: 0, y: 0.064, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -6679,7 +6679,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_range: 10
-  m_mainLamp: 1
   m_noiseScale: 1
   m_noiseCurves:
   - serializedVersion: 2
@@ -10709,6 +10708,7 @@ GameObject:
   - component: {fileID: 2151810898866918967}
   - component: {fileID: 2151810898719963950}
   - component: {fileID: 8525572257014150096}
+  - component: {fileID: 214812470}
   m_Layer: 15
   m_Name: Player
   m_TagString: Player
@@ -10754,8 +10754,8 @@ MonoBehaviour:
   m_visualLerp: 50
   m_visualRotationLerp: 10
   m_gravity: 10
-  m_animator: {fileID: 2630606829920573452}
   m_walkKey: 304
+  m_animator: {fileID: 2630606829920573452}
   m_sceneInteractions: []
   m_closestInteraction: {fileID: 0}
   InteractKey: 101
@@ -10996,6 +10996,26 @@ MonoBehaviour:
   - {fileID: 3592423701847572859}
   - {fileID: 5578495759211971182}
   m_minMouseDelta: 0.15
+--- !u!114 &214812470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8206737547771044616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807f6fe8e71c8ce4092bff0566166baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_health: 10
+  m_maxHealth: 10
+  m_regen: 0
+  OnHealthZero:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &8405379944738257026
 GameObject:
   m_ObjectHideFlags: 0
