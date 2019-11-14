@@ -783,7 +783,6 @@ GameObject:
   m_Component:
   - component: {fileID: 58300406}
   - component: {fileID: 58300408}
-  - component: {fileID: 58300407}
   m_Layer: 0
   m_Name: Aura Spot Light (3)
   m_TagString: Untagged
@@ -805,18 +804,6 @@ Transform:
   m_Father: {fileID: 454785062}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 69.702, y: -327.891, z: -63.499004}
---- !u!114 &58300407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58300405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &58300408
 Light:
   m_ObjectHideFlags: 0
@@ -6967,6 +6954,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 2.7685108
       objectReference: {fileID: 0}
+    - target: {fileID: 5734203597085780932, guid: e016ff7326655b04db083f6c61c5a042,
+        type: 3}
+      propertyPath: m_LODs.Array.data[0].screenRelativeHeight
+      value: 0.35187963
+      objectReference: {fileID: 0}
+    - target: {fileID: 5734203597085780932, guid: e016ff7326655b04db083f6c61c5a042,
+        type: 3}
+      propertyPath: m_FadeMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5734203597085780932, guid: e016ff7326655b04db083f6c61c5a042,
+        type: 3}
+      propertyPath: m_AnimateCrossFading
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7828034511433118863, guid: e016ff7326655b04db083f6c61c5a042,
         type: 3}
       propertyPath: m_Mesh
@@ -7993,21 +7995,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -4463141650409230864, guid: 2ad3ae5dc9ebb3d4399af6fb9659e59f,
         type: 3}
-    - target: {fileID: 5734203597085780932, guid: e016ff7326655b04db083f6c61c5a042,
-        type: 3}
-      propertyPath: m_LODs.Array.data[0].screenRelativeHeight
-      value: 0.35187963
-      objectReference: {fileID: 0}
-    - target: {fileID: 5734203597085780932, guid: e016ff7326655b04db083f6c61c5a042,
-        type: 3}
-      propertyPath: m_FadeMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5734203597085780932, guid: e016ff7326655b04db083f6c61c5a042,
-        type: 3}
-      propertyPath: m_AnimateCrossFading
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e016ff7326655b04db083f6c61c5a042, type: 3}
 --- !u!4 &511751178 stripped
@@ -10534,7 +10521,6 @@ GameObject:
   m_Component:
   - component: {fileID: 692891622}
   - component: {fileID: 692891621}
-  - component: {fileID: 692891620}
   m_Layer: 0
   m_Name: Aura Spot Light
   m_TagString: Untagged
@@ -10542,18 +10528,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &692891620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692891619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &692891621
 Light:
   m_ObjectHideFlags: 0
@@ -11301,7 +11275,6 @@ GameObject:
   m_Component:
   - component: {fileID: 730198013}
   - component: {fileID: 730198012}
-  - component: {fileID: 730198011}
   m_Layer: 0
   m_Name: Aura Spot Light
   m_TagString: Untagged
@@ -11309,18 +11282,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &730198011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 730198010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &730198012
 Light:
   m_ObjectHideFlags: 0
@@ -13961,7 +13922,7 @@ Transform:
   - {fileID: 554385057}
   - {fileID: 2113138376}
   m_Father: {fileID: 1399050422}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &870467333
 PrefabInstance:
@@ -17831,7 +17792,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1117697998}
   - component: {fileID: 1117698000}
-  - component: {fileID: 1117697999}
   m_Layer: 0
   m_Name: Aura Spot Light (6)
   m_TagString: Untagged
@@ -17853,18 +17813,6 @@ Transform:
   m_Father: {fileID: 454785062}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 78.52801, y: -22.121, z: 0}
---- !u!114 &1117697999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1117697997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1117698000
 Light:
   m_ObjectHideFlags: 0
@@ -18584,7 +18532,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1141920478}
   - component: {fileID: 1141920480}
-  - component: {fileID: 1141920479}
   m_Layer: 0
   m_Name: Aura Spot Light (7)
   m_TagString: Untagged
@@ -18606,18 +18553,6 @@ Transform:
   m_Father: {fileID: 454785062}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 78.52801, y: -22.121, z: 0}
---- !u!114 &1141920479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1141920477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1141920480
 Light:
   m_ObjectHideFlags: 0
@@ -19077,8 +19012,6 @@ MonoBehaviour:
   OnHealthZero:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &1160190414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19154,6 +19087,95 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1160190414}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1165231920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1165231921}
+  - component: {fileID: 1165231922}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1165231921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165231920}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -42.116653, y: 83.1, z: -187.10002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1399050422}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1165231922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165231920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b83577ff27a4444abb0733d7b4438e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_range: 50
+  m_noiseScale: 1
+  m_noiseCurves:
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.0035476685
+      inSlope: 0.7028269
+      outSlope: 0.7028269
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.24729371
+    - serializedVersion: 3
+      time: 0.5394524
+      value: 0.005673945
+      inSlope: 1.0713537
+      outSlope: 1.0713537
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19196528
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8122872
+      value: -0.048500754
+      inSlope: 0.115147084
+      outSlope: 0.115147084
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.27780303
+    - serializedVersion: 3
+      time: 1
+      value: -0.0035476685
+      inSlope: 0.6213563
+      outSlope: 0.6213563
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.6446436
+      outWeight: 0
+    m_PreInfinity: 1
+    m_PostInfinity: 1
+    m_RotationOrder: 0
+  m_on: 1
+  m_rotationLerp: 10
 --- !u!1001 &1167045653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19311,7 +19333,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1176724661}
   - component: {fileID: 1176724660}
-  - component: {fileID: 1176724659}
   m_Layer: 0
   m_Name: Aura Point Light (1)
   m_TagString: Untagged
@@ -19319,18 +19340,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1176724659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1176724658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1176724660
 Light:
   m_ObjectHideFlags: 0
@@ -19401,8 +19410,7 @@ Transform:
   m_LocalRotation: {x: 0.8172586, y: -0.31499454, z: 0.34765103, w: 0.33467257}
   m_LocalPosition: {x: 149.21, y: 13.025841, z: 31.34}
   m_LocalScale: {x: 0.80592, y: 0.80592006, z: 0.8059203}
-  m_Children:
-  - {fileID: 1382387224}
+  m_Children: []
   m_Father: {fileID: 454785062}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 130, y: 27.766998, z: 26.037994}
@@ -20887,7 +20895,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1294017869}
   - component: {fileID: 1294017871}
-  - component: {fileID: 1294017870}
   m_Layer: 0
   m_Name: Aura Spot Light (8)
   m_TagString: Untagged
@@ -20909,18 +20916,6 @@ Transform:
   m_Father: {fileID: 454785062}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 78.52801, y: -22.121, z: 0}
---- !u!114 &1294017870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1294017868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1294017871
 Light:
   m_ObjectHideFlags: 0
@@ -22105,55 +22100,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1375775590}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1382387223
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1382387224}
-  - component: {fileID: 1382387225}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1382387224
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382387223}
-  m_LocalRotation: {x: -0.88005894, y: 0.09940605, z: 0.11945073, w: 0.44871613}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1176724661}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1382387225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382387223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b83577ff27a4444abb0733d7b4438e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_range: 7.5
-  m_mainLamp: 0
-  m_noiseScale: 1
-  m_noiseCurves: []
-  m_on: 1
-  m_rotationLerp: 0.5
 --- !u!1001 &1385287321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22547,6 +22493,7 @@ Transform:
   m_LocalPosition: {x: 182.51665, y: 4.5798645, z: -254.8376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1165231921}
   - {fileID: 1763856532}
   - {fileID: 1483576586}
   - {fileID: 1487850021}
@@ -22952,7 +22899,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1420048730}
   - component: {fileID: 1420048732}
-  - component: {fileID: 1420048731}
   m_Layer: 0
   m_Name: Aura Spot Light (9)
   m_TagString: Untagged
@@ -22974,18 +22920,6 @@ Transform:
   m_Father: {fileID: 454785062}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 78.52801, y: -22.121, z: 0}
---- !u!114 &1420048731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1420048729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1420048732
 Light:
   m_ObjectHideFlags: 0
@@ -23131,7 +23065,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1432863446}
   - component: {fileID: 1432863448}
-  - component: {fileID: 1432863447}
   m_Layer: 0
   m_Name: Aura Spot Light (4)
   m_TagString: Untagged
@@ -23153,18 +23086,6 @@ Transform:
   m_Father: {fileID: 454785062}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 78.52801, y: -22.121, z: 0}
---- !u!114 &1432863447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1432863445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1432863448
 Light:
   m_ObjectHideFlags: 0
@@ -23610,7 +23531,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1455782016}
   - component: {fileID: 1455782018}
-  - component: {fileID: 1455782017}
   m_Layer: 0
   m_Name: Aura Spot Light (1)
   m_TagString: Untagged
@@ -23632,18 +23552,6 @@ Transform:
   m_Father: {fileID: 454785062}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 78.52801, y: -22.121, z: 0}
---- !u!114 &1455782017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455782015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1455782018
 Light:
   m_ObjectHideFlags: 0
@@ -23810,7 +23718,7 @@ Transform:
   m_LocalScale: {x: 0.4688915, y: 0.42208973, z: 0.7372239}
   m_Children: []
   m_Father: {fileID: 1399050422}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 2.5630002, y: 171.61101, z: -4.3360004}
 --- !u!65 &1483576587
 BoxCollider:
@@ -24058,7 +23966,7 @@ Transform:
   - {fileID: 315223113}
   - {fileID: 1593521893}
   m_Father: {fileID: 1399050422}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1488081253
 PrefabInstance:
@@ -27664,7 +27572,7 @@ Transform:
   m_LocalScale: {x: 0.21589908, y: 1.1219602, z: 0.12030305}
   m_Children: []
   m_Father: {fileID: 1399050422}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 2.5630002, y: 171.61101, z: -4.3360004}
 --- !u!65 &1763856533
 BoxCollider:
@@ -27966,7 +27874,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1779366147}
   - component: {fileID: 1779366149}
-  - component: {fileID: 1779366148}
   m_Layer: 0
   m_Name: Aura Spot Light (2)
   m_TagString: Untagged
@@ -27988,18 +27895,6 @@ Transform:
   m_Father: {fileID: 454785062}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 78.52801, y: -22.121, z: 0}
---- !u!114 &1779366148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1779366146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1779366149
 Light:
   m_ObjectHideFlags: 0
@@ -28116,7 +28011,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1801469027}
   - component: {fileID: 1801469029}
-  - component: {fileID: 1801469028}
   m_Layer: 0
   m_Name: Aura Spot Light (5)
   m_TagString: Untagged
@@ -28138,18 +28032,6 @@ Transform:
   m_Father: {fileID: 454785062}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 78.52801, y: -22.121, z: 0}
---- !u!114 &1801469028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1801469026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1801469029
 Light:
   m_ObjectHideFlags: 0
@@ -30185,7 +30067,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: b4c70cd24db2b72489faca5dc83f8404,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b4c70cd24db2b72489faca5dc83f8404,
         type: 3}
@@ -32625,7 +32507,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2066922078}
   - component: {fileID: 2066922077}
-  - component: {fileID: 2066922076}
   m_Layer: 0
   m_Name: Aura Point Light
   m_TagString: Untagged
@@ -32633,18 +32514,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2066922076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2066922075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &2066922077
 Light:
   m_ObjectHideFlags: 0
@@ -34570,8 +34439,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   m_interactable: 1
   m_onlyOnce: 0
   m_interactUiPrefab: {fileID: 6456536924899312098, guid: 33676a5fda7a8e140881be0bbcd36f07,
@@ -39962,8 +39829,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   m_interactable: 1
   m_onlyOnce: 0
   m_interactUiPrefab: {fileID: 6456536924899312098, guid: 33676a5fda7a8e140881be0bbcd36f07,
@@ -40884,8 +40749,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   m_interactable: 1
   m_onlyOnce: 0
   m_interactUiPrefab: {fileID: 6456536924899312098, guid: 33676a5fda7a8e140881be0bbcd36f07,
@@ -41078,8 +40941,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   m_interactable: 1
   m_onlyOnce: 0
   m_interactUiPrefab: {fileID: 6456536924899312098, guid: 33676a5fda7a8e140881be0bbcd36f07,
@@ -43154,17 +43015,17 @@ PrefabInstance:
     - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.060676586
+      value: -0.060676668
       objectReference: {fileID: 0}
     - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.15962023
+      value: 0.15962024
       objectReference: {fileID: 0}
     - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.34718552
+      value: -0.34718546
       objectReference: {fileID: 0}
     - target: {fileID: 8612773373067904166, guid: 73be2a4fb1c78764d8c36e7d38711e18,
         type: 3}
@@ -47514,8 +47375,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   m_interactable: 1
   m_onlyOnce: 0
   m_interactUiPrefab: {fileID: 6456536924899312098, guid: 33676a5fda7a8e140881be0bbcd36f07,
@@ -54695,8 +54554,6 @@ MonoBehaviour:
   OnInteract:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   m_interactable: 1
   m_onlyOnce: 0
   m_interactUiPrefab: {fileID: 6456536924899312098, guid: 33676a5fda7a8e140881be0bbcd36f07,
