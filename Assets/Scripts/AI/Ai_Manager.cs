@@ -60,7 +60,6 @@ public static class Ai_Manager
             Shader.SetGlobalInt("LampCount", i);
             Shader.SetGlobalVectorArray("LampPositionsArray", m_lampPositions);
             Shader.SetGlobalFloatArray("LampRangesArray", m_lampRanges);
-            Debug.Log("Setting Global Shader Arrays [" + m_lampPositions[0]+ "]");
         }
     }
 
