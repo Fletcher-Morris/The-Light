@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Watermill : MonoBehaviour
 {
-    public GameObject wheelupplace,wheeldownplace,waterwheel,basketupplace,basketdownplace,basket,basketpowder,boxpowder;
+    public GameObject Player1,wheelupplace,wheeldownplace,waterwheel,basketupplace,basketdownplace,basket,basketpowder,boxpowder;
+    public InventoryItem rawpowder;
+    bool firsttimemovebasket = true;
+    List<Rotator> rotators = new List<Rotator>();
+    bool machinerunning = false;
+
     IEnumerator Movewheelup()
     {
         machinerunning = false;
@@ -49,8 +54,11 @@ public class Watermill : MonoBehaviour
     }
     IEnumerator Movebasketup()
     {
-        powderinbasket = true;
-        basketpowder.GetComponent<MeshRenderer>().enabled = true;
+        if (firsttimemovebasket)
+        {
+            firsttimemovebasket = false;
+            basketpowder.SetActive(true);
+        }
         Vector3 vt = new Vector3();
         vt = basketupplace.transform.position - basket.transform.position;
         vt.x = 0;
@@ -69,14 +77,11 @@ public class Watermill : MonoBehaviour
             
             yield return new WaitForFixedUpdate();
         }
-        powderinbox = true;
-        boxpowder.GetComponent<MeshRenderer>().enabled = true;
+
+        boxpowder.SetActive(true);
     }
-    List<Rotator> rotators=new List<Rotator>();
-    bool machinerunning=false;
-    bool powderinbasket = false;
-    bool powderinhand = false;
-    bool powderinbox = false;
+   
+   
     //0:up 1:moving 2:down
     int wheelstate=0;
     int basketstate = 0;
@@ -115,32 +120,20 @@ public class Watermill : MonoBehaviour
             }
         }
     }
-    public void CollectRawPowder()
-    {
-        if (basketstate == 0 && powderinbasket)
-        {
-            powderinbasket = false;
-            basketpowder.GetComponent<MeshRenderer>().enabled = false;
-            powderinhand = true;
-        }
-    }
+
     public void InputRawPowder()
     {
-        if (powderinhand&&machinerunning)
+        if (machinerunning)
         {
-            powderinhand = false;
-            StartCoroutine(Producepowder());
+
+            if (Player1.GetComponent<Inventory_Controller>().HasItemInInventory(rawpowder))
+            {
+                Player1.GetComponent<Inventory_Controller>().RemoveItemFromInventory(rawpowder);
+                StartCoroutine(Producepowder());
+            }
         }
     }
-    public void CollectPowder()
-    {
-        if (powderinbox)
-        {
-            powderinbox = false;
-            boxpowder.GetComponent<MeshRenderer>().enabled = false;
-            Debug.Log("YOU GOT POWDER!!!!!!");
-        }
-    }
+ 
     void Rotaterotator()
     {
         if (machinerunning)

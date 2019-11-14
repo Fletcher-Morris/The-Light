@@ -46,7 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questname: Read Parchment
   describe: Click "I" to open Item menu
-  nextquests: []
+  nextquests:
+  - {fileID: 7606890728548816973, guid: de1d603bb24a85b4e8e3c0aa96f52d2f, type: 3}
   quest_active: 1
 --- !u!114 &6198541271884678349
 MonoBehaviour:

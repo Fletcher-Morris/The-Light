@@ -22,10 +22,10 @@ MonoBehaviour:
     our life and let a warrior reach the main city and save us all.\r\n"
   m_droppable: 0
   m_sprite: {fileID: 0}
-  m_modelPrefab: {fileID: 642877731731530842, guid: deb5b1bd89ca5314fb9f1e97e3ac17b3,
+  m_modelPrefab: {fileID: 3822805213672841303, guid: 9f4cddd37ba9ac54891932fe6380e823,
     type: 3}
   m_stackable: 0
   m_persistent: 0
-  m_droppedPrefab: {fileID: 642877731731530842, guid: deb5b1bd89ca5314fb9f1e97e3ac17b3,
+  m_droppedPrefab: {fileID: 3822805213672841303, guid: 9f4cddd37ba9ac54891932fe6380e823,
     type: 3}
-  m_inventoryItemScale: 4.4
+  m_inventoryItemScale: 5

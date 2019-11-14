@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c11f5e47599c444f9133d26a1630842, type: 3}
+  m_Name: The Lamp
+  m_EditorClassIdentifier: 
+  m_itemName: The Lamp
+  m_itemDesc: The magic Lamp
+  m_droppable: 0
+  m_sprite: {fileID: 0}
+  m_modelPrefab: {fileID: 5125534563796239631, guid: 18318c617c82ab14093856f529af5934,
+    type: 3}
+  m_stackable: 0
+  m_persistent: 0
+  m_droppedPrefab: {fileID: 5125534563796239631, guid: 18318c617c82ab14093856f529af5934,
+    type: 3}
+  m_inventoryItemScale: 2

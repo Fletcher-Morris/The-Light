@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c11f5e47599c444f9133d26a1630842, type: 3}
+  m_Name: Powder
+  m_EditorClassIdentifier: 
+  m_itemName: Powder
+  m_itemDesc: A bag of magic powder that can be used with the lamp
+  m_droppable: 0
+  m_sprite: {fileID: 0}
+  m_modelPrefab: {fileID: 7520241691210816512, guid: d3aed259c35d90444bd4533b16da34cf,
+    type: 3}
+  m_stackable: 0
+  m_persistent: 0
+  m_droppedPrefab: {fileID: 7520241691210816512, guid: d3aed259c35d90444bd4533b16da34cf,
+    type: 3}
+  m_inventoryItemScale: 1
