@@ -31,6 +31,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: a3c43c72d42f4e44695360b27a10a63b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Control:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -63,6 +67,22 @@ Material:
         m_Texture: {fileID: 2800000, guid: 826e9d3791e89174dbf3097b7e192aa1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Splat0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Tex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -92,12 +112,18 @@ Material:
     - _Rotation: 0
     - _ShineClamp: 0.084
     - _Smoothness: 1
+    - _Smoothness0: 1
+    - _Smoothness1: 1
+    - _Smoothness2: 1
+    - _Smoothness3: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularIntensity: 2
     - _SpecularSoftness: 0.1
+    - _SpecularTilling: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _Terrain: 0
     - _UseNormalTex: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
