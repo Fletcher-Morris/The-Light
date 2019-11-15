@@ -19,13 +19,13 @@ public class Quest4 : Quest
     }
     public override void OnFinish()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Getlantern>().Showlantern();
+        //GameObject.FindGameObjectWithTag("Player").GetComponent<Getlantern>().Showlantern();
         base.OnFinish();
     }
 
     public override void Check()
     {
-        if(ic.HasItemInInventory("The Lamp"))
+        if(ic.HasItemInInventory("The_Lamp"))
         {
             QuestManager.instance.FinishQuest(this);
         }
