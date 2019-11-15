@@ -11,7 +11,7 @@ public class TriggerDarkness : MonoBehaviour
     public List<GameObject> Darkclouds = new List<GameObject>();
     public GameObject CM, CC,PL;
     public GameObject Beaconlight;
-  
+    public GameObject quest;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +24,13 @@ public class TriggerDarkness : MonoBehaviour
             
             if (other.CompareTag("Player"))
             {
-                if (QuestManager.instance.CheckQuestFinished("Read Parchment") == true)
-               {
+               // if (QuestManager.instance.CheckQuestFinished("Read Parchment") == true)
+              // {
                     triggered = true;
-                    
-                   QuestManager.instance.GetQuest("Go To The Tower").SetCondition("action", 1);
+                   QuestManager.instance.ClearQuestList();
+                  // QuestManager.instance.GetQuest("Go To The Tower").SetCondition("action", 1);
                     Darkcome();
-               }
+               //}
             }
         }
     }
@@ -50,7 +50,8 @@ public class TriggerDarkness : MonoBehaviour
         CC.SetActive(false);
         CM.SetActive(true);
         PL.SetActive(true);
-        QuestManager.instance.SetQuestActive("Get the Lantern");
+        //QuestManager.instance.SetQuestActive("Get the Lantern");
+        Instantiate(quest);
     }
     public void ActiveDarkclouds()
     {

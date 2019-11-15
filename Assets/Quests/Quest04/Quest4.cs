@@ -10,13 +10,9 @@ public class Quest4 : Quest
     void Start()
     {
         QuestManager.instance.AddQuest(this);
-        
+         ic = Inventory_Controller.Singleton();
     }
-    public override void OnQuestSetActive()
-    {
-        ic = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory_Controller>();
-       
-    }
+ 
     public override void OnFinish()
     {
         //GameObject.FindGameObjectWithTag("Player").GetComponent<Getlantern>().Showlantern();
@@ -25,6 +21,7 @@ public class Quest4 : Quest
 
     public override void Check()
     {
+       
         if(ic.HasItemInInventory("The_Lamp"))
         {
             QuestManager.instance.FinishQuest(this);
