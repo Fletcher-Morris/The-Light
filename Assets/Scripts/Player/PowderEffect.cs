@@ -14,5 +14,6 @@ public class PowderEffect
     public PowderEffect (Powder _powder)
     {
         m_powder = _powder;
+        m_remainingTime = m_powder.BurnTime;
     }
 }

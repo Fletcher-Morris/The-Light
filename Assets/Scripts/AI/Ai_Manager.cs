@@ -4,11 +4,33 @@ using UnityEngine;
 
 public static class Ai_Manager
 {
+    const int MAX_LAMPS = 16;
+
     private static int m_lastAiId = -1;
     public static int GetNewAiId()
     {
         m_lastAiId++;
         return m_lastAiId;
+    }
+
+    private static List<Enemy_Ai> m_enemyAiList = new List<Enemy_Ai>();
+    public static int AddAi(Enemy_Ai _ai)
+    {
+        m_enemyAiList.Add(_ai);
+        return GetNewAiId();
+    }
+
+    public static List<Enemy_Ai> GetEnemyAiInRange(float _range, Vector3 _pos)
+    {
+        List<Enemy_Ai> inRange = new List<Enemy_Ai>();
+        foreach(Enemy_Ai enemy in m_enemyAiList)
+        {
+            if(enemy != null)
+            {
+                if (Vector3.Distance(enemy.transform.position, _pos) <= _range) inRange.Add(enemy);
+            }
+        }
+        return inRange;
     }
 
     private static Transform m_playerTransform;
@@ -35,32 +57,61 @@ public static class Ai_Manager
 
     private static List<Vector4> m_lampPositions = new List<Vector4>();
     private static List<float> m_lampRanges = new List<float>();
+
+    public static void ResetLamps(Lamp_Controller _lamp)
+    {
+        if (m_lamps.Count == 0)
+        {
+            m_lamps = new List<Lamp_Controller>();
+        }
+        else if(_lamp == m_lamps[0])
+        {
+            m_lamps = new List<Lamp_Controller>();
+        }
+    }
     public static void UpdateShaderArray(Lamp_Controller _lamp)
     {
         if (m_lamps.Count <= 0) return;
         if(m_lamps[0] == _lamp)
         {
-            m_lampPositions = new List<Vector4>();
-            m_lampRanges = new List<float>();
-            int i = 0;
-            foreach(Lamp_Controller lamp in m_lamps)
+            ResetLampLists();
+            CreateGlobalValues();
+            int added = 0;
+            for(int i = 0; i < MAX_LAMPS; i+=0)
             {
-                if(lamp)
+                if (i >= m_lamps.Count) break;
+                if(m_lamps[i] != null)
                 {
-                    m_lampPositions.Add(lamp.transform.position);
-                    m_lampRanges.Add(lamp.GetNoisyEnabledRange());
-                }
-                else
-                {
-                    m_lamps.RemoveAt(i);
-                    i--;
+                    m_lampPositions[added] = m_lamps[i].transform.position;
+                    m_lampRanges[added] = m_lamps[i].GetNoisyEnabledRange();
+                    added++;
                 }
                 i++;
             }
-            Shader.SetGlobalInt("LampCount", i);
             Shader.SetGlobalVectorArray("LampPositionsArray", m_lampPositions);
             Shader.SetGlobalFloatArray("LampRangesArray", m_lampRanges);
         }
+    }
+
+    private static void ResetLampLists()
+    {
+        m_lampPositions = new List<Vector4>(MAX_LAMPS);
+        m_lampRanges = new List<float>(MAX_LAMPS);
+        for (int i = 0; i < MAX_LAMPS; i++)
+        {
+            m_lampPositions.Add(Vector4.zero);
+            m_lampRanges.Add(0.0f);
+        }
+    }
+
+    private static bool m_globalValuesInitialised;
+    private static void CreateGlobalValues()
+    {
+        if (m_globalValuesInitialised) return;
+        Shader.SetGlobalInt("LampCount", MAX_LAMPS);
+        Shader.SetGlobalVectorArray("LampPositionsArray", m_lampPositions);
+        Shader.SetGlobalFloatArray("LampRangesArray", m_lampRanges);
+        m_globalValuesInitialised = true;
     }
 
     private static List<Ai_Waypoint> m_waypoints = new List<Ai_Waypoint>();

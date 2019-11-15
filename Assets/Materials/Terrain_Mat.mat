@@ -8,10 +8,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Terrain_Mat
-  m_Shader: {fileID: 4800000, guid: 69c1f799e772cb6438f56c23efccb782, type: 3}
+  m_Shader: {fileID: 4800000, guid: de50c931ceb54fe43ae797f47231c5e6, type: 3}
   m_ShaderKeywords: _TERRAIN_ON
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -73,7 +73,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SpecularTex:
         m_Texture: {fileID: 2800000, guid: 826e9d3791e89174dbf3097b7e192aa1, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 0, y: 100}
         m_Offset: {x: 0, y: 0}
     - _Splat0:
         m_Texture: {fileID: 0}
@@ -116,8 +116,9 @@ Material:
     - _Smoothness3: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpecularIntensity: 2
-    - _SpecularSoftness: 0.01
+    - _SpecularIntensity: 0.5
+    - _SpecularSoftness: 0.05
+    - _SpecularTilling: 10
     - _SrcBlend: 1
     - _TERRAIN_INSTANCED_PERPIXEL_NORMAL: 0
     - _Terrain: 1
@@ -126,7 +127,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 0.75, g: 0.7713424, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &6523676028810733258
 MonoBehaviour:

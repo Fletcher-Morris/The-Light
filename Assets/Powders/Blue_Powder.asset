@@ -17,5 +17,9 @@ MonoBehaviour:
   m_description: 'Stuns enamies for a short time when burnt.
 
     No Lingering effects.'
+  m_affectsPlayer: 0
+  m_affectsMonsters: 1
   m_recipes: []
-  m_stunPower: 1
+  m_burnTime: 1
+  m_stunPower: 5
+  m_fearIntensity: 0

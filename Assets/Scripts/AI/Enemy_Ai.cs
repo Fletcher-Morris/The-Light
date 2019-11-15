@@ -43,13 +43,6 @@ public class Enemy_Ai : MonoBehaviour
     private float m_fleeTime = 0.0f;
     private float m_playerAttention = 0.0f;
     private Vector3 m_lightDirection = new Vector3();
-    private float m_lightLevel;
-    //  The change in light levels observed by this AI.
-    private float m_lightLevelDelta;
-    //  The light level obeserved during the previous frame.
-    private float m_prevLightLevel;
-    //  Is this AI surpsise4d by the current light level?
-    private bool m_surprised = false;
     //  The last known position of the player.
     private Vector3 m_lastKnownPlayerPosition;
     //  The detection value of the player, 1.0 is fully detected.
@@ -70,6 +63,13 @@ public class Enemy_Ai : MonoBehaviour
     //  This AI's audio source.
     private AudioSource m_audioSource;
 
+    //  The list of currently applied powder effects.
+    [SerializeField] private List<PowderEffect> m_powderEffects;
+    public void AddPowderEffect(Powder _powder) { m_powderEffects.Add(new PowderEffect(_powder)); }
+    //  Is this AI currently stunned?
+    [SerializeField] private bool m_isStunned;
+    [SerializeField] private bool m_isAfraid;
+
     //  Is this AI in debug mode?
     [SerializeField] private bool m_debug;
     //  The original name of the GameObject.
@@ -79,7 +79,7 @@ public class Enemy_Ai : MonoBehaviour
 
     private void Start()
     {
-        m_aiId = Ai_Manager.GetNewAiId();
+        m_aiId = Ai_Manager.AddAi(this);
         GetComponentsOnStart();
         m_spawnPos = transform.position;
         if (m_autoWaypoints) GetAutoWaypoints();
@@ -383,8 +383,6 @@ public class Enemy_Ai : MonoBehaviour
     {
         m_inLight = false;
         m_lightDirection = new Vector3();
-        m_prevLightLevel = m_lightLevel;
-        m_lightLevel = 0.0f;
         foreach(Lamp_Controller lamp in Ai_Manager.GetLamps())
         {
             if(lamp.IsOn())
@@ -398,16 +396,47 @@ public class Enemy_Ai : MonoBehaviour
                     if (hit.collider.transform == lamp.transform)
                     {
                         m_inLight = true;
-                        m_lightLevel += Mathf.Clamp(1 - (dir.magnitude / lamp.GetRange()), 0.0f, Mathf.Infinity);
                         if (m_debug) Debug.DrawLine(lamp.transform.position, m_eyesTransform.position, Color.blue, m_updateInterval);
                     }
                 }
                 m_lightDirection += dir;
             }
         }
-        m_lightLevelDelta = (m_lightLevel - m_prevLightLevel);
-        m_lightLevelDelta = Mathf.Clamp(m_lightLevelDelta, 0.0f, Mathf.Infinity);
-        m_surprised = ((m_lightLevelDelta * m_aiSettings.surpriseMultiplier * m_updateInterval) > m_aiSettings.surpriseThreshold);
+    }
+
+    private void CheckPowderEffects(float _delta)
+    {
+        //  Reset stats.
+        m_isStunned = false;
+        m_isAfraid = false;
+
+        List<PowderEffect> removeEffects = new List<PowderEffect>();
+        for(int i = 0; i < m_powderEffects.Count; i++)
+        {
+            PowderEffect effect = m_powderEffects[i];
+            effect.RemainingTime -= _delta;
+            if(effect.RemainingTime <= 0.0f)
+            {
+                //  Remove the powder effect.
+                removeEffects.Add(effect);
+            }
+            else
+            {
+                if(effect.Powder.StunPower > m_aiSettings.stunResistance)
+                {
+                    m_isStunned = true;
+                }
+                if(effect.Powder.FearIntensity > m_aiSettings.braveness)
+                {
+                    m_isAfraid = true;
+                }
+            }
+        }
+
+        foreach(PowderEffect effect in removeEffects)
+        {
+            m_powderEffects.Remove(effect);
+        }
     }
 
     private void CalcAiState()
@@ -419,7 +448,9 @@ public class Enemy_Ai : MonoBehaviour
             return;
         }
 
-        if(m_fleeTime > 0.0f)
+        CheckPowderEffects(m_updateInterval);
+
+        if (m_fleeTime > 0.0f)
         {
             m_aiState = Ai_State.Fleeing;
         }
@@ -437,12 +468,14 @@ public class Enemy_Ai : MonoBehaviour
                 }
             }
             else m_aiState = Ai_State.Wandering;
-            if ((m_inLight && m_aiSettings.runAwayFromLight) || m_surprised)
+            if ((m_inLight && m_aiSettings.runAwayFromLight) || m_isAfraid)
             {
                 m_aiState = Ai_State.Fleeing;
                 m_fleeTime = m_aiSettings.fleeDuration;
             }
         }
+
+        if (m_isStunned) m_aiState = Ai_State.Stunned;
 
 
         switch (m_aiState)
