@@ -48,3 +48,4 @@ MonoBehaviour:
   nextquests:
   - {fileID: 603902623956170569, guid: 518697c8db578b1428ae161922a8d650, type: 3}
   quest_active: 1
+  uis: {fileID: 5677561916019978914, guid: fbd2a7fe04170f349b964720a6890196, type: 3}

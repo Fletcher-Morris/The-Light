@@ -28,6 +28,9 @@ public class Player_Controller : MonoBehaviour
     private int m_animatorLanternHash;
     private int m_animatorFlipHash;
     private int m_animatorDeadHash;
+    private bool m_hasLamp = false;
+    [SerializeField] private GameObject m_lampObject;
+
 
     [Header("Interactions")]
 
@@ -45,6 +48,7 @@ public class Player_Controller : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private Transform m_cameraPivotY;
+    public Transform CamYAxis() { return m_cameraPivotY; }
     [SerializeField] private Transform m_cameraPivotX;
     [SerializeField] private Transform m_cameraTarget;
     [SerializeField] private Camera m_camera;
@@ -249,9 +253,16 @@ public class Player_Controller : MonoBehaviour
     {
         if (m_animator == null) return;
 
+        if(m_hasLamp == false)
+        {
+            m_hasLamp = Inventory_Controller.Singleton().HasItemInInventory("The_Lamp");
+        }
+        m_lampObject.SetActive(m_hasLamp);
+
         m_animator.SetFloat(m_animatorMoveHash, m_moveDirection.magnitude/m_runSpeed);
         m_animator.SetBool(m_animatorDeadHash, m_health.IsDead());
         m_animator.SetBool(m_animatorFlipHash, PlayerInput.Jump);
+        m_animator.SetBool(m_animatorLanternHash, m_hasLamp);
     }
 
     private void Footsteps()
@@ -381,5 +392,13 @@ public class Player_Controller : MonoBehaviour
     {
         m_pauseMenu.gameObject.SetActive(true);
         GameTime.Pause();
+    }
+
+
+
+
+    public void UsePowder(Powder _powder)
+    {
+
     }
 }

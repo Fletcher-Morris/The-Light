@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c11f5e47599c444f9133d26a1630842, type: 3}
   m_Name: The Lamp
   m_EditorClassIdentifier: 
-  m_itemName: The Lamp
+  m_itemName: The_Lamp
   m_itemDesc: The magic Lamp
   m_droppable: 0
   m_sprite: {fileID: 0}
