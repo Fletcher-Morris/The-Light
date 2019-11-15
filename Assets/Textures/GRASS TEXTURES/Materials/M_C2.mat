@@ -112,8 +112,9 @@ Material:
     - _Smoothness3: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpecularIntensity: 1.26
+    - _SpecularIntensity: 0.84
     - _SpecularSoftness: 0.171
+    - _SpecularTilling: 1
     - _SrcBlend: 1
     - _Surface: 0
     - _Terrain: 0
