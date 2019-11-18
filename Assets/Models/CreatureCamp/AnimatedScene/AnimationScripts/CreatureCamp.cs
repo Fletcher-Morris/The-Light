@@ -43,9 +43,8 @@ public class CreatureCamp : MonoBehaviour
     float speed = 1.5f;
     float speedRun = 3f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    public void DoStart()
+    {//Called from TriggerCreatureCamp
         GetAllPaths();
         Corruption.gameObject.SetActive(false);
         DialoguesSpeaker = new Animator[] { CreatureA, CreatureB, CreatureA, CreatureC, CreatureA, CreatureD };
@@ -53,11 +52,7 @@ public class CreatureCamp : MonoBehaviour
         CageA.enabled = false;
         CageB.enabled = false;
         CageC.enabled = false;
-        
-    }
 
-    public void DoStart()
-    {
         StartCoroutine(Part1());
     }
 

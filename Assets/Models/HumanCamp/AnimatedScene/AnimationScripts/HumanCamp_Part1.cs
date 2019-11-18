@@ -25,18 +25,12 @@ public class HumanCamp_Part1 : MonoBehaviour
     [SerializeField] Transform ChiefEnd;
     public Animator GetChief() { return ChiefAnim; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    public void DoStart()
+    {//Called from TriggerHumanCamp
         //Set parchments
         Parchment.gameObject.SetActive(true);
         ParchmentStatic.gameObject.SetActive(false);
 
-        
-    }
-
-    public void DoStart()
-    {
         StartCoroutine(SoldierTalk());
         StartCoroutine(ChiefComes());
     }
