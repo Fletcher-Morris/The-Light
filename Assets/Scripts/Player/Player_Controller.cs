@@ -259,6 +259,8 @@ public class Player_Controller : MonoBehaviour
         }
         m_lampObject.SetActive(m_hasLamp);
 
+        m_animator.speed = GameTime.IsPausedInt();
+
         m_animator.SetFloat(m_animatorMoveHash, m_moveDirection.magnitude/m_runSpeed);
         m_animator.SetBool(m_animatorDeadHash, m_health.IsDead());
         m_animator.SetBool(m_animatorFlipHash, PlayerInput.Jump);
