@@ -73,6 +73,7 @@ public class Player_Controller : MonoBehaviour
     private Health m_health;
 
     [SerializeField] private Transform m_pauseMenu;
+    private int m_shaderPausedIntId;
 
     private void Awake()
     {
@@ -90,6 +91,8 @@ public class Player_Controller : MonoBehaviour
         m_animatorLanternHash = Animator.StringToHash("lantern");
         m_animatorFlipHash = Animator.StringToHash("flip");
         m_animatorDeadHash = Animator.StringToHash("dead");
+
+        m_shaderPausedIntId = Shader.PropertyToID("GamePausedInt");
     }
 
     private void GatherComponents()
@@ -114,6 +117,7 @@ public class Player_Controller : MonoBehaviour
 
     private void HandlePause()
     {
+        Shader.SetGlobalInt(m_shaderPausedIntId, GameTime.IsPausedInt());
         if(GameTime.IsPaused())
         {
 
