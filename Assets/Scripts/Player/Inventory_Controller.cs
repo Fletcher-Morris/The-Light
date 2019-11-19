@@ -369,12 +369,8 @@ public class Inventory_Controller : MonoBehaviour
             m_selectedItemSpawnedObject.transform.localScale = new Vector3(s, s, s);
             Rigidbody b = m_selectedItemSpawnedObject.GetComponent<Rigidbody>();
             if (b) b.isKinematic = true;
-            int layer = LayerMask.NameToLayer("SelectedItem");
-            foreach(Transform c in m_selectedItemSpawnedObject.transform)
-            {
-                c.gameObject.layer = layer;
-            }
-            m_selectedItemSpawnedObject.layer = layer;
+            LayerTools.ChangeLayerRecursive(m_selectedItemSpawnedObject, "SelectedItem");
+            m_selectedItemSpawnedObject.GetComponent<Interact_Trigger>()?.SetInteractable(false);
         }
 
         m_selectedItemName.text = _stack.item.GetName();
