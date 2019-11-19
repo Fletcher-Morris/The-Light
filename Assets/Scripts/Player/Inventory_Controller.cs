@@ -34,7 +34,6 @@ public class Inventory_Controller : MonoBehaviour
         if(m_selectedItemSpawnedObject != null)
         {
             m_selectedItemSpawnedObject.transform.Rotate(Vector3.up, m_selectedItemRotateSpeed * Time.deltaTime);
-            m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
         }
     }
 
@@ -369,7 +368,7 @@ public class Inventory_Controller : MonoBehaviour
             if (_stack.item.GetModel() != null)
             {
                 m_selectedItemSpawnedObject = Instantiate(_stack.item.GetModel(), m_selectedItemCam.transform);
-                m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
+                m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f) + _stack.item.InventoryItemOffset;
                 float s = _stack.item.InventoryItemScale;
                 m_selectedItemSpawnedObject.transform.localScale = new Vector3(s, s, s);
                 Rigidbody b = m_selectedItemSpawnedObject.GetComponent<Rigidbody>();
