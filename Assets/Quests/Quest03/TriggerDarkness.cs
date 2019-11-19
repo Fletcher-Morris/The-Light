@@ -9,7 +9,7 @@ public class TriggerDarkness : MonoBehaviour
     bool triggered=false;
     public PlayableDirector director;
     public List<GameObject> Darkclouds = new List<GameObject>();
-    public GameObject CM, CC,PL;
+    public GameObject CM, CC;
     public GameObject Beaconlight;
     public GameObject quest;
     // Start is called before the first frame update
@@ -36,8 +36,8 @@ public class TriggerDarkness : MonoBehaviour
     }
     void Darkcome()
     {
+        Player_Controller.Singleton().InCutscene = true;
         CM.SetActive(false);
-        PL.SetActive(false);
         CC.SetActive(true);
         director.Play();
     }
@@ -49,7 +49,7 @@ public class TriggerDarkness : MonoBehaviour
     {
         CC.SetActive(false);
         CM.SetActive(true);
-        PL.SetActive(true);
+        Player_Controller.Singleton().InCutscene = false;
         //QuestManager.instance.SetQuestActive("Get the Lantern");
         Instantiate(quest);
     }

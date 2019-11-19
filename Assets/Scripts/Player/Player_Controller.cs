@@ -30,6 +30,8 @@ public class Player_Controller : MonoBehaviour
     private int m_animatorDeadHash;
     private bool m_hasLamp = false;
     [SerializeField] private GameObject m_lampObject;
+    [SerializeField] private bool m_inCutscene = false;
+    public bool InCutscene { get => m_inCutscene; set => m_inCutscene = value; }
 
 
     [Header("Interactions")]
@@ -74,6 +76,7 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] private Transform m_pauseMenu;
     private int m_shaderPausedIntId;
+
 
     private void Awake()
     {
@@ -183,6 +186,7 @@ public class Player_Controller : MonoBehaviour
                 }
             }
         }
+        if (m_animator == null) return;
         m_closestInteraction?.SetAsClosest(true);
         if (PlayerInput.Interact) { m_closestInteraction?.TriggerInteraction(); }
     }
@@ -217,6 +221,8 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         PlayerInput.PowderWheel = Input.GetKey(KeyCode.Q);
 
+        if (m_inCutscene) return;
+
         KeyCode escKeyCode = KeyCode.Escape;
         if (Application.isEditor) escKeyCode = KeyCode.Tab;
 
@@ -245,9 +251,16 @@ public class Player_Controller : MonoBehaviour
 
     private void Movement()
     {
-        float speed = m_runSpeed;
-        if (PlayerInput.Walk) speed = m_walkSpeed;
-        m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized * speed;
+        if (m_inCutscene == false)
+        {
+            float speed = m_runSpeed;
+            if (PlayerInput.Walk) speed = m_walkSpeed;
+            m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized * speed;
+        }
+        else
+        {
+            m_moveDirection = Vector3.zero;
+        }
         Vector3 moveDirWithGravity = m_moveDirection;
         moveDirWithGravity.y -= m_gravity;
         m_controller.Move(moveDirWithGravity * GameTime.deltaTime);
@@ -308,9 +321,7 @@ public class Player_Controller : MonoBehaviour
     }
 
     private void UpdateCamera()
-    {
-        if (GameTime.IsPaused()) return;
-
+    {        
         m_camXAngle = Mathf.Clamp(m_camXAngle - PlayerInput.MouseVector.y, m_cameraMinAngle, m_cameraMaxAngle);
         float newDist = Mathf.Lerp(m_cameraCloseDist, m_cameraFarDist, (m_camXAngle / m_cameraMaxAngle));
         m_cameraPivotY.position = transform.position + new Vector3(0.0f, m_pivotHeight, 0.0f);
@@ -323,6 +334,9 @@ public class Player_Controller : MonoBehaviour
         Ray ray = new Ray(rayStart, m_cameraTarget.position - rayStart);
         RaycastHit hit;
         if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"))) newDist = hit.distance;
+
+        if (m_inCutscene) return;
+
         m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
         m_camera.transform.position = new Vector3(m_cameraTarget.position.x, Mathf.Lerp(m_camera.transform.position.y, m_cameraTarget.transform.position.y, m_cameraPositionLerp * GameTime.deltaTime), m_cameraTarget.position.z);
         m_camera.transform.rotation = Quaternion.Lerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraRotationLerp * GameTime.deltaTime);
