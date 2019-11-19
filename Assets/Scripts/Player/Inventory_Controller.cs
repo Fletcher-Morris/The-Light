@@ -354,28 +354,34 @@ public class Inventory_Controller : MonoBehaviour
             m_dropItemBtn.gameObject.SetActive(false);
             return;
         }
-
-        m_selectedStack = _stack;
-        if(m_selectedItemSpawnedObject != null)
+        else if(_stack == m_selectedStack)
         {
-            GameObject.Destroy(m_selectedItemSpawnedObject);
-        }
 
-        if(_stack.item.GetModel() != null)
+        }
+        else
         {
-            m_selectedItemSpawnedObject = Instantiate(_stack.item.GetModel(), m_selectedItemCam.transform);
-            m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
-            float s = _stack.item.InventoryItemScale;
-            m_selectedItemSpawnedObject.transform.localScale = new Vector3(s, s, s);
-            Rigidbody b = m_selectedItemSpawnedObject.GetComponent<Rigidbody>();
-            if (b) b.isKinematic = true;
-            LayerTools.ChangeLayerRecursive(m_selectedItemSpawnedObject, "SelectedItem");
-            m_selectedItemSpawnedObject.GetComponent<Interact_Trigger>()?.SetInteractable(false);
-        }
+            m_selectedStack = _stack;
+            if (m_selectedItemSpawnedObject != null)
+            {
+                GameObject.Destroy(m_selectedItemSpawnedObject);
+            }
 
-        m_selectedItemName.text = _stack.item.GetName();
-        m_selectedItemDescription.text = _stack.item.GetDescription();
-        m_dropItemBtn.gameObject.SetActive((_stack.item.IsDroppable() && _stack.quantity > 0));
+            if (_stack.item.GetModel() != null)
+            {
+                m_selectedItemSpawnedObject = Instantiate(_stack.item.GetModel(), m_selectedItemCam.transform);
+                m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
+                float s = _stack.item.InventoryItemScale;
+                m_selectedItemSpawnedObject.transform.localScale = new Vector3(s, s, s);
+                Rigidbody b = m_selectedItemSpawnedObject.GetComponent<Rigidbody>();
+                if (b) b.isKinematic = true;
+                LayerTools.ChangeLayerRecursive(m_selectedItemSpawnedObject, "SelectedItem");
+                m_selectedItemSpawnedObject.GetComponent<Interact_Trigger>()?.SetInteractable(false);
+            }
+
+            m_selectedItemName.text = _stack.item.GetName();
+            m_selectedItemDescription.text = _stack.item.GetDescription();
+            m_dropItemBtn.gameObject.SetActive((_stack.item.IsDroppable() && _stack.quantity > 0));
+        }
     }
 
 
