@@ -244,6 +244,8 @@ public class Enemy_Ai : MonoBehaviour
         m_playerAttention = Mathf.Clamp(m_playerAttention, 0.0f, m_aiSettings.attentionSpan);
 
         m_animator.speed = GameTime.IsPausedInt();
+
+        m_navMeshAgent.enabled = !GameTime.IsPaused();
     }
 
     private void OnEnable()
@@ -283,6 +285,7 @@ public class Enemy_Ai : MonoBehaviour
         CheckForLight();
         CalcAiState();
         UpdateNavAgent();
+        m_animator.speed = GameTime.IsPausedInt();
         if (m_prevAiState != m_aiState)
         {
             switch (m_aiState)
