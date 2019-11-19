@@ -336,6 +336,7 @@ public class Player_Controller : MonoBehaviour
         if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"))) newDist = hit.distance;
 
         if (m_inCutscene) return;
+        if (GameTime.IsPaused()) return;
 
         m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
         m_camera.transform.position = new Vector3(m_cameraTarget.position.x, Mathf.Lerp(m_camera.transform.position.y, m_cameraTarget.transform.position.y, m_cameraPositionLerp * GameTime.deltaTime), m_cameraTarget.position.z);
