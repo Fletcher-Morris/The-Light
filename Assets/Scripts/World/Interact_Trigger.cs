@@ -27,6 +27,8 @@ public class Interact_Trigger : MonoBehaviour
         m_interactable = _interactable;
     }
 
+    [SerializeField] private bool m_autoFindRenderers = true;
+
     private void UpdateShaderGlow(bool _enabled)
     {
         if (m_renderers.Count >= 1)
@@ -63,6 +65,15 @@ public class Interact_Trigger : MonoBehaviour
         m_interactUi.transform.SetParent(m_uiAnchor);
         Text text = m_interactUi.GetComponentInChildren<Text>();
         text.text = m_text + " [" + Player_Controller.Singleton().InteractKey.ToString() + "]";
+
+        if(m_autoFindRenderers)
+        {
+            if (GetComponent<Renderer>()) m_renderers.AddRange(GetComponents<Renderer>());
+            foreach(Renderer rend in GetComponentsInChildren<Renderer>())
+            {
+                m_renderers.Add(rend);
+            }
+        }
 
         SetInteractable(!m_interactable);
         SetInteractable(!m_interactable);
