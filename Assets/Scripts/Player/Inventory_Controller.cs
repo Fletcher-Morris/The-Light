@@ -34,6 +34,7 @@ public class Inventory_Controller : MonoBehaviour
         if(m_selectedItemSpawnedObject != null)
         {
             m_selectedItemSpawnedObject.transform.Rotate(Vector3.up, m_selectedItemRotateSpeed * Time.deltaTime);
+            m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
         }
     }
 
@@ -353,34 +354,32 @@ public class Inventory_Controller : MonoBehaviour
             m_dropItemBtn.gameObject.SetActive(false);
             return;
         }
-        else if(_stack == m_selectedStack)
+
+        m_selectedStack = _stack;
+        if(m_selectedItemSpawnedObject != null)
         {
-
+            GameObject.Destroy(m_selectedItemSpawnedObject);
         }
-        else
+
+        if(_stack.item.GetModel() != null)
         {
-            m_selectedStack = _stack;
-            if (m_selectedItemSpawnedObject != null)
+            m_selectedItemSpawnedObject = Instantiate(_stack.item.GetModel(), m_selectedItemCam.transform);
+            m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f);
+            float s = _stack.item.InventoryItemScale;
+            m_selectedItemSpawnedObject.transform.localScale = new Vector3(s, s, s);
+            Rigidbody b = m_selectedItemSpawnedObject.GetComponent<Rigidbody>();
+            if (b) b.isKinematic = true;
+            int layer = LayerMask.NameToLayer("SelectedItem");
+            foreach(Transform c in m_selectedItemSpawnedObject.transform)
             {
-                GameObject.Destroy(m_selectedItemSpawnedObject);
+                c.gameObject.layer = layer;
             }
-
-            if (_stack.item.GetModel() != null)
-            {
-                m_selectedItemSpawnedObject = Instantiate(_stack.item.GetModel(), m_selectedItemCam.transform);
-                m_selectedItemSpawnedObject.transform.localPosition = new Vector3(0, 0, 2.5f) + _stack.item.InventoryItemOffset;
-                float s = _stack.item.InventoryItemScale;
-                m_selectedItemSpawnedObject.transform.localScale = new Vector3(s, s, s);
-                Rigidbody b = m_selectedItemSpawnedObject.GetComponent<Rigidbody>();
-                if (b) b.isKinematic = true;
-                LayerTools.ChangeLayerRecursive(m_selectedItemSpawnedObject, "SelectedItem");
-                m_selectedItemSpawnedObject.GetComponent<Interact_Trigger>()?.SetInteractable(false);
-            }
-
-            m_selectedItemName.text = _stack.item.GetName();
-            m_selectedItemDescription.text = _stack.item.GetDescription();
-            m_dropItemBtn.gameObject.SetActive((_stack.item.IsDroppable() && _stack.quantity > 0));
+            m_selectedItemSpawnedObject.layer = layer;
         }
+
+        m_selectedItemName.text = _stack.item.GetName();
+        m_selectedItemDescription.text = _stack.item.GetDescription();
+        m_dropItemBtn.gameObject.SetActive((_stack.item.IsDroppable() && _stack.quantity > 0));
     }
 
 

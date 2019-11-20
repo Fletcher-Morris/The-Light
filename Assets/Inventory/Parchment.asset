@@ -28,5 +28,4 @@ MonoBehaviour:
   m_persistent: 0
   m_droppedPrefab: {fileID: 3822805213672841303, guid: 9f4cddd37ba9ac54891932fe6380e823,
     type: 3}
-  m_inventoryItemScale: 7
-  m_inventoryItemOffset: {x: 0, y: 0, z: 0}
+  m_inventoryItemScale: 5

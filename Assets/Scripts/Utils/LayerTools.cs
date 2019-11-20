@@ -66,14 +66,4 @@ public static class LayerTools
         }
         return _layerMask;
     }
-
-    public static void ChangeLayerRecursive(GameObject _object, string _layer)
-    {
-        int layer = LayerMask.NameToLayer(_layer);
-        _object.layer = layer;
-        foreach(Transform child in _object.transform)
-        {
-            ChangeLayerRecursive(child.gameObject, _layer);
-        }
-    }
 }
