@@ -24,7 +24,7 @@ public class Convert_Materials : Editor
         if (newShader == null) return;
 
         List<Material> foundMaterials = new List<Material>(Resources.FindObjectsOfTypeAll<Material>());
-        foreach(Material mat in foundMaterials)
+        foreach (Material mat in foundMaterials)
         {
             ConverteMaterial(mat);
         }
@@ -33,6 +33,8 @@ public class Convert_Materials : Editor
     private static void ConverteMaterial(Material mat)
     {
         if (mat.shader != normalShader) return;
+
+        Debug.Log("Converting Material : " + mat);
 
         Texture albedoTex;
         Texture emissionTex;
