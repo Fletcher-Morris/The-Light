@@ -7,11 +7,15 @@ using UnityEditor;
 
 public class Convert_Materials : Editor
 {
+
+    static Shader normalShader;
+    static Shader newShader;
+
     [MenuItem("Tools/Convert Materials")]
     public static void ConvertMaterials()
     {
-        Shader normalShader = Shader.Find("Lightweight Render Pipeline/Lit");
-        Shader newShader = Shader.Find("Zelda_Shader");
+        normalShader = Shader.Find("Lightweight Render Pipeline/Lit");
+        newShader = Shader.Find("Zelda_Shader");
 
         if (normalShader == null) Debug.LogWarning("Could not locate regular shader.");
         if (newShader == null) Debug.LogWarning("Could not locate zelda shader.");
@@ -22,24 +26,27 @@ public class Convert_Materials : Editor
         List<Material> foundMaterials = new List<Material>(Resources.FindObjectsOfTypeAll<Material>());
         foreach(Material mat in foundMaterials)
         {
-            if(mat.shader == normalShader)
-            {
-                Texture albedoTex;
-                Texture emissionTex;
-                Texture normalTex;
-
-                albedoTex = mat.GetTexture(0);
-                emissionTex = mat.GetTexture(5);
-                normalTex = mat.GetTexture(3);
-
-                mat.shader = newShader;
-
-                mat.SetTexture(0, albedoTex);
-                mat.SetTexture(1, emissionTex);
-                mat.SetTexture(2, normalTex);
-
-            }
+            ConverteMaterial(mat);
         }
+    }
+
+    private static void ConverteMaterial(Material mat)
+    {
+        if (mat.shader != normalShader) return;
+
+        Texture albedoTex;
+        Texture emissionTex;
+        Texture normalTex;
+
+        albedoTex = mat.GetTexture("_BaseMap");
+        emissionTex = mat.GetTexture("_EmissionMap");
+        normalTex = mat.GetTexture("_NormalMap");
+
+        mat.shader = newShader;
+
+        mat.SetTexture(0, albedoTex);
+        mat.SetTexture(1, emissionTex);
+        mat.SetTexture(2, normalTex);
     }
 }
 
