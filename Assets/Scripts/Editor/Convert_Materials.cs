@@ -25,16 +25,18 @@ public class Convert_Materials : Editor
 
         List<Material> foundMaterials = new List<Material>();
         foundMaterials.AddRange(Resources.FindObjectsOfTypeAll<Material>());
-        Debug.Log("Converting " + foundMaterials.Count + " Materials");
+        List<Material> convertedMats = new List<Material>();
         foreach (Material mat in foundMaterials)
         {
-            ConverteMaterial(mat);
+            if (ConverteMaterial(mat)) convertedMats.Add(mat);
         }
+
+        Debug.Log("Converted " + convertedMats.Count + " materials to game shader.");
     }
 
-    private static void ConverteMaterial(Material mat)
+    private static bool ConverteMaterial(Material mat)
     {
-        if (mat.shader != normalShader) return;
+        if (mat.shader != normalShader) return false;
 
 
         Texture albedoTex;
@@ -45,14 +47,14 @@ public class Convert_Materials : Editor
         emissionTex = mat.GetTexture("_EmissionMap");
         normalTex = mat.GetTexture("_BumpMap");
 
-        Debug.Log("Converting Material : " + mat + ", " + albedoTex);
-
         mat.shader = newShader;
 
         mat.SetTexture("_Albedo", albedoTex);
         mat.SetTexture("_Emission", emissionTex);
         mat.SetTexture("_Normal", normalTex);
         mat.SetFloat("_Terrain", 0.0f);
+
+        return true;
     }
 }
 
