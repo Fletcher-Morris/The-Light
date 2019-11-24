@@ -30,15 +30,9 @@ public class Async_Scene_Loader : MonoBehaviour
             if(asynchOp.progress >= 0.9f)
             {
                 asynchOp.allowSceneActivation = true;
-                OpenScene();
             }
             yield return null;
         }
-
-    }
-
-    private void OpenScene()
-    {
 
     }
 }
