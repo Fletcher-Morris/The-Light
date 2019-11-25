@@ -6,18 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main_Menu_Scene.unity
+    guid: ff29f57c192fc2145a734ff6ce3bbc52
+  - enabled: 1
+    path: Assets/Scenes/Loading_Screen_Scene.unity
+    guid: d0d56f377fbd38543800eafa085e8748
+  - enabled: 1
     path: Assets/Scenes/Game/Forest.unity
     guid: 5df219e3ef155ba47aeac5ae5cbcfa79
-  - enabled: 1
-    path: Assets/UI/SCREENS/2. LOADING SCREEN 1.unity
-    guid: 15924d1ab5fdcfb439304bf4b59571d4
-  - enabled: 0
-    path: Assets/Scenes/Testing/Scene_Test_03_Ai.unity
-    guid: f88fa2149c1731b4499e5d76f4bcec99
-  - enabled: 0
-    path: Assets/Scenes/Testing/Scene_Test_01_Zelda.unity
-    guid: aa8dfacaf91e2fb448555daad3c569d1
-  - enabled: 0
-    path: Assets/Scenes/Testing/Scene_Test_02_Shadowman.unity
-    guid: 1151a693b5fd5ca4393291549ceccdb9
   m_configObjects: {}
