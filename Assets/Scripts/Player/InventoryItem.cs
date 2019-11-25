@@ -42,4 +42,8 @@ public class InventoryItem : ScriptableObject
     [Tooltip("The scale of the item when viewed in the inventory.")]
     [SerializeField] private float m_inventoryItemScale = 1.0f;
     public float InventoryItemScale { get => m_inventoryItemScale; }
+
+    [Tooltip("Offset the position of the item when viewed in the inventory.")]
+    [SerializeField] private Vector3 m_inventoryItemOffset = Vector3.zero;
+    public Vector3 InventoryItemOffset { get => m_inventoryItemOffset; set => m_inventoryItemOffset = value; }
 }
