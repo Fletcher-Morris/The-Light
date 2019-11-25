@@ -8,11 +8,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Grass01
-  m_Shader: {fileID: -6465566751694194690, guid: a75c1462064febf47bb6d65cc2a8b47a,
-    type: 3}
+  m_Shader: {fileID: 4800000, guid: 9562af619ec7392419687c7cd81ece6e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -63,6 +62,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _GroundFade: 0.2
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
@@ -72,10 +72,12 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _TipHeight: 1
     - _Vector1_frequency: 0.2
     - _Vector1_offset: 0.3
     - _Vector1_windx: 0
     - _Vector1_windy: 0
+    - _WindSpeed: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
@@ -84,7 +86,10 @@ Material:
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GroundColor: {r: 0.24705875, g: 0.15256536, b: 0, a: 0}
+    - _RootColor: {r: 1, g: 0.84313726, b: 0.2784314, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TipColor: {r: 1, g: 0.9349009, b: 0.495283, a: 0}
 --- !u!114 &3116536786832310287
 MonoBehaviour:
   m_ObjectHideFlags: 11

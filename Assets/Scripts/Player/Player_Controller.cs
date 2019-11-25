@@ -144,6 +144,8 @@ public class Player_Controller : MonoBehaviour
         }
         Quaternion visualRotation = Quaternion.LookRotation(m_storedMoveDirection, Vector3.up);
         m_visual.rotation = Quaternion.Lerp(m_visual.rotation, visualRotation, m_visualRotationLerp * GameTime.deltaTime);
+
+        Shader.SetGlobalVector("PlayerPosition", m_visual.position);
     }
 
     private void HandleInteractionTriggers()
