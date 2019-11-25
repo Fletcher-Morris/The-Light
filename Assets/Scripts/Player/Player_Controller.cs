@@ -19,8 +19,8 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private Transform m_visual;
     [SerializeField] private float m_visualLerp = 0.5f;
     [SerializeField] private float m_visualRotationLerp = 0.5f;
-    private Vector3 m_moveDirection;
-    private Vector3 m_storedMoveDirection;
+    private Vector3 m_moveDirection = Vector3.forward;
+    private Vector3 m_storedMoveDirection = Vector3.forward;
     [SerializeField] private float m_gravity = 10.0f;
     [SerializeField] private KeyCode m_walkKey = KeyCode.LeftShift;
     [SerializeField] private Animator m_animator;
