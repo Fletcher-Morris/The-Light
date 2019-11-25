@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Interact_Trigger : MonoBehaviour
 {
-    [SerializeField] private float m_interactDistance = 2.0f;
+    private float m_interactDistance = 3.0f;
     public float InteractionDistance() { return m_interactDistance; }
 
     [SerializeField] private bool m_isClosest;
