@@ -14,13 +14,14 @@ public class BirdController : MonoBehaviour
     {
         MC.SetActive(false);
         CC.SetActive(true);
-        
+        Player_Controller.Singleton().InCutscene = true;
     }
     public void Backtogame()
     {
         bird.SetActive(false);
         CC.SetActive(false);
         MC.SetActive(true);
+        Player_Controller.Singleton().InCutscene = false;
     }
     // Update is called once per frame
     void Update()
