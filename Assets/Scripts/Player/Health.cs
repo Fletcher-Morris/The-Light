@@ -35,6 +35,8 @@ public class Health : MonoBehaviour
 
         if (m_health > 0.0f) m_health += m_regen * _delta;
 
+        m_health.Clamp(0.0f, MaxHealth);
+
         m_prevHealth = m_health;
     }
 
