@@ -32,18 +32,33 @@ public static class Extensions
 
     public static int Clamp(this int _value, int _min, int _max)
     {
-        return Mathf.Clamp(_value, _min, _max);
+        _value = Mathf.Clamp(_value, _min, _max);
+        return _value;
     }
     public static int Clamp01(this int _value)
     {
-        return _value.Clamp(0, 1);
+        _value = _value.Clamp(0, 1);
+        return _value;
     }
     public static float Clamp(this float _value, float _min, float _max)
     {
-        return Mathf.Clamp(_value, _min, _max);
+        _value = Mathf.Clamp(_value, _min, _max);
+        return _value;
     }
     public static float Clamp01(this float _value)
     {
-        return _value.Clamp(0.0f, 1.0f);
+        _value = _value.Clamp(0.0f, 1.0f);
+        return _value;
+    }
+
+    public static bool ToBool(this int _value)
+    {
+        if (_value >= 1) return true;
+        return false;
+    }
+    public static int ToInt(this bool _value)
+    {
+        if (_value == true) return 1;
+        return 0;
     }
 }
