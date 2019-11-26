@@ -122,7 +122,7 @@ public class Enemy_Ai : MonoBehaviour
     {
         foreach(Ai_Waypoint waypoint in Ai_Manager.GetWaypoints())
         {
-            if(waypoint.GetIncludedAi().Contains(m_aiSettings))
+            if(waypoint.GetIncludedAi().Contains(m_aiSettings) && waypoint != null)
             {
                 if(Vector3.Distance(waypoint.transform.position, m_spawnPos) <= m_aiSettings.wanderRadius)
                 {
@@ -385,7 +385,7 @@ public class Enemy_Ai : MonoBehaviour
         m_lightDirection = new Vector3();
         foreach(Lamp_Controller lamp in Ai_Manager.GetLamps())
         {
-            if(lamp.IsOn())
+            if(lamp.IsOn() && lamp != null)
             {
                 Vector3 dir = lamp.transform.position - m_eyesTransform.position;
                 Ray ray = new Ray(m_eyesTransform.position, dir);

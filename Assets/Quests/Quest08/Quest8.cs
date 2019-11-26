@@ -8,14 +8,14 @@ public class Quest8 : Quest
    // Start is called before the first frame update
     void Start()
     {
-        QuestManager.instance.AddQuest(this);
+        QuestManager.Instance.AddQuest(this);
         ic = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory_Controller>();
     }
 
     public override void Check()
     {
         if (ic.HasItemInInventory("Powder")){
-            QuestManager.instance.FinishQuest(this);
+            QuestManager.Instance.FinishQuest(this);
         }
     }
 }

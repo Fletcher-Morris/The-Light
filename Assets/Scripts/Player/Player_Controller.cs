@@ -127,7 +127,7 @@ public class Player_Controller : MonoBehaviour
     private void HandlePause()
     {
         Shader.SetGlobalInt(m_shaderPausedIntId, GameTime.IsPausedInt());
-        if (GameTime.IsPaused())
+        if (GameTime.IsPaused() || m_gameOverGroup.alpha >= 1.0f)
         {
 
             Cursor.lockState = CursorLockMode.None;

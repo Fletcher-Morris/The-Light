@@ -17,10 +17,10 @@ public class ToWaterMill : MonoBehaviour
 
             if (other.CompareTag("Player"))
             {
-                if (QuestManager.instance.CheckQuestFinished("Escape") == true)
+                if (QuestManager.Instance.CheckQuestFinished("Escape") == true)
                 {
                     triggered = true;
-                    QuestManager.instance.GetQuest("Run").SetCondition("qc", 1);
+                    QuestManager.Instance.GetQuest("Run").SetCondition("qc", 1);
 
                 }
             }

@@ -7,7 +7,7 @@ public class Quest5 : Quest
     // Start is called before the first frame update
     void Start()
     {
-        QuestManager.instance.AddQuest(this);
+        QuestManager.Instance.AddQuest(this);
     }
 
     public override void Check()
@@ -15,7 +15,7 @@ public class Quest5 : Quest
         this.ChangeCondition("timecount", 1);
         if (this.ReadCondition("timecount") >= 1 || this.ReadCondition("killcount") >= 10)
         {
-            QuestManager.instance.FinishQuest(this);
+            QuestManager.Instance.FinishQuest(this);
         }
     }
 }

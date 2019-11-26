@@ -27,7 +27,7 @@ public class TriggerDarkness : MonoBehaviour
                // if (QuestManager.instance.CheckQuestFinished("Read Parchment") == true)
               // {
                     triggered = true;
-                   QuestManager.instance.ClearQuestList();
+                   QuestManager.Instance.ClearQuestList();
                   // QuestManager.instance.GetQuest("Go To The Tower").SetCondition("action", 1);
                     Darkcome();
                //}

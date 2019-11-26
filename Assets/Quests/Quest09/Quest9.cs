@@ -7,7 +7,7 @@ public class Quest9 : Quest
     // Start is called before the first frame update
     void Start()
     {
-        QuestManager.instance.AddQuest(this);
+        QuestManager.Instance.AddQuest(this);
     }
 
     
