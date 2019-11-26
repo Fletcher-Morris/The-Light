@@ -10,7 +10,6 @@ public class Quest4 : Quest
     void Start()
     {
         QuestManager.Instance.AddQuest(this);
-         ic = Inventory_Controller.Singleton();
     }
  
     public override void OnFinish()
@@ -22,7 +21,7 @@ public class Quest4 : Quest
     public override void Check()
     {
        
-        if(ic.HasItemInInventory("The_Lamp"))
+        if(Inventory_Controller.Singleton().HasItemInInventory("The_Lamp"))
         {
             QuestManager.Instance.FinishQuest(this);
         }

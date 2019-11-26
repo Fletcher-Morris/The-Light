@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Inventory_Controller : MonoBehaviour
 {
@@ -396,6 +397,10 @@ public class Inventory_Controller : MonoBehaviour
             m_selectedItemCam.cullingMask = LayerTools.CreateLayerMask("SelectedItem");
             m_selectedItemCam.targetTexture = m_selectedItemRt;
             m_selectedItemCam.clearFlags = CameraClearFlags.Depth;
+            PostProcessLayer post = newCam.AddComponent<PostProcessLayer>();
+            post.volumeTrigger = newCam.transform;
+            post.volumeLayer = LayerMask.NameToLayer("PostProcessing");
+            post.antialiasingMode = PostProcessLayer.Antialiasing.None;
         }
     }
 
