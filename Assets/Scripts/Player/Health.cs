@@ -20,7 +20,8 @@ public class Health : MonoBehaviour
     public void DoDamage(float _damage)
     {
         m_health -= _damage;
-        m_health = Mathf.Clamp(m_health, 0.0f, MaxHealth);
+        if(m_health <= 0.0f) OnHealthZero.Invoke();
+        m_prevHealth = m_health;
     }
 
     public void HealthUpdate(float _delta)
@@ -33,7 +34,7 @@ public class Health : MonoBehaviour
             }
         }
 
-        if (m_health > 0.0f) m_health += m_regen * _delta;
+        if (m_health > 0.0f && Regen != 0.0f) DoDamage(-m_regen * _delta);
 
         m_health = m_health.Clamp(0.0f, MaxHealth);
 

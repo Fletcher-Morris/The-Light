@@ -63,6 +63,7 @@ public class Player_Controller : MonoBehaviour
     private float m_camXAngle = 45.0f;
     [SerializeField] float m_pivotHeight = 1.0f;
     [SerializeField] private Image m_healthOverlay;
+    [SerializeField] private CanvasGroup m_gameOverGroup;
 
     [Header("Audio")]
     private AudioSource m_footstepSource;
@@ -108,6 +109,7 @@ public class Player_Controller : MonoBehaviour
         m_controller = GetComponent<CharacterController>();
         m_footstepSource = GetComponent<AudioSource>();
         m_health = GetComponent<Health>();
+        m_health.OnHealthZero.AddListener(() => OnDeath());
     }
 
     private void Update()
@@ -194,7 +196,7 @@ public class Player_Controller : MonoBehaviour
         }
         if (m_animator == null) return;
         m_closestInteraction?.SetAsClosest(true);
-        if (PlayerInput.Interact) { m_closestInteraction?.TriggerInteraction(); }
+        if (PlayerInput.Interact && IsAlive()) { m_closestInteraction?.TriggerInteraction(); }
     }
 
     private void GroundCheck()
@@ -248,7 +250,7 @@ public class Player_Controller : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && IsAlive())
         {
             if (Inventory_Controller.Singleton().IsOpen()) Inventory_Controller.Singleton().CloseInventory();
             else if (GameTime.IsPaused() == false) Inventory_Controller.Singleton().OpenInventory();
@@ -257,7 +259,7 @@ public class Player_Controller : MonoBehaviour
 
     private void Movement()
     {
-        if (m_inCutscene == false)
+        if (m_inCutscene == false && IsAlive())
         {
             float speed = m_runSpeed;
             if (PlayerInput.Walk) speed = m_walkSpeed;
@@ -433,9 +435,34 @@ public class Player_Controller : MonoBehaviour
 
     }
 
-
+    public bool IsDead()
+    {
+        return m_health.IsDead();
+    }
+    public bool IsAlive()
+    {
+        return !IsDead();
+    }
     public void KillPlayer()
     {
         m_health.DoDamage(m_health.MaxHealth);
+    }
+
+    public void OnDeath() { StartCoroutine(OnDeathCoroutine()); }
+    private IEnumerator OnDeathCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(3.0f);
+        m_gameOverGroup.gameObject.SetActive(true);
+        m_gameOverGroup.interactable = false;
+        float t = 0.0f;
+        while(t < 1.0f)
+        {
+            t += Time.deltaTime;
+            m_gameOverGroup.alpha = t;
+            yield return new WaitForEndOfFrame();
+        }
+        m_gameOverGroup.alpha = 1.0f;
+        m_gameOverGroup.interactable = true;
+        yield return null;
     }
 }
