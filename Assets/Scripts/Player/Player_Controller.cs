@@ -62,6 +62,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float m_cameraRotationLerp = 10.0f;
     private float m_camXAngle = 45.0f;
     [SerializeField] float m_pivotHeight = 1.0f;
+    [SerializeField] private Image m_healthOverlay;
 
     [Header("Audio")]
     private AudioSource m_footstepSource;
@@ -76,6 +77,7 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] private Transform m_pauseMenu;
     private int m_shaderPausedIntId;
+    private int m_shaderHealthIntId;
 
 
     private void Awake()
@@ -86,6 +88,7 @@ public class Player_Controller : MonoBehaviour
         m_visual.parent = null;
         m_cameraPivotY.parent = null;
         m_camera.transform.parent = null;
+        m_healthOverlay.enabled = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -96,6 +99,7 @@ public class Player_Controller : MonoBehaviour
         m_animatorDeadHash = Animator.StringToHash("dead");
 
         m_shaderPausedIntId = Shader.PropertyToID("GamePausedInt");
+        m_shaderHealthIntId = Shader.PropertyToID("PlayerHealth");
     }
 
     private void GatherComponents()
@@ -114,7 +118,7 @@ public class Player_Controller : MonoBehaviour
         UpdateCamera();
         Movement();
         HandleInteractionTriggers();
-        m_health?.HealthUpdate(GameTime.deltaTime);
+        HandleHealth();
         UpdateAnimations();
     }
 
@@ -343,6 +347,12 @@ public class Player_Controller : MonoBehaviour
         m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
         m_camera.transform.position = new Vector3(m_cameraTarget.position.x, Mathf.Lerp(m_camera.transform.position.y, m_cameraTarget.transform.position.y, m_cameraPositionLerp * GameTime.deltaTime), m_cameraTarget.position.z);
         m_camera.transform.rotation = Quaternion.Lerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraRotationLerp * GameTime.deltaTime);
+    }
+
+    private void HandleHealth()
+    {
+        m_health.HealthUpdate(GameTime.deltaTime);
+        Shader.SetGlobalFloat(m_shaderHealthIntId, m_health.HealthFloat / m_health.MaxHealth);
     }
 
     //  DIALOGUE STUFF
