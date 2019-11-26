@@ -428,10 +428,14 @@ public class Player_Controller : MonoBehaviour
     }
 
 
-
-
     public void UsePowder(Powder _powder)
     {
 
+    }
+
+
+    public void KillPlayer()
+    {
+        m_health.DoDamage(m_health.MaxHealth);
     }
 }

@@ -4,7 +4,7 @@ Shader "Health_Overlay_Shader"
 {
     Properties
     {
-		
+		_DamageColor("Damage Color", Color) = (0.6320754,0,0,1)
     }
 
     SubShader
@@ -62,7 +62,10 @@ Shader "Health_Overlay_Shader"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/ShaderGraphFunctions.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/Shaders/UnlitInput.hlsl"
 
-			half PlayerHealth;
+			float PlayerHealth;
+			CBUFFER_START( UnityPerMaterial )
+			float4 _DamageColor;
+			CBUFFER_END
 
             struct GraphVertexInput
             {
@@ -118,14 +121,12 @@ Shader "Health_Overlay_Shader"
             {
                 UNITY_SETUP_INSTANCE_ID(IN);
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
-				float4 color7 = IsGammaSpace() ? half4(0.6320754,0,0,1) : half4(0.3572768,0,0,1);
-				
 				float2 uv03 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
 				float clampResult28 = clamp( PlayerHealth , 0.0 , 1.0 );
 				float clampResult27 = clamp( ( ( distance( (float2( -1,-1 ) + (uv03 - float2( 0,0 )) * (float2( 1,1 ) - float2( -1,-1 )) / (float2( 1,1 ) - float2( 0,0 ))) , float2( 0,0 ) ) * 0.5 ) + (1.0 + (clampResult28 - 0.0) * (-1.0 - 1.0) / (1.0 - 0.0)) ) , 0.0 , 1.0 );
 				
-		        float3 Color = color7.rgb;
-		        float Alpha = clampResult27;
+		        float3 Color = _DamageColor.rgb;
+		        float Alpha = ( _DamageColor.a * clampResult27 );
 		        float AlphaClipThreshold = 0;
          #if _AlphaClip
                 clip(Alpha - AlphaClipThreshold);
@@ -169,7 +170,10 @@ Shader "Health_Overlay_Shader"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/ShaderGraphFunctions.hlsl"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 
-			half PlayerHealth;
+			float PlayerHealth;
+			CBUFFER_START( UnityPerMaterial )
+			float4 _DamageColor;
+			CBUFFER_END
 
             struct GraphVertexInput
             {
@@ -249,7 +253,7 @@ Shader "Health_Overlay_Shader"
         		float clampResult27 = clamp( ( ( distance( (float2( -1,-1 ) + (uv03 - float2( 0,0 )) * (float2( 1,1 ) - float2( -1,-1 )) / (float2( 1,1 ) - float2( 0,0 ))) , float2( 0,0 ) ) * 0.5 ) + (1.0 + (clampResult28 - 0.0) * (-1.0 - 1.0) / (1.0 - 0.0)) ) , 0.0 , 1.0 );
         		
 
-				float Alpha = clampResult27;
+				float Alpha = ( _DamageColor.a * clampResult27 );
 				float AlphaClipThreshold = AlphaClipThreshold;
          #if _AlphaClip
         		clip(Alpha - AlphaClipThreshold);
@@ -293,7 +297,10 @@ Shader "Health_Overlay_Shader"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/ShaderGraphFunctions.hlsl"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 
-			half PlayerHealth;
+			float PlayerHealth;
+			CBUFFER_START( UnityPerMaterial )
+			float4 _DamageColor;
+			CBUFFER_END
 
 			struct GraphVertexInput
 			{
@@ -347,7 +354,7 @@ Shader "Health_Overlay_Shader"
 				float clampResult27 = clamp( ( ( distance( (float2( -1,-1 ) + (uv03 - float2( 0,0 )) * (float2( 1,1 ) - float2( -1,-1 )) / (float2( 1,1 ) - float2( 0,0 ))) , float2( 0,0 ) ) * 0.5 ) + (1.0 + (clampResult28 - 0.0) * (-1.0 - 1.0) / (1.0 - 0.0)) ) , 0.0 , 1.0 );
 				
 
-				float Alpha = clampResult27;
+				float Alpha = ( _DamageColor.a * clampResult27 );
 				float AlphaClipThreshold = AlphaClipThreshold;
 
          #if _AlphaClip
@@ -365,20 +372,21 @@ Shader "Health_Overlay_Shader"
 }
 /*ASEBEGIN
 Version=17000
--1080;-402;1080;1869;982.5537;724.5228;1.180167;True;False
+-1080;-402;1080;1869;-450.9521;1148.751;1;True;False
 Node;AmplifyShaderEditor.TextureCoordinatesNode;3;-848,-256;Float;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TFHCRemapNode;5;-512,-256;Float;False;5;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;2;FLOAT2;1,1;False;3;FLOAT2;-1,-1;False;4;FLOAT2;1,1;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.RangedFloatNode;11;-604.1492,119.7388;Float;False;Global;PlayerHealth;PlayerHealth;0;0;Create;True;0;0;False;0;1;-0.00131056;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;11;-604.1492,119.7388;Float;False;Global;PlayerHealth;PlayerHealth;0;0;Create;True;0;0;False;0;1;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.DistanceOpNode;23;-128,-256;Float;False;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ClampOpNode;28;-252.0306,190.1063;Float;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;26;256,-256;Float;False;2;2;0;FLOAT;0;False;1;FLOAT;0.5;False;1;FLOAT;0
 Node;AmplifyShaderEditor.TFHCRemapNode;25;128,128;Float;False;5;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;1;False;4;FLOAT;-1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;24;512,0;Float;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ClampOpNode;27;768,0;Float;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ColorNode;7;640,-512;Float;False;Constant;_DamageColor;Damage Color;0;0;Create;True;0;0;False;0;0.6320754,0,0,1;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;7;640,-512;Float;False;Property;_DamageColor;Damage Color;0;0;Create;True;0;0;False;0;0.6320754,0,0,1;0.6320754,0,0,0.5019608;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;29;1085.907,-243.4828;Float;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;0,0;Float;False;False;2;Float;ASEMaterialInspector;0;3;Hidden/Templates/LightWeightSRPUnlit;e2514bdcf5e5399499a9eb24d175b9db;True;ShadowCaster;0;1;ShadowCaster;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=LightweightPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;2;0;False;False;False;False;True;False;False;False;False;0;False;-1;False;True;1;False;-1;False;False;True;1;LightMode=ShadowCaster;False;0;Hidden/InternalErrorShader;0;0;Standard;0;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT3;0,0,0;False;3;FLOAT3;0,0,0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;2;0,0;Float;False;False;2;Float;ASEMaterialInspector;0;3;Hidden/Templates/LightWeightSRPUnlit;e2514bdcf5e5399499a9eb24d175b9db;True;DepthOnly;0;2;DepthOnly;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=LightweightPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;2;0;False;False;False;False;True;False;False;False;False;0;False;-1;False;True;1;False;-1;True;3;False;-1;False;True;1;LightMode=DepthOnly;True;0;0;Hidden/InternalErrorShader;0;0;Standard;0;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT3;0,0,0;False;3;FLOAT3;0,0,0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;0;1152,-512;Half;False;True;2;Half;ASEMaterialInspector;0;3;Health_Overlay_Shader;e2514bdcf5e5399499a9eb24d175b9db;True;Base;0;0;Base;5;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=LightweightPipeline;RenderType=Overlay=RenderType;Queue=Overlay=Queue=0;True;2;0;True;2;5;False;-1;10;False;-1;0;1;False;-1;0;False;-1;False;False;False;True;True;True;True;True;0;False;-1;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=LightweightForward;False;0;Hidden/InternalErrorShader;0;0;Standard;3;Vertex Position,InvertActionOnDeselection;1;Receive Shadows;1;Built-in Fog;0;0;3;True;True;True;False;5;0;FLOAT3;0,0,0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT3;0,0,0;False;4;FLOAT3;0,0,0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;0;1360.38,-526.0088;Half;False;True;2;Half;ASEMaterialInspector;0;3;Health_Overlay_Shader;e2514bdcf5e5399499a9eb24d175b9db;True;Base;0;0;Base;5;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=LightweightPipeline;RenderType=Overlay=RenderType;Queue=Overlay=Queue=0;True;2;0;True;2;5;False;-1;10;False;-1;0;1;False;-1;0;False;-1;False;False;False;True;True;True;True;True;0;False;-1;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=LightweightForward;False;0;Hidden/InternalErrorShader;0;0;Standard;3;Vertex Position,InvertActionOnDeselection;1;Receive Shadows;1;Built-in Fog;0;0;3;True;True;True;False;5;0;FLOAT3;0,0,0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT3;0,0,0;False;4;FLOAT3;0,0,0;False;0
 WireConnection;5;0;3;0
 WireConnection;23;0;5;0
 WireConnection;28;0;11;0
@@ -387,7 +395,9 @@ WireConnection;25;0;28;0
 WireConnection;24;0;26;0
 WireConnection;24;1;25;0
 WireConnection;27;0;24;0
+WireConnection;29;0;7;4
+WireConnection;29;1;27;0
 WireConnection;0;0;7;0
-WireConnection;0;1;27;0
+WireConnection;0;1;29;0
 ASEEND*/
-//CHKSM=CC3542A148D7940CC028C7D6F75B3BB61CA1A3F8
+//CHKSM=5ECBDD3460430C1EC410ED3CD54645C22E1B7999
