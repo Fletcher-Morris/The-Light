@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -178,7 +178,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 05e0c05372574464f9543387b19205a4, type: 3}
+    m_Font: {fileID: 12800000, guid: 70a39845ac37d1043b0ad2fce2ec184b, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -626,7 +626,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 05e0c05372574464f9543387b19205a4, type: 3}
+    m_Font: {fileID: 12800000, guid: 70a39845ac37d1043b0ad2fce2ec184b, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -935,6 +935,7 @@ GameObject:
   - component: {fileID: 1110599497}
   - component: {fileID: 1110599499}
   - component: {fileID: 1110599498}
+  - component: {fileID: 1110599500}
   m_Layer: 5
   m_Name: Build Version
   m_TagString: Untagged
@@ -959,7 +960,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 242, y: 10}
-  m_SizeDelta: {x: 100, y: 50}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1110599498
 MonoBehaviour:
@@ -982,7 +983,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 05e0c05372574464f9543387b19205a4, type: 3}
+    m_Font: {fileID: 12800000, guid: 70a39845ac37d1043b0ad2fce2ec184b, type: 3}
     m_FontSize: 39
     m_FontStyle: 0
     m_BestFit: 1
@@ -994,7 +995,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: v 1.0
+  m_Text: v 0.2.0
 --- !u!222 &1110599499
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1003,6 +1004,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110599496}
   m_CullTransparentMesh: 0
+--- !u!114 &1110599500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110599496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b446760e2accc124fb1ae3ba6bd04260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_prefix: 'v '
 --- !u!1 &1177990263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1843,7 +1857,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 05e0c05372574464f9543387b19205a4, type: 3}
+    m_Font: {fileID: 12800000, guid: 70a39845ac37d1043b0ad2fce2ec184b, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
