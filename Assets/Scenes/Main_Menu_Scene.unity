@@ -1427,8 +1427,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc3fab21ef7f6141911fe628eb8a368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sceneToLoad: Forest
-  m_useLoadingScreen: 1
+  m_sceneToLoad: Animatic_Scene
+  m_useLoadingScreen: 0
   m_useLoadingFlags: 0
   m_flags:
     SceneName: 
