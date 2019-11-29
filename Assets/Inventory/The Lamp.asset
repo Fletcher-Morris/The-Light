@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c11f5e47599c444f9133d26a1630842, type: 3}
   m_Name: The Lamp
   m_EditorClassIdentifier: 
-  m_itemName: The_Lamp
+  m_itemName: The Lamp
   m_itemDesc: The magic Lamp
   m_droppable: 0
   m_sprite: {fileID: 0}
@@ -23,3 +23,4 @@ MonoBehaviour:
   m_droppedPrefab: {fileID: 5125534563796239631, guid: 18318c617c82ab14093856f529af5934,
     type: 3}
   m_inventoryItemScale: 2
+  m_inventoryItemOffset: {x: 0, y: 0, z: 0}

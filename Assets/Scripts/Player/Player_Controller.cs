@@ -280,7 +280,7 @@ public class Player_Controller : MonoBehaviour
 
         if (m_hasLamp == false)
         {
-            m_hasLamp = Inventory_Controller.Singleton().HasItemInInventory("The_Lamp");
+            m_hasLamp = Inventory_Controller.Singleton().HasItemInInventory("The Lamp");
         }
         m_lampObject.SetActive(m_hasLamp);
 

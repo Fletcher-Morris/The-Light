@@ -11,6 +11,7 @@ public class SimpleMove : MonoBehaviour
     void Start()
     {
         vt = target.transform.position - this.gameObject.transform.position;
+        vt = vt.normalized;
     }
 
     // Update is called once per frame

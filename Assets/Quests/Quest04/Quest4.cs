@@ -21,7 +21,7 @@ public class Quest4 : Quest
     public override void Check()
     {
        
-        if(Inventory_Controller.Singleton().HasItemInInventory("The_Lamp"))
+        if(Inventory_Controller.Singleton().HasItemInInventory("The Lamp"))
         {
             QuestManager.Instance.FinishQuest(this);
         }

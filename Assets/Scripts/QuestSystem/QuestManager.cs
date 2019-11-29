@@ -20,16 +20,9 @@ public class QuestManager : MonoBehaviour
 
     bool quest_check_running=false;
 
-
-    static QuestManager()
-    {
-        GameObject ga = new GameObject("~~~~QuestManager~~~~");
-        DontDestroyOnLoad(ga);
-        Instance=ga.AddComponent<QuestManager>();
-    }
-
     private void Awake()
     {
+        instance = this;
         m_questText = GameObject.FindGameObjectWithTag("QuestLayer").GetComponent<Text>();
     }
     /// <summary>
@@ -208,7 +201,7 @@ public class QuestManager : MonoBehaviour
         UpdateQuests();
     }
 
-    private void UpdateQuests()
+    public void UpdateQuests()
     {
         st = "";
         //add quests from addbuffer
