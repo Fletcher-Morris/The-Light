@@ -12,11 +12,10 @@ public class TriggerDarkness : MonoBehaviour
     public GameObject CM, CC;
     public GameObject Beaconlight;
     public GameObject quest;
-    // Start is called before the first frame update
-    void Start()
-    {
-     
-    }
+
+    [SerializeField] private Environment_Transition m_environmentTransition;
+    [SerializeField] private EnvironmentSettings m_darkEnvironment;
+
     private void OnTriggerEnter(Collider other)
     {
         if (!triggered)
@@ -39,6 +38,7 @@ public class TriggerDarkness : MonoBehaviour
         Player_Controller.Singleton().InCutscene = true;
         CM.SetActive(false);
         CC.SetActive(true);
+        m_environmentTransition.Transition(m_darkEnvironment, 5.0f);
         director.Play();
     }
     public void Turnoffbeacon()

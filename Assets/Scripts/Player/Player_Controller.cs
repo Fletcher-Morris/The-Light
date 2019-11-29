@@ -341,7 +341,7 @@ public class Player_Controller : MonoBehaviour
         Vector3 rayStart = transform.position + new Vector3(0.0f, m_pivotHeight, 0.0f);
         Ray ray = new Ray(rayStart, m_cameraTarget.position - rayStart);
         RaycastHit hit;
-        if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"))) newDist = hit.distance;
+        if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"), QueryTriggerInteraction.Ignore)) newDist = hit.distance;
 
         if (m_inCutscene) return;
         if (GameTime.IsPaused()) return;
