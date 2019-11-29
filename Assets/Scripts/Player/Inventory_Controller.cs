@@ -251,7 +251,7 @@ public class Inventory_Controller : MonoBehaviour
     public void SpawnItemAtPlayer(InventoryItem _item)
     {
         if(_item.GetDroppedPrefab() != null)
-        GameObject.Instantiate(_item.GetDroppedPrefab(), transform.position, Quaternion.identity);
+        GameObject.Instantiate(_item.GetDroppedPrefab(), transform.position + new Vector3(0,2,0), Quaternion.identity);
     }
 
     public void OpenInventory()
