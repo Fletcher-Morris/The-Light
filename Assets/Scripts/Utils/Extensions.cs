@@ -61,4 +61,8 @@ public static class Extensions
         if (_value == true) return 1;
         return 0;
     }
+    public static bool Inv(this bool _value)
+    {
+        return !_value;
+    }
 }

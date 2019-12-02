@@ -16,16 +16,11 @@ public class GameTask : ScriptableObject
     [SerializeField] private List<TaskRequirement> requirements;
     public List<TaskRequirement> Requirements { get => requirements; set => requirements = value; }
 
-    public UnityEvent OnTaskStarted;
-    public UnityEvent OnTaskCompleted;
-
     public GameTask (GameTask _task)
     {
         this.TaskName = _task.TaskName;
         this.TaskDescription = _task.TaskDescription;
         this.Requirements = _task.Requirements;
-        this.OnTaskStarted = _task.OnTaskStarted;
-        this.OnTaskCompleted = _task.OnTaskCompleted;
     }
 
 
@@ -63,6 +58,16 @@ public class GameTask : ScriptableObject
         }
         Debug.LogWarning("Could Not Find Requirement '" + _requirementName + "' In GameTask '" + TaskName + "'!");
         return null;
+    }
+
+    public virtual void OnTaskStarted()
+    {
+
+    }
+
+    public virtual void OnTaskCompleted()
+    {
+
     }
 
 }

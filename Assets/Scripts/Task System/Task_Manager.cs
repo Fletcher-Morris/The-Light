@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
 
 public class Task_Manager : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class Task_Manager : MonoBehaviour
         RemoveTask(_task.name);
         Singleton().m_activeTasks.Add(new GameTask(_task));
         Debug.Log("Activated Task '" + _task.TaskName + "'!");
-        _task.OnTaskStarted.Invoke();
+        _task.OnTaskStarted();
         UpdateTasks();
     }
 
@@ -42,6 +43,18 @@ public class Task_Manager : MonoBehaviour
         {
             if (task.CheckRequirements()) CompleteTask(task);
         }
+
+        if(Singleton().m_removeFromActive.Count >= 1)
+        {
+            Singleton().m_activeTasks = Singleton().m_activeTasks.Except(Singleton().m_removeFromActive).ToList<GameTask>();
+            Singleton().m_removeFromActive = new List<GameTask>();
+        }
+        if(Singleton().m_removeFromCompleted.Count >= 1)
+        {
+            Singleton().m_completedTasks = Singleton().m_completedTasks.Except(Singleton().m_removeFromCompleted).ToList<GameTask>();
+            Singleton().m_removeFromCompleted = new List<GameTask>();
+        }
+        
     }
 
     public static GameTask GetTask(string _taskName)
@@ -70,6 +83,9 @@ public class Task_Manager : MonoBehaviour
         return null;
     }
 
+    private List<GameTask> m_removeFromActive = new List<GameTask>();
+    private List<GameTask> m_removeFromCompleted = new List<GameTask>();
+
     public static void RemoveTask(string _taskName)
     {
         RemoveTaskFromActive(_taskName);
@@ -89,7 +105,8 @@ public class Task_Manager : MonoBehaviour
     private static void RemoveTaskFromActive(GameTask _task)
     {
         if (_task == null) return;
-        Singleton().m_activeTasks.Remove(_task);
+        if (Singleton().m_removeFromActive.Contains(_task)) return;
+        Singleton().m_removeFromActive.Add(_task);
         Debug.Log("Removed Task '" + _task.TaskName + " From Active Tasks!");
     }
     public static void RemoveTaskFromCompleted(string _taskName)
@@ -105,7 +122,8 @@ public class Task_Manager : MonoBehaviour
     private static void RemoveTaskFromCompleted(GameTask _task)
     {
         if (_task == null) return;
-        Singleton().m_completedTasks.Remove(_task);
+        if (Singleton().m_removeFromCompleted.Contains(_task)) return;
+        Singleton().m_removeFromCompleted.Add(_task);
         Debug.Log("Removed Task '" + _task.TaskName + " From Completed Tasks!");
     }
 
@@ -124,7 +142,7 @@ public class Task_Manager : MonoBehaviour
         Singleton().m_completedTasks.Add(_task);
         RemoveTaskFromActive(_task);
         Singleton().m_completedTasks.Add(_task);
-        _task.OnTaskCompleted.Invoke();
+        _task.OnTaskCompleted();
     }
 
     public static bool TaskIsActive(string _taskName)

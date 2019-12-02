@@ -35,6 +35,6 @@ public class Control_Task : MonoBehaviour
     public void SetRequirementBool(bool _bool)
     {
         if (m_modifyTask == null) return;
-        Task_Manager.ModifyTaskRequirement(m_modifyTask.TaskName, m_requirementName, _bool.ToInt(), false);
+        Task_Manager.ModifyTaskRequirement(m_modifyTask.TaskName, m_requirementName, _bool.Inv().ToInt(), false);
     }
 }
