@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Loading_Screen_Scene.unity
     guid: d0d56f377fbd38543800eafa085e8748
   - enabled: 1
+    path: Assets/Scenes/Animatic_Scene.unity
+    guid: 934e72e28099d8846a8bbcb6e4f79a52
+  - enabled: 1
     path: Assets/Scenes/Game/Forest.unity
     guid: 5df219e3ef155ba47aeac5ae5cbcfa79
   m_configObjects: {}

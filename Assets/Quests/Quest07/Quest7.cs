@@ -14,7 +14,7 @@ public class Quest7 : Quest
         player = GameObject.FindGameObjectWithTag("Player");
      
         watermillpoint = GameObject.FindGameObjectWithTag("Watermillpoint");
-        QuestManager.instance.AddQuest(this);
+        QuestManager.Instance.AddQuest(this);
         
     }
     public override void OnAdd()
@@ -26,7 +26,7 @@ public class Quest7 : Quest
     public override void Check()
     {
         
-            QuestManager.instance.FinishQuest(this);
+            QuestManager.Instance.FinishQuest(this);
         
     }
 }

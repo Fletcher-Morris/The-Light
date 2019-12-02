@@ -62,6 +62,8 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float m_cameraRotationLerp = 10.0f;
     private float m_camXAngle = 45.0f;
     [SerializeField] float m_pivotHeight = 1.0f;
+    [SerializeField] private Image m_healthOverlay;
+    [SerializeField] private CanvasGroup m_gameOverGroup;
 
     [Header("Audio")]
     private AudioSource m_footstepSource;
@@ -76,6 +78,7 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] private Transform m_pauseMenu;
     private int m_shaderPausedIntId;
+    private int m_shaderHealthIntId;
 
 
     private void Awake()
@@ -86,6 +89,7 @@ public class Player_Controller : MonoBehaviour
         m_visual.parent = null;
         m_cameraPivotY.parent = null;
         m_camera.transform.parent = null;
+        m_healthOverlay.enabled = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -96,6 +100,7 @@ public class Player_Controller : MonoBehaviour
         m_animatorDeadHash = Animator.StringToHash("dead");
 
         m_shaderPausedIntId = Shader.PropertyToID("GamePausedInt");
+        m_shaderHealthIntId = Shader.PropertyToID("PlayerHealth");
     }
 
     private void GatherComponents()
@@ -104,6 +109,7 @@ public class Player_Controller : MonoBehaviour
         m_controller = GetComponent<CharacterController>();
         m_footstepSource = GetComponent<AudioSource>();
         m_health = GetComponent<Health>();
+        m_health.OnHealthZero.AddListener(() => OnDeath());
     }
 
     private void Update()
@@ -114,14 +120,14 @@ public class Player_Controller : MonoBehaviour
         UpdateCamera();
         Movement();
         HandleInteractionTriggers();
-        m_health?.HealthUpdate(GameTime.deltaTime);
+        HandleHealth();
         UpdateAnimations();
     }
 
     private void HandlePause()
     {
         Shader.SetGlobalInt(m_shaderPausedIntId, GameTime.IsPausedInt());
-        if (GameTime.IsPaused())
+        if (GameTime.IsPaused() || m_gameOverGroup.alpha >= 1.0f)
         {
 
             Cursor.lockState = CursorLockMode.None;
@@ -190,7 +196,7 @@ public class Player_Controller : MonoBehaviour
         }
         if (m_animator == null) return;
         m_closestInteraction?.SetAsClosest(true);
-        if (PlayerInput.Interact) { m_closestInteraction?.TriggerInteraction(); }
+        if (PlayerInput.Interact && IsAlive()) { m_closestInteraction?.TriggerInteraction(); }
     }
 
     private void GroundCheck()
@@ -244,7 +250,7 @@ public class Player_Controller : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && IsAlive())
         {
             if (Inventory_Controller.Singleton().IsOpen()) Inventory_Controller.Singleton().CloseInventory();
             else if (GameTime.IsPaused() == false) Inventory_Controller.Singleton().OpenInventory();
@@ -253,7 +259,7 @@ public class Player_Controller : MonoBehaviour
 
     private void Movement()
     {
-        if (m_inCutscene == false)
+        if (m_inCutscene == false && IsAlive())
         {
             float speed = m_runSpeed;
             if (PlayerInput.Walk) speed = m_walkSpeed;
@@ -274,7 +280,7 @@ public class Player_Controller : MonoBehaviour
 
         if (m_hasLamp == false)
         {
-            m_hasLamp = Inventory_Controller.Singleton().HasItemInInventory("The_Lamp");
+            m_hasLamp = Inventory_Controller.Singleton().HasItemInInventory("The Lamp");
         }
         m_lampObject.SetActive(m_hasLamp);
 
@@ -335,7 +341,7 @@ public class Player_Controller : MonoBehaviour
         Vector3 rayStart = transform.position + new Vector3(0.0f, m_pivotHeight, 0.0f);
         Ray ray = new Ray(rayStart, m_cameraTarget.position - rayStart);
         RaycastHit hit;
-        if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"))) newDist = hit.distance;
+        if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"), QueryTriggerInteraction.Ignore)) newDist = hit.distance;
 
         if (m_inCutscene) return;
         if (GameTime.IsPaused()) return;
@@ -343,6 +349,12 @@ public class Player_Controller : MonoBehaviour
         m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
         m_camera.transform.position = new Vector3(m_cameraTarget.position.x, Mathf.Lerp(m_camera.transform.position.y, m_cameraTarget.transform.position.y, m_cameraPositionLerp * GameTime.deltaTime), m_cameraTarget.position.z);
         m_camera.transform.rotation = Quaternion.Lerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraRotationLerp * GameTime.deltaTime);
+    }
+
+    private void HandleHealth()
+    {
+        m_health.HealthUpdate(GameTime.deltaTime);
+        Shader.SetGlobalFloat(m_shaderHealthIntId, m_health.HealthFloat / m_health.MaxHealth);
     }
 
     //  DIALOGUE STUFF
@@ -418,10 +430,39 @@ public class Player_Controller : MonoBehaviour
     }
 
 
-
-
     public void UsePowder(Powder _powder)
     {
 
+    }
+
+    public bool IsDead()
+    {
+        return m_health.IsDead();
+    }
+    public bool IsAlive()
+    {
+        return !IsDead();
+    }
+    public void KillPlayer()
+    {
+        m_health.DoDamage(m_health.MaxHealth);
+    }
+
+    public void OnDeath() { StartCoroutine(OnDeathCoroutine()); }
+    private IEnumerator OnDeathCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(3.0f);
+        m_gameOverGroup.gameObject.SetActive(true);
+        m_gameOverGroup.interactable = false;
+        float t = 0.0f;
+        while(t < 1.0f)
+        {
+            t += Time.deltaTime;
+            m_gameOverGroup.alpha = t;
+            yield return new WaitForEndOfFrame();
+        }
+        m_gameOverGroup.alpha = 1.0f;
+        m_gameOverGroup.interactable = true;
+        yield return null;
     }
 }
