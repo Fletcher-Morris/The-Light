@@ -6,15 +6,15 @@
 		_Color("Color", Color) = (1,1,1,1)
 		_GradientMap("Gradient map", 2D) = "white" {}
 
-	_PlacementTexture("Placement texture", 2D) = "white" {}
-	_TerrainScale("Terrain scale", float) = 1
+		_PlacementTexture("Placement texture", 2D) = "white" {}
+		_TerrainScale("Terrain scale", float) = 1
 
-	//Noise and wind
-	_NoiseTexture("Noise texture", 2D) = "white" {}
-	_WindTexture("Wind texture", 2D) = "white" {}
-	_WindStrength("Wind strength", float) = 0
-	_WindSpeed("Wind speed", float) = 0
-	_WindColor("Wind color", Color) = (1,1,1,1)
+		//Noise and wind
+		_NoiseTexture("Noise texture", 2D) = "white" {}
+		_WindTexture("Wind texture", 2D) = "white" {}
+		_WindStrength("Wind strength", float) = 0
+		_WindSpeed("Wind speed", float) = 0
+		_WindColor("Wind color", Color) = (1,1,1,1)
 
 		//Position and dimensions
 		_GrassHeight("Grass height", float) = 0
@@ -22,9 +22,10 @@
 		_PositionRandomness("Position randomness", float) = 0
 
 		//Grass blades
-		_GrassBlades("Grass blades per triangle", Range(0, 15)) = 1
-		_MinimunGrassBlades("Minimum grass blades per triangle", Range(0, 15)) = 1
+		_GrassBlades("Grass blades per triangle", Range(0, 33)) = 1
+		_MinimunGrassBlades("Minimum grass blades per triangle", Range(0, 33)) = 1
 		_MaxCameraDistance("Max camera distance", float) = 10
+		_MinNormal("Min Normal", Range(0.0, 1.0)) = 0.5
 	}
 		SubShader
 	{
@@ -70,6 +71,7 @@
 			float _GrassBlades;
 			float _MinimunGrassBlades;
 			float _MaxCameraDistance;
+			float _MinNormal;
 
 			float random(float2 st) {
 				return frac(sin(dot(st.xy,
@@ -93,8 +95,8 @@
 				return o;
 			}
 
-			//3 + 3 * 15 = 48
-			[maxvertexcount(48)]
+			//3 + (3 * 33) = 108
+			[maxvertexcount(102)]
 			void geom(triangle v2g input[3], inout TriangleStream<g2f> triStream)
 			{
 				float3 normal = normalize(cross(input[1].vertex - input[0].vertex, input[2].vertex - input[0].vertex));
@@ -103,25 +105,41 @@
 				for (uint i = 0; i < grassBlades; i++) {
 					float r1 = random(mul(unity_ObjectToWorld, input[0].vertex).xz * (i + 1));
 					float r2 = random(mul(unity_ObjectToWorld, input[1].vertex).xz * (i + 1));
-
-					//Random barycentric coordinates from https://stackoverflow.com/a/19654424
 					float4 midpoint = (1 - sqrt(r1)) * input[0].vertex + (sqrt(r1) * (1 - r2)) * input[1].vertex + (sqrt(r1) * r2) * input[2].vertex;
 
 					r1 = r1 * 2.0 - 1.0;
 					r2 = r2 * 2.0 - 1.0;
-
-					float4 pointA = midpoint + _GrassWidth * normalize(input[i % 3].vertex - midpoint);
-					float4 pointB = midpoint - _GrassWidth * normalize(input[i % 3].vertex - midpoint);
 
 					float4 worldPos = mul(unity_ObjectToWorld, midpoint);
 
 					float2 windTex = tex2Dlod(_WindTexture, float4(worldPos.xz * _WindTexture_ST.xy + _Time.y * _WindSpeed, 0.0, 0.0)).xy;
 					float2 wind = (windTex * 2.0 - 1.0) * _WindStrength;
 
+					float useWidth = _GrassWidth;
+
 					float noise = tex2Dlod(_NoiseTexture, float4(worldPos.xz * _NoiseTexture_ST.xy, 0.0, 0.0)).x;
-					float place = 1 - tex2Dlod(_PlacementTexture, float4(worldPos.xz * _TerrainScale, 0.0, 0.0)).r;
-					float heightFactor = noise * _GrassHeight;
-					heightFactor = heightFactor * place;
+					float d = 1.0 / _TerrainScale;
+					float place = saturate(tex2Dlod(_PlacementTexture, float4(worldPos.x * d, worldPos.z * d, 0.0, 0.0)).r);
+					float heightFactor = 1.0;
+					heightFactor *= place;
+					float slopeFactor = 1.0;
+					slopeFactor *= saturate(normal.y);
+					if (slopeFactor < _MinNormal)
+					{
+						useWidth = 0.0;
+						slopeFactor = 0.0;
+					}
+					heightFactor *= slopeFactor;
+					heightFactor *= _GrassHeight;
+					heightFactor *= noise;
+					if (heightFactor <= 0.001)
+					{
+						useWidth = 0.0;
+					}
+
+					float4 pointA = midpoint + useWidth * normalize(input[i % 3].vertex - midpoint);
+					float4 pointB = midpoint - useWidth * normalize(input[i % 3].vertex - midpoint);
+
 
 					triStream.Append(GetVertex(pointA, float2(0,0), fixed4(0,0,0,1)));
 
