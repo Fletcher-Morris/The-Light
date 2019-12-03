@@ -5,25 +5,20 @@
 		//Color stuff
 		_Color("Color", Color) = (1,1,1,1)
 		_GradientMap("Gradient map", 2D) = "white" {}
-
+		_TipColor("Tip Color", Color) = (0.2574063,0.3773585,0,0)
+		_RootColor("Root Color", Color) = (0.1116701,0.245283,0,0)
 		_PlacementTexture("Placement texture", 2D) = "white" {}
 		_TerrainScale("Terrain scale", float) = 1
-
-		//Noise and wind
 		_NoiseTexture("Noise texture", 2D) = "white" {}
 		_WindTexture("Wind texture", 2D) = "white" {}
 		_WindStrength("Wind strength", float) = 0
 		_WindSpeed("Wind speed", float) = 0
 		_WindColor("Wind color", Color) = (1,1,1,1)
-
-		//Position and dimensions
 		_GrassHeight("Grass height", float) = 0
 		_GrassWidth("Grass width", Range(0.0, 1.0)) = 1.0
 		_PositionRandomness("Position randomness", float) = 0
-
-		//Grass blades
-		_GrassBlades("Grass blades per triangle", Range(0, 33)) = 1
-		_MinimunGrassBlades("Minimum grass blades per triangle", Range(0, 33)) = 1
+		_GrassBlades("Grass blades per triangle", Range(0, 25)) = 1
+		_MinimunGrassBlades("Minimum grass blades per triangle", Range(0, 25)) = 1
 		_MaxCameraDistance("Max camera distance", float) = 10
 		_MinNormal("Min Normal", Range(0.0, 1.0)) = 0.5
 	}
@@ -48,6 +43,7 @@
 			{
 				float2 uv : TEXCOORD0;
 				float4 vertex : SV_POSITION;
+				float3 worldPos : TEXCOORD1;
 				float4 col : COLOR;
 			};
 
@@ -72,6 +68,13 @@
 			float _MinimunGrassBlades;
 			float _MaxCameraDistance;
 			float _MinNormal;
+			float4 _RootColor;
+			float4 _TipColor;
+
+			float4 LampPositionsArray[16];
+			float LampRangesArray[16];
+			float3 PlayerPosition;
+			float4 AmbientColor;
 
 			float random(float2 st) {
 				return frac(sin(dot(st.xy,
@@ -84,6 +87,7 @@
 				g2f o;
 				o.vertex = UnityObjectToClipPos(pos);
 				o.uv = uv;
+				o.worldPos = mul(unity_ObjectToWorld, pos);
 				o.col = col;
 				return o;
 			}
@@ -95,8 +99,8 @@
 				return o;
 			}
 
-			//3 + (3 * 33) = 108
-			[maxvertexcount(102)]
+			//3 + (3 * 31) = 96
+			[maxvertexcount(78)]
 			void geom(triangle v2g input[3], inout TriangleStream<g2f> triStream)
 			{
 				float3 normal = normalize(cross(input[1].vertex - input[0].vertex, input[2].vertex - input[0].vertex));
@@ -117,6 +121,12 @@
 
 					float useWidth = _GrassWidth;
 
+
+					float playerDist = abs(length(worldPos.xyz - PlayerPosition.xyz));
+					float closeness = saturate(playerDist / 1.0);
+
+
+
 					float noise = tex2Dlod(_NoiseTexture, float4(worldPos.xz * _NoiseTexture_ST.xy, 0.0, 0.0)).x;
 					float d = 1.0 / _TerrainScale;
 					float place = saturate(tex2Dlod(_PlacementTexture, float4(worldPos.x * d, worldPos.z * d, 0.0, 0.0)).r);
@@ -124,6 +134,7 @@
 					heightFactor *= place;
 					float slopeFactor = 1.0;
 					slopeFactor *= saturate(normal.y);
+					heightFactor *= closeness;
 					if (slopeFactor < _MinNormal)
 					{
 						useWidth = 0.0;
@@ -160,10 +171,25 @@
 				triStream.RestartStrip();
 			}
 
+			int LampCheck(float3 WorldPos, float ArraySize)
+			{
+				for (int i = 0; i < ArraySize; i++)
+				{
+					float d = distance(WorldPos, LampPositionsArray[i]);
+					if (d < LampRangesArray[i])
+					{
+						return 1;
+					}
+				}
+				return 0;
+			}
+
 			fixed4 frag(g2f i) : SV_Target
 			{
 				fixed4 gradientMapCol = tex2D(_GradientMap, float2(i.col.x, 0.0));
-				fixed4 col = (gradientMapCol + _WindColor * i.col.g) * _Color;
+				fixed4 col = lerp(_RootColor, _TipColor, i.col.x);
+				col *= AmbientColor;
+				col *= LampCheck(i.worldPos.xyz, 16);
 				return col;
 			}
 
