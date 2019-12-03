@@ -15,7 +15,7 @@ public class Openmenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            QuestManager.instance.GetQuest("Read Parchment").SetCondition("openmenu", 1);
+            QuestManager.Instance.GetQuest("Read Parchment").SetCondition("openmenu", 1);
         }  
     }
 }

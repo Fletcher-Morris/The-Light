@@ -17,10 +17,10 @@ public class escapevillage : MonoBehaviour
 
             if (other.CompareTag("Player"))
             {
-                if (QuestManager.instance.CheckQuestFinished("Fight Darkness") == true)
+                if (QuestManager.Instance.CheckQuestFinished("Fight Darkness") == true)
                 {
                     triggered = true;
-                    QuestManager.instance.GetQuest("Escape").SetCondition("qc", 1);
+                    QuestManager.Instance.GetQuest("Escape").SetCondition("qc", 1);
                    
                 }
             }

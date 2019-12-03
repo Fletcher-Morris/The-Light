@@ -4,30 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 public class QuestManager : MonoBehaviour
 {
-    public static QuestManager instance;
-    
+    private static QuestManager instance;
+    public static QuestManager Instance { get => instance; set => instance = value; }
+
     //Run Quests& Manage Conditions
 
-    List<Quest> quests=new List<Quest>();
-    List<string> finishedquests = new List<string>();
+    private List<Quest> quests=new List<Quest>();
+    private List<string> finishedquests = new List<string>();
     //it is not safe to add/remove elements during foreach, so use buffer to add/remove later 
-    List<Quest> add_buffer = new List<Quest>();
-    List<Quest> remove_buffer = new List<Quest>();
+    private List<Quest> add_buffer = new List<Quest>();
+    private List<Quest> remove_buffer = new List<Quest>();
 
-    GameObject questtext;
-    string st;
+    private Text m_questText;
+    private string st;
 
     bool quest_check_running=false;
-    static QuestManager()
-    {
-        GameObject ga = new GameObject("~~~~QuestManager~~~~");
-        DontDestroyOnLoad(ga);
-        instance=ga.AddComponent<QuestManager>();
-    }
 
     private void Awake()
     {
-        questtext = GameObject.FindGameObjectWithTag("QuestLayer");
+        instance = this;
+        m_questText = GameObject.FindGameObjectWithTag("QuestLayer").GetComponent<Text>();
     }
     /// <summary>
     /// add quest to the quest list
@@ -45,7 +41,7 @@ public class QuestManager : MonoBehaviour
         {
             add_buffer.Add(qu);
         }
-     
+        UpdateQuests();
     }
     /// <summary>
     /// Set quest active
@@ -61,6 +57,7 @@ public class QuestManager : MonoBehaviour
              q.OnQuestSetActive();
             }
         }
+        UpdateQuests();
     }
     /// <summary>
     /// Set quest active by quest name
@@ -76,6 +73,7 @@ public class QuestManager : MonoBehaviour
                 q.OnQuestSetActive();
             }
         }
+        UpdateQuests();
     }
     /// <summary>
     /// Get Quest by quest name
@@ -113,6 +111,7 @@ public class QuestManager : MonoBehaviour
         {
             remove_buffer.Add(qu);
         }
+        UpdateQuests();
     }
 
   
@@ -133,6 +132,7 @@ public class QuestManager : MonoBehaviour
         {
             remove_buffer.Add(qu);
         }
+        UpdateQuests();
     }
  
  
@@ -190,6 +190,7 @@ public class QuestManager : MonoBehaviour
     public void ResetQuest(Quest q)
     {
         q.OnReset();
+        UpdateQuests();
     }
     public void ClearQuestList()
     {
@@ -197,52 +198,55 @@ public class QuestManager : MonoBehaviour
         remove_buffer.Clear();
         quests.Clear();
         finishedquests.Clear();
+        UpdateQuests();
     }
 
-
-    void Update()
+    public void UpdateQuests()
     {
         st = "";
         //add quests from addbuffer
-        foreach(Quest q in add_buffer)
+        foreach (Quest q in add_buffer)
         {
-           quests.Add(q);
+            quests.Add(q);
         }
         add_buffer.Clear();
 
         //remove quests in removebuffer
-        foreach(Quest q in remove_buffer)
+        foreach (Quest q in remove_buffer)
         {
-            quests.Remove(q);  
+            quests.Remove(q);
             Destroy(q.gameObject);
         }
         remove_buffer.Clear();
 
 
-        
+
         //update each quest
         quest_check_running = true;
-        foreach(Quest q in quests)
+        foreach (Quest q in quests)
         {
-            if (q.quest_active)
+            if(q != null)
             {
-                q.Check();
-                st += q.Getname();
-                st += "\n";
-                st += q.Getdesc();
-                st += "\n";
+                if (q.quest_active)
+                {
+                    q.Check();
+                    st += q.Getname();
+                    st += "\n";
+                    st += q.Getdesc();
+                    st += "\n";
+                }
             }
-           
+
         }
         quest_check_running = false;
-       
-        questtext.GetComponent<Text>().text = st;
+
+        m_questText.text = st;
 
         //  Debug.Log(quests.Count);
         if (Input.GetKeyDown(KeyCode.L))
         {
             Debug.Log(quests.Count);
-            
+
         }
     }
 }

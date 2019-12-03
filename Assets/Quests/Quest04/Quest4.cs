@@ -9,8 +9,7 @@ public class Quest4 : Quest
     // Start is called before the first frame update
     void Start()
     {
-        QuestManager.instance.AddQuest(this);
-         ic = Inventory_Controller.Singleton();
+        QuestManager.Instance.AddQuest(this);
     }
  
     public override void OnFinish()
@@ -22,9 +21,9 @@ public class Quest4 : Quest
     public override void Check()
     {
        
-        if(ic.HasItemInInventory("The_Lamp"))
+        if(Inventory_Controller.Singleton().HasItemInInventory("The Lamp"))
         {
-            QuestManager.instance.FinishQuest(this);
+            QuestManager.Instance.FinishQuest(this);
         }
     }
 }

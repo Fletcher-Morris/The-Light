@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5125534563796239628}
   - component: {fileID: 9190805943797376851}
   - component: {fileID: 3036004050902852712}
+  - component: {fileID: 1576649516}
   m_Layer: 14
   m_Name: Lamp_Proto_2 (1)
   m_TagString: Untagged
@@ -27,14 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5125534563796239631}
-  m_LocalRotation: {x: -0.0000000016862539, y: 0.042572517, z: 0.0000000041792165,
-    w: 0.9990934}
+  m_LocalRotation: {x: 0, y: 0.04257316, z: 0, w: 0.9990934}
   m_LocalPosition: {x: 129.94, y: 58.09, z: -439.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 4.88, z: 0}
 --- !u!33 &5125534563796239629
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -94,7 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d3f254a91019904aa8164b750023e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_interactDistance: 2
   m_isClosest: 0
   m_text: Interact
   OnInteract:
@@ -114,12 +113,14 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_interactable: 1
+  m_autoFindRenderers: 1
   m_onlyOnce: 0
   m_interactUiPrefab: {fileID: 6456536924899312098, guid: 33676a5fda7a8e140881be0bbcd36f07,
     type: 3}
   m_interactUi: {fileID: 0}
   m_uiAnchor: {fileID: 0}
   m_uiOffset: {x: 0, y: 0, z: 0}
+  m_renderers: []
 --- !u!114 &3036004050902852712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,14 +133,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab88ba4f8d3218748b1e112342ab8874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_item: {fileID: 0}
+  m_item: {fileID: 11400000, guid: 3d324013a2d1dc84fb02a03d0d3ec2fa, type: 2}
   m_remaining: 1
   m_destroyOnDepletion: 1
   m_destroyOnAdd: 0
   m_disableTriggerOnDepletion: 1
   OnAddedToInventory:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1576649516}
+        m_MethodName: ActivateQuest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1576649516}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   OnDepleted:
@@ -147,3 +170,16 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1576649516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5125534563796239631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a27f8e9e764fb4babb26ea5f313bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_quest: {fileID: 1232893139029027489, guid: 78146376eec99534da2fa5063346b4ee, type: 3}

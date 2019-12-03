@@ -49,7 +49,7 @@ public class Interact_Trigger : MonoBehaviour
     [SerializeField] private GameObject m_interactUiPrefab;
     [SerializeField] private GameObject m_interactUi;
     [SerializeField] private Transform m_uiAnchor;
-    [SerializeField] private Vector3 m_uiOffset = Vector3.zero;
+    [SerializeField] private Vector3 m_uiOffset = new Vector3(0, 1, 0);
 
     private Camera m_mainCam;
 
