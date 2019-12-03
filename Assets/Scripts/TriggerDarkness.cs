@@ -11,7 +11,7 @@ public class TriggerDarkness : MonoBehaviour
     public List<GameObject> Darkclouds = new List<GameObject>();
     public GameObject CM, CC;
     public GameObject Beaconlight;
-    public GameObject quest;
+   
 
     [SerializeField] private Environment_Transition m_environmentTransition;
     [SerializeField] private EnvironmentSettings m_darkEnvironment;
@@ -23,13 +23,12 @@ public class TriggerDarkness : MonoBehaviour
             
             if (other.CompareTag("Player"))
             {
-               // if (QuestManager.instance.CheckQuestFinished("Read Parchment") == true)
-              // {
+              
                     triggered = true;
-                   QuestManager.Instance.ClearQuestList();
-                  // QuestManager.instance.GetQuest("Go To The Tower").SetCondition("action", 1);
+                
+                
                     Darkcome();
-               //}
+              
             }
         }
     }
@@ -50,8 +49,7 @@ public class TriggerDarkness : MonoBehaviour
         CC.SetActive(false);
         CM.SetActive(true);
         Player_Controller.Singleton().InCutscene = false;
-        //QuestManager.instance.SetQuestActive("Get the Lantern");
-        Instantiate(quest);
+        
     }
     public void ActiveDarkclouds()
     {
