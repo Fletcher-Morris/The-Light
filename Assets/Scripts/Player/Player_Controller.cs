@@ -60,7 +60,8 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float m_cameraMaxAngle = 80.0f;
     [SerializeField] private float m_cameraPositionLerp = 5.0f;
     [SerializeField] private float m_cameraRotationLerp = 10.0f;
-    private float m_camXAngle = 45.0f;
+    [SerializeField] private float m_camBlockerLerp = 10.0f;
+    private float m_camXAngle = 0.0f;
     [SerializeField] float m_pivotHeight = 1.0f;
     [SerializeField] private Image m_healthOverlay;
     [SerializeField] private CanvasGroup m_gameOverGroup;
@@ -341,12 +342,14 @@ public class Player_Controller : MonoBehaviour
         Vector3 rayStart = transform.position + new Vector3(0.0f, m_pivotHeight, 0.0f);
         Ray ray = new Ray(rayStart, m_cameraTarget.position - rayStart);
         RaycastHit hit;
-        if (Physics.SphereCast(rayStart, 0.1f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"), QueryTriggerInteraction.Ignore)) newDist = hit.distance;
+        if (Physics.SphereCast(rayStart, 0.2f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"), QueryTriggerInteraction.Ignore)) newDist = hit.distance;
 
         if (m_inCutscene) return;
         if (GameTime.IsPaused()) return;
 
-        m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, -newDist);
+        newDist *= -1.0f;
+        //m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, newDist);
+        m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, Mathf.Lerp(m_cameraTarget.localPosition.z, newDist, m_camBlockerLerp * GameTime.deltaTime));
         m_camera.transform.position = new Vector3(m_cameraTarget.position.x, Mathf.Lerp(m_camera.transform.position.y, m_cameraTarget.transform.position.y, m_cameraPositionLerp * GameTime.deltaTime), m_cameraTarget.position.z);
         m_camera.transform.rotation = Quaternion.Lerp(m_camera.transform.rotation, m_cameraPivotX.rotation, m_cameraRotationLerp * GameTime.deltaTime);
     }
