@@ -37,16 +37,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _GrassBlades: 31
-    - _GrassHeight: 0.75
-    - _GrassWidth: 0.054
-    - _MaxCameraDistance: 100
+    - _GrassHeight: 0.78
+    - _GrassWidth: 0.103
+    - _MaxCameraDistance: 50
     - _MaxNormal: 0.5
     - _MinNormal: 0.5
     - _MinimunGrassBlades: 0
     - _PositionRandomness: 0.1
     - _TerrainScale: 500
-    - _WindSpeed: 0.125
-    - _WindStrength: 0.1
+    - _WindSpeed: 0.05
+    - _WindStrength: 0.11
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RootColor: {r: 0.17827813, g: 0.2264151, b: 0.020291913, a: 1}
