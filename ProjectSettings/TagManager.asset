@@ -16,6 +16,7 @@ TagManager:
   - Darkcloud
   - Watermillpoint
   - Corruption
+  - Fence
   layers:
   - Default
   - TransparentFX

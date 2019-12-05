@@ -59,8 +59,8 @@ public class Convert_Materials : Editor
 
 
 
-    [MenuItem("Tools/Fix Fence Colliders")]
-    public void FixFenceColliders()
+    [MenuItem("Tools/Fix Fences")]
+    public static void FixFenceColliders()
     {
         List<Vector3> fenceMainWorldPositions = new List<Vector3>();
         List<Quaternion> fenceMainWorldRotations = new List<Quaternion>();
@@ -75,25 +75,42 @@ public class Convert_Materials : Editor
         if (fenceMainPrefab == null) return;
         if (fenceEndPrefab == null) return;
 
-        List<GameObject> allFoundFences = new List<GameObject>(GameObject.FindGameObjectsWithTag("FixFence"));
+        List<GameObject> allFoundFences = new List<GameObject>(GameObject.FindGameObjectsWithTag("Fence"));
 
         if (allFoundFences.Count <= 0) return;
 
         foreach(GameObject g in allFoundFences)
         {
-            if(g.name.Contains("fence00"))
+            if(g.name.Contains("(Clone)"))
             {
-                fenceMainWorldPositions.Add(g.transform.position);
-                fenceMainWorldRotations.Add(g.transform.rotation);
-                fenceMainParents.Add(g.transform.parent);
-                GameObject.Destroy(g);
-            }
-            else if(g.name.Contains("fence_end"))
-            {
-                fenceEndWorldPositions.Add(g.transform.position);
-                fenceEndWorldRotations.Add(g.transform.rotation);
-                fenceEndParents.Add(g.transform.parent);
-                GameObject.Destroy(g);
+                if (g.name.Contains("fence00"))
+                {
+                    fenceMainWorldPositions.Add(g.transform.position);
+                    fenceMainWorldRotations.Add(g.transform.rotation);
+                    fenceMainParents.Add(g.transform.parent);
+                    GameObject.DestroyImmediate(g);
+                }
+                else if (g.name.Contains("fence_end"))
+                {
+                    fenceEndWorldPositions.Add(g.transform.position);
+                    fenceEndWorldRotations.Add(g.transform.rotation);
+                    fenceEndParents.Add(g.transform.parent);
+                    GameObject.DestroyImmediate(g);
+                }
+                else if (g.name.Contains("Fence_Main_Prefab"))
+                {
+                    fenceMainWorldPositions.Add(g.transform.position);
+                    fenceMainWorldRotations.Add(g.transform.rotation);
+                    fenceMainParents.Add(g.transform.parent);
+                    GameObject.DestroyImmediate(g);
+                }
+                else if (g.name.Contains("Fence_End_Prefab"))
+                {
+                    fenceEndWorldPositions.Add(g.transform.position);
+                    fenceEndWorldRotations.Add(g.transform.rotation);
+                    fenceEndParents.Add(g.transform.parent);
+                    GameObject.DestroyImmediate(g);
+                }
             }
         }
 
