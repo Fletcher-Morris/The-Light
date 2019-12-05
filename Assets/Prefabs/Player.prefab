@@ -12644,7 +12644,13 @@ MonoBehaviour:
   m_animator: {fileID: 2630606829920573452}
   m_lampObject: {fileID: 4746211373312194229}
   m_inCutscene: 0
-  m_sceneInteractions: []
+  m_sceneInteractions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_closestInteraction: {fileID: 0}
   InteractKey: 101
   m_dialoguePanel: {fileID: 2151810899571364128}
@@ -12655,13 +12661,13 @@ MonoBehaviour:
   m_cameraPivotX: {fileID: 573346347643803651}
   m_cameraTarget: {fileID: 481371788658544037}
   m_camera: {fileID: 2151810900484836047}
-  m_cameraCloseDist: 4
+  m_cameraCloseDist: 6
   m_cameraFarDist: 10
   m_cameraMinAngle: -10
   m_cameraMaxAngle: 80
-  m_cameraPositionLerp: 20
-  m_cameraRotationLerp: 20
-  m_pivotHeight: 1
+  m_cameraPositionLerp: 100
+  m_cameraRotationLerp: 100
+  m_pivotHeight: 1.5
   m_healthOverlay: {fileID: 451919490}
   m_gameOverGroup: {fileID: 5424067374766463845}
   m_runningStepMultiplier: 0.45
