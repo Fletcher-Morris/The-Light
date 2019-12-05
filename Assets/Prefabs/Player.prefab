@@ -12667,6 +12667,7 @@ MonoBehaviour:
   m_cameraMaxAngle: 80
   m_cameraPositionLerp: 100
   m_cameraRotationLerp: 100
+  m_camBlockerLerp: 10
   m_pivotHeight: 1.5
   m_healthOverlay: {fileID: 451919490}
   m_gameOverGroup: {fileID: 5424067374766463845}

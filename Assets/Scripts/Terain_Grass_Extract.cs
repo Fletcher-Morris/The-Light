@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Terain_Grass_Extract : MonoBehaviour
 {
     public Texture2D m_terrainDataTex;

@@ -15,6 +15,7 @@ TagManager:
   - ObjectColletcor
   - Darkcloud
   - Watermillpoint
+  - Corruption
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - 
   - 
   - Animal
-  - 
+  - CamObstructorIgnore
   - 
   - 
   - 
