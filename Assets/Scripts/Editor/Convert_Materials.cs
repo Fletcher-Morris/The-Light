@@ -9,18 +9,22 @@ public class Convert_Materials : Editor
 {
 
     static Shader normalShader;
+    static Shader autodeskShader;
     static Shader newShader;
 
     [MenuItem("Tools/Convert Materials")]
     public static void ConvertMaterials()
     {
         normalShader = Shader.Find("Lightweight Render Pipeline/Lit");
+        autodeskShader = Shader.Find("Lightweight Render Pipeline/Autodesk Interactive/Autodesk Interactive");
         newShader = Shader.Find("Zelda_Shader");
 
         if (normalShader == null) Debug.LogWarning("Could not locate regular shader.");
+        if (autodeskShader == null) Debug.LogWarning("Could not locate autodesk shader.");
         if (newShader == null) Debug.LogWarning("Could not locate zelda shader.");
 
         if (normalShader == null) return;
+        if (autodeskShader == null) return;
         if (newShader == null) return;
 
         List<Material> foundMaterials = new List<Material>();
@@ -36,25 +40,38 @@ public class Convert_Materials : Editor
 
     private static bool ConverteMaterial(Material mat)
     {
-        if (mat.shader != normalShader) return false;
+        if (mat.shader == normalShader)
+        {
+            Texture albedoTex;
+            Texture emissionTex;
+            Texture normalTex;
+            albedoTex = mat.GetTexture("_BaseMap");
+            emissionTex = mat.GetTexture("_EmissionMap");
+            normalTex = mat.GetTexture("_BumpMap");
+            mat.shader = newShader;
+            mat.SetTexture("_Albedo", albedoTex);
+            mat.SetTexture("_Emission", emissionTex);
+            mat.SetTexture("_Normal", normalTex);
+            mat.SetFloat("_Terrain", 0.0f);
+            return true;
+        }
+        else if (mat.shader == autodeskShader)
+        {
+            Texture albedoTex;
+            Texture emissionTex;
+            Texture normalTex;
+            albedoTex = mat.GetTexture("_MainTex");
+            emissionTex = mat.GetTexture("_EmissionMap");
+            normalTex = mat.GetTexture("_BumpMap");
+            mat.shader = newShader;
+            mat.SetTexture("_Albedo", albedoTex);
+            mat.SetTexture("_Emission", emissionTex);
+            mat.SetTexture("_Normal", normalTex);
+            mat.SetFloat("_Terrain", 0.0f);
+            return true;
+        }
 
-
-        Texture albedoTex;
-        Texture emissionTex;
-        Texture normalTex;
-
-        albedoTex = mat.GetTexture("_BaseMap");
-        emissionTex = mat.GetTexture("_EmissionMap");
-        normalTex = mat.GetTexture("_BumpMap");
-
-        mat.shader = newShader;
-
-        mat.SetTexture("_Albedo", albedoTex);
-        mat.SetTexture("_Emission", emissionTex);
-        mat.SetTexture("_Normal", normalTex);
-        mat.SetFloat("_Terrain", 0.0f);
-
-        return true;
+        return false;
     }
 
 

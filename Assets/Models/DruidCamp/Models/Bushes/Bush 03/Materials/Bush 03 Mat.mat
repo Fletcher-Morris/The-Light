@@ -21,18 +21,21 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bush 03 Mat
-  m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
+  m_Shader: {fileID: 4800000, guid: 9562af619ec7392419687c7cd81ece6e, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _GLOSSINESS_FROM_BASE_ALPHA _NORMALMAP _SPECULAR_COLOR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2500
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: bd7d719c0fca2f14ca1e57664790210f, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -53,6 +56,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 1
     - _Blend: 0
@@ -61,6 +68,8 @@ Material:
     - _Cutoff: 0.13859275
     - _DstBlend: 0
     - _GlossinessSource: 0
+    - _GroundFade: 0.2
+    - _MaxPlayerBend: 0.17
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Shininess: 0.036189463
@@ -70,9 +79,15 @@ Material:
     - _SpecularHighlights: 0
     - _SrcBlend: 1
     - _Surface: 0
+    - _TipHeight: 15.93
+    - _UseTexture: 0
+    - _WindSpeed: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0.76}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GroundColor: {r: 0.24705875, g: 0.15256536, b: 0, a: 0}
+    - _RootColor: {r: 0.11167007, g: 0.24528292, b: 0, a: 0}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _TipColor: {r: 0.25740626, g: 0.37735847, b: 0, a: 0}
