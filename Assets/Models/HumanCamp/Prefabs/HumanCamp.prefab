@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9204576695512333717}
   - component: {fileID: 8434509429997323857}
   - component: {fileID: 1900137723006837296}
+  - component: {fileID: 521522972}
   m_Layer: 0
   m_Name: WizardTent
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &521522972
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278265692144758890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -2499829775686906143, guid: a394dbc133c86354ebf0063646f0b3d0, type: 3}
 --- !u!1 &346634544201344052
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +185,7 @@ GameObject:
   - component: {fileID: 8791928182975626379}
   - component: {fileID: 1597644463840909571}
   - component: {fileID: 4313074010435640225}
+  - component: {fileID: 521522971}
   m_Layer: 0
   m_Name: BenchWithBooks
   m_TagString: Untagged
@@ -238,6 +254,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522971
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763990614770154662}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.094617665, y: 0.028115895, z: 0.021319907}
+  m_Center: {x: 0, y: 0, z: 0.0000019073486}
 --- !u!1 &809565329387984658
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,8 +334,8 @@ Transform:
   m_Father: {fileID: 9204576696448004604}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 38.254, z: 0}
---- !u!65 &153694218
-BoxCollider:
+--- !u!64 &521522958
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -315,9 +344,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.23503147, y: 0.09525752, z: 0.11460006}
-  m_Center: {x: -0.013254948, y: 0.04792101, z: 0.0000019073486}
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 973949476061914554, guid: df0fc294b713220458950a5d0560d33a, type: 3}
 --- !u!1 &1114599064907773753
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +749,7 @@ GameObject:
   - component: {fileID: 9204576697325946633}
   - component: {fileID: 735774256892527383}
   - component: {fileID: 5469655375281106784}
+  - component: {fileID: 521522961}
   m_Layer: 0
   m_Name: SoldierTent (2)
   m_TagString: Untagged
@@ -786,6 +817,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522961
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621754211232430955}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13499708, y: 0.096864164, z: 0.16110767}
+  m_Center: {x: -0.0000019073486, y: 0.0000000037252903, z: 0.00000047683716}
 --- !u!1 &1898860420530612871
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +919,7 @@ GameObject:
   - component: {fileID: 1445135218537958854}
   - component: {fileID: 1144910859093099768}
   - component: {fileID: 6550139735558930757}
+  - component: {fileID: 521522969}
   m_Layer: 0
   m_Name: Chest1
   m_TagString: Untagged
@@ -943,6 +988,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522969
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072022088546738175}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.056888666, y: 0.03137621, z: 0.04044446}
+  m_Center: {x: 0.00000047683716, y: 0.004243432, z: 0.0000038146973}
 --- !u!1 &2088631905341209173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,6 +1199,7 @@ GameObject:
   - component: {fileID: 8213061831322417900}
   - component: {fileID: 875515060604297429}
   - component: {fileID: 3624607563104612384}
+  - component: {fileID: 521522964}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -1208,6 +1267,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522964
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2712549455595656037}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.010000003, y: 0.08176898, z: 0.0100000035}
+  m_Center: {x: -0.000000059604645, y: -0.035884675, z: -0.00000023841858}
 --- !u!1 &2830984079030026584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,6 +1402,7 @@ GameObject:
   - component: {fileID: 9204576696457600581}
   - component: {fileID: 7237405269855211395}
   - component: {fileID: 1977805577438986508}
+  - component: {fileID: 521522966}
   m_Layer: 0
   m_Name: MasterTent
   m_TagString: Untagged
@@ -1402,6 +1475,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &521522966
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3403940094300856236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -2196986502539005985, guid: e7a5057614df085409009fe2189424ea, type: 3}
 --- !u!1 &3519351088577129331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,7 +1772,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6a1fe5292cde2544880c24846c29a8ff, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1717,6 +1804,7 @@ GameObject:
   - component: {fileID: 3349774959238066950}
   - component: {fileID: 2690675320296593311}
   - component: {fileID: 8669494532701773143}
+  - component: {fileID: 521522967}
   m_Layer: 0
   m_Name: PotionMaker
   m_TagString: Untagged
@@ -1784,6 +1872,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522967
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3983733454921278404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.036975008, y: 0.03004952, z: 0.035752043}
+  m_Center: {x: 0, y: 0.000044500455, z: -0.0000019073486}
 --- !u!1 &4074074104271907581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,6 +1974,7 @@ GameObject:
   - component: {fileID: 5692031740850681801}
   - component: {fileID: 7946766328784741007}
   - component: {fileID: 8303459298968643820}
+  - component: {fileID: 521522968}
   m_Layer: 0
   m_Name: Chest2
   m_TagString: Untagged
@@ -1941,6 +2043,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522968
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4469661789657276342}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05688867, y: 0.03137621, z: 0.040444463}
+  m_Center: {x: -0.0000019073486, y: 0.004243313, z: -0.0000019073486}
 --- !u!1 &4722895421898997726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1952,6 +2067,7 @@ GameObject:
   - component: {fileID: 9204576695184451757}
   - component: {fileID: 8666156796604794656}
   - component: {fileID: 7829481745583099695}
+  - component: {fileID: 521522962}
   m_Layer: 0
   m_Name: SoldierTent (1)
   m_TagString: Untagged
@@ -2019,6 +2135,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522962
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4722895421898997726}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13499707, y: 0.096864164, z: 0.16110766}
+  m_Center: {x: 0, y: 0.0000000037252903, z: 0}
 --- !u!1 &4728109411256462952
 GameObject:
   m_ObjectHideFlags: 0
@@ -2845,6 +2974,7 @@ GameObject:
   - component: {fileID: 2664810073369742420}
   - component: {fileID: 3233253067308303016}
   - component: {fileID: 4587613693486277972}
+  - component: {fileID: 521522970}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -2914,6 +3044,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522970
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440278318841168903}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05688867, y: 0.03137621, z: 0.040444463}
+  m_Center: {x: -0.0000019073486, y: 0.0042435513, z: -0.00000333786}
 --- !u!1 &5505509329588808566
 GameObject:
   m_ObjectHideFlags: 0
@@ -3382,6 +3525,7 @@ GameObject:
   - component: {fileID: 9204576697196277788}
   - component: {fileID: 7942909907766339731}
   - component: {fileID: 8995439762380966454}
+  - component: {fileID: 521522960}
   m_Layer: 0
   m_Name: SoldierTent (3)
   m_TagString: Untagged
@@ -3449,6 +3593,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522960
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6281558167706871873}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13499708, y: 0.096864164, z: 0.16110767}
+  m_Center: {x: 0, y: 0.0000000037252903, z: -0.0000009536743}
 --- !u!1 &6615024663884810638
 GameObject:
   m_ObjectHideFlags: 0
@@ -3786,6 +3943,7 @@ GameObject:
   - component: {fileID: 9204576696379057875}
   - component: {fileID: 3502883781817504544}
   - component: {fileID: 3095633174696505761}
+  - component: {fileID: 521522963}
   m_Layer: 0
   m_Name: SoldierTent
   m_TagString: Untagged
@@ -3853,6 +4011,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522963
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6812994954981624254}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13499708, y: 0.096864164, z: 0.16110767}
+  m_Center: {x: 0, y: 0.0000000037252903, z: 0.000002861023}
 --- !u!1 &7196040432039855969
 GameObject:
   m_ObjectHideFlags: 0
@@ -4020,6 +4191,7 @@ GameObject:
   - component: {fileID: 9204576696448004604}
   - component: {fileID: 6271955689481888597}
   - component: {fileID: 7974203707320674978}
+  - component: {fileID: 521522959}
   m_Layer: 0
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -4093,6 +4265,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522959
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7652824242300859839}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1879244, y: 0.10727773, z: 0.08041684}
+  m_Center: {x: 0, y: 0.052197065, z: 0.000015258789}
 --- !u!1 &8026599762188532286
 GameObject:
   m_ObjectHideFlags: 0
@@ -4338,6 +4523,7 @@ GameObject:
   - component: {fileID: 4567862199056836982}
   - component: {fileID: 896975010764490130}
   - component: {fileID: 292706708451689181}
+  - component: {fileID: 521522965}
   m_Layer: 0
   m_Name: Bench
   m_TagString: Untagged
@@ -4405,6 +4591,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &521522965
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787396878183742669}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.09461763, y: 0.028115898, z: 0.0213199}
+  m_Center: {x: 0.00000047683716, y: 0, z: 0.0000038146973}
 --- !u!1 &9204576695305385767
 GameObject:
   m_ObjectHideFlags: 0
