@@ -33,7 +33,6 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private bool m_inCutscene = false;
     public bool InCutscene { get => m_inCutscene; set => m_inCutscene = value; }
 
-
     [Header("Interactions")]
 
     [SerializeField] private List<Interact_Trigger> m_sceneInteractions;
@@ -76,6 +75,7 @@ public class Player_Controller : MonoBehaviour
     private Inventory_Controller m_inventory;
 
     private Health m_health;
+    public Health Health { get => m_health; set => m_health = value; }
 
     [SerializeField] private Transform m_pauseMenu;
     private int m_shaderPausedIntId;
@@ -109,8 +109,8 @@ public class Player_Controller : MonoBehaviour
         if (m_visual == null) m_visual = transform.GetChild(0);
         m_controller = GetComponent<CharacterController>();
         m_footstepSource = GetComponent<AudioSource>();
-        m_health = GetComponent<Health>();
-        m_health.OnHealthZero.AddListener(() => OnDeath());
+        Health = GetComponent<Health>();
+        Health.OnHealthZero.AddListener(() => OnDeath());
     }
 
     private void Update()
@@ -288,7 +288,7 @@ public class Player_Controller : MonoBehaviour
         m_animator.speed = GameTime.IsPausedInt();
 
         m_animator.SetFloat(m_animatorMoveHash, m_moveDirection.magnitude / m_runSpeed);
-        m_animator.SetBool(m_animatorDeadHash, m_health.IsDead());
+        m_animator.SetBool(m_animatorDeadHash, Health.IsDead());
         m_animator.SetBool(m_animatorFlipHash, PlayerInput.Jump);
         m_animator.SetBool(m_animatorLanternHash, m_hasLamp);
     }
@@ -356,8 +356,8 @@ public class Player_Controller : MonoBehaviour
 
     private void HandleHealth()
     {
-        m_health.HealthUpdate(GameTime.deltaTime);
-        Shader.SetGlobalFloat(m_shaderHealthIntId, m_health.HealthFloat / m_health.MaxHealth);
+        Health.HealthUpdate(GameTime.deltaTime);
+        Shader.SetGlobalFloat(m_shaderHealthIntId, Health.HealthFloat / Health.MaxHealth);
     }
 
     //  DIALOGUE STUFF
@@ -440,7 +440,7 @@ public class Player_Controller : MonoBehaviour
 
     public bool IsDead()
     {
-        return m_health.IsDead();
+        return Health.IsDead();
     }
     public bool IsAlive()
     {
@@ -448,7 +448,7 @@ public class Player_Controller : MonoBehaviour
     }
     public void KillPlayer()
     {
-        m_health.DoDamage(m_health.MaxHealth);
+        Health.DoDamage(Health.MaxHealth);
     }
 
     public void OnDeath() { StartCoroutine(OnDeathCoroutine()); }
