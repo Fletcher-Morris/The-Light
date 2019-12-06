@@ -18,15 +18,16 @@ public class escapevillage : MonoBehaviour
             if (other.CompareTag("Player"))
             {
                
-                    //triggered = true;
-                Player_Controller.Singleton().transform.position = new Vector3(249.65f, 25.31f, -191.28f);
-                Player_Controller.Singleton().CamYAxis().eulerAngles = new Vector3(0, 0, 0);
+                   triggered = true;
+                   Gotowatermill();
             }
         }
     }
-    // Update is called once per frame
-    void Update()
+
+    void Gotowatermill()
     {
-        
+                //Player_Controller.Singleton().transform.position = new Vector3(249.65f, 25.31f, -191.28f);
+               // Player_Controller.Singleton().CamYAxis().eulerAngles = new Vector3(0, 0, 0);
     }
+
 }
