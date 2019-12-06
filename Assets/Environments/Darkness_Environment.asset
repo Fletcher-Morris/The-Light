@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2d252119e5a6ad47ab3ceefb0ce4620, type: 3}
   m_Name: Darkness_Environment
   m_EditorClassIdentifier: 
-  lightColor: {r: 0.77055573, g: 0.6367924, b: 0.8490566, a: 1}
+  lightColor: {r: 0.5566038, g: 0.44895872, b: 0.5078559, a: 1}
   m_lightIntensity: 1
-  skyColor: {r: 0.06568074, g: 1, b: 0, a: 1}
-  cloudColor: {r: 0.4156863, g: 0.32156864, b: 0.38431376, a: 1}
-  ambientColor: {r: 0.6886792, g: 0.6009701, b: 0.65944284, a: 1}
+  skyColor: {r: 0.3490566, g: 0.11360805, b: 0.33422598, a: 1}
+  cloudColor: {r: 0.38679248, g: 0.28644538, b: 0.35334343, a: 1}
+  ambientColor: {r: 0.2735849, g: 0.20260769, b: 0.25509033, a: 1}
   m_rain: 0

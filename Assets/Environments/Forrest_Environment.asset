@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2d252119e5a6ad47ab3ceefb0ce4620, type: 3}
   m_Name: Forrest_Environment
   m_EditorClassIdentifier: 
-  lightColor: {r: 0.31192192, g: 0.3042453, b: 0.5, a: 1}
+  lightColor: {r: 0.44205055, g: 0.4313813, b: 0.6981132, a: 1}
   m_lightIntensity: 1
-  skyColor: {r: 0.21239972, g: 0.2047437, b: 0.4056604, a: 1}
+  skyColor: {r: 0.3417979, g: 0.33842114, b: 0.4245283, a: 1}
   cloudColor: {r: 0.4243527, g: 0.31083125, b: 0.5188679, a: 1}
-  ambientColor: {r: 0.21176472, g: 0.20392159, b: 0.4039216, a: 1}
+  ambientColor: {r: 0.11662093, g: 0.11213955, b: 0.2264151, a: 1}
   m_rain: 0

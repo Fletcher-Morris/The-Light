@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Environment_Transition : MonoBehaviour
 {
 
@@ -15,6 +16,10 @@ public class Environment_Transition : MonoBehaviour
 
     private int m_ambientColorProperty;
     private int m_cloudColorProperty;
+
+    [SerializeField] private bool m_forceUpdate = false;
+
+    [SerializeField] private List<Camera> m_cameras = new List<Camera>();
 
     private void Start()
     {
@@ -46,15 +51,23 @@ public class Environment_Transition : MonoBehaviour
         float t = 0.0f;
         float lerp = 0.0f;
 
-        while(t < _time)
+        while(t <= _time)
         {
             lerp = (float)(t / _time);
+
+            lerp = lerp.Clamp01();
 
             if(m_mainLight) m_mainLight.color = Color.Lerp(m_currentEnvironment.LightColor, _environment.LightColor, lerp);
             if(m_mainLight) m_mainLight.intensity = Mathf.Lerp(m_currentEnvironment.LightIntensity, _environment.LightIntensity, lerp);
 
             Shader.SetGlobalColor(m_ambientColorProperty, Color.Lerp(m_currentEnvironment.AmbientColor, _environment.AmbientColor, lerp));
             Shader.SetGlobalColor(m_cloudColorProperty, Color.Lerp(m_currentEnvironment.CloudColor, _environment.CloudColor, lerp));
+
+            Color col = Color.Lerp(m_currentEnvironment.SkyColor, _environment.SkyColor, lerp);
+            foreach(Camera cam in m_cameras)
+            {
+                cam.backgroundColor = col;
+            }
 
             t += GameTime.deltaTime;
             yield return new WaitForEndOfFrame();
@@ -63,5 +76,14 @@ public class Environment_Transition : MonoBehaviour
         m_currentEnvironment = _environment;
         m_isTransitioning = false;
         yield return null;
+    }
+
+    private void Update()
+    {
+        if(m_forceUpdate)
+        {
+            Transition(m_currentEnvironment, 0.1f);
+            m_forceUpdate = false;
+        }
     }
 }

@@ -16,5 +16,5 @@ MonoBehaviour:
   m_lightIntensity: 2
   skyColor: {r: 0.6123621, g: 0.8356603, b: 0.9339623, a: 1}
   cloudColor: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
-  ambientColor: {r: 1, g: 0.9803922, b: 0.882353, a: 1}
+  ambientColor: {r: 0.5, g: 0.48388365, b: 0.4033019, a: 1}
   m_rain: 0
