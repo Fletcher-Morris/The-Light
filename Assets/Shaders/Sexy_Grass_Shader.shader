@@ -71,10 +71,10 @@
 			float4 _RootColor;
 			float4 _TipColor;
 
-			float4 LampPositionsArray[16];
-			float LampRangesArray[16];
+			float4 Lamps[16];
 			float3 PlayerPosition;
 			float4 AmbientColor;
+			float4 LightColor = (1,1,1,1);
 
 			float random(float2 st) {
 				return frac(sin(dot(st.xy,
@@ -171,12 +171,12 @@
 				triStream.RestartStrip();
 			}
 
-			int LampCheck(float3 WorldPos, float ArraySize)
+			int LampCheck(float3 WorldPos)
 			{
-				for (int i = 0; i < ArraySize; i++)
+				for (int i = 0; i < 16; i++)
 				{
-					float d = distance(WorldPos, LampPositionsArray[i]);
-					if (d < LampRangesArray[i])
+					float d = distance(WorldPos, Lamps[i].xyz);
+					if (d < Lamps[i].w)
 					{
 						return 1;
 					}
@@ -188,10 +188,13 @@
 			{
 				fixed4 gradientMapCol = tex2D(_GradientMap, float2(i.col.x, 0.0));
 				fixed4 col = lerp(_RootColor, _TipColor, i.col.x);
-				col *= AmbientColor;
-				col *= LampCheck(i.worldPos.xyz, 16);
+
+				fixed4 colAdjust = lerp(AmbientColor, LightColor, LampCheck(i.worldPos.xyz));
+
+				col *= colAdjust;
 				return col;
 			}
+
 
 
 		ENDCG

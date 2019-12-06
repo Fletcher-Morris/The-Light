@@ -15,6 +15,7 @@ public class Environment_Transition : MonoBehaviour
     [SerializeField] private ParticleSystem m_rain;
 
     private int m_ambientColorProperty;
+    private int m_lightColorProperty;
     private int m_cloudColorProperty;
 
     [SerializeField] private bool m_forceUpdate = false;
@@ -24,6 +25,7 @@ public class Environment_Transition : MonoBehaviour
     private void Start()
     {
         m_ambientColorProperty = Shader.PropertyToID("AmbientColor");
+        m_lightColorProperty = Shader.PropertyToID("LightColor");
         m_cloudColorProperty = Shader.PropertyToID("CloudColor");
 
         if (m_mainLight == null) m_mainLight = GameObject.Find("Directional Light").GetComponent<Light>();
@@ -61,6 +63,7 @@ public class Environment_Transition : MonoBehaviour
             if(m_mainLight) m_mainLight.intensity = Mathf.Lerp(m_currentEnvironment.LightIntensity, _environment.LightIntensity, lerp);
 
             Shader.SetGlobalColor(m_ambientColorProperty, Color.Lerp(m_currentEnvironment.AmbientColor, _environment.AmbientColor, lerp));
+            Shader.SetGlobalColor(m_lightColorProperty, Color.Lerp(m_currentEnvironment.LightColor, _environment.LightColor, lerp));
             Shader.SetGlobalColor(m_cloudColorProperty, Color.Lerp(m_currentEnvironment.CloudColor, _environment.CloudColor, lerp));
 
             Color col = Color.Lerp(m_currentEnvironment.SkyColor, _environment.SkyColor, lerp);
