@@ -69,7 +69,7 @@ Material:
     - _DstBlend: 0
     - _GlossinessSource: 0
     - _GroundFade: 0.2
-    - _MaxPlayerBend: 0.17
+    - _MaxPlayerBend: 0.3
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Shininess: 0.036189463
