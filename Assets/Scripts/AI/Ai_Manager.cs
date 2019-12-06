@@ -55,8 +55,8 @@ public static class Ai_Manager
     }
 
 
-    private static List<Vector4> m_lampPositions = new List<Vector4>();
-    private static List<float> m_lampRanges = new List<float>();
+    private static List<Vector4> m_lampVectors = new List<Vector4>();
+    private static int m_lampShaderArrayId;
 
     public static void ResetLamps(Lamp_Controller _lamp)
     {
@@ -82,25 +82,23 @@ public static class Ai_Manager
                 if (i >= m_lamps.Count) break;
                 if(m_lamps[i] != null)
                 {
-                    m_lampPositions[added] = m_lamps[i].transform.position;
-                    m_lampRanges[added] = m_lamps[i].GetNoisyEnabledRange();
+                    Vector4 newVec = m_lamps[i].transform.position;
+                    newVec.w = m_lamps[i].GetNoisyEnabledRange();
+                    m_lampVectors[added] = newVec;
                     added++;
                 }
                 i++;
             }
-            Shader.SetGlobalVectorArray("LampPositionsArray", m_lampPositions);
-            Shader.SetGlobalFloatArray("LampRangesArray", m_lampRanges);
+            Shader.SetGlobalVectorArray("Lamps", m_lampVectors);
         }
     }
 
     private static void ResetLampLists()
     {
-        m_lampPositions = new List<Vector4>(MAX_LAMPS);
-        m_lampRanges = new List<float>(MAX_LAMPS);
+        m_lampVectors = new List<Vector4>(MAX_LAMPS);
         for (int i = 0; i < MAX_LAMPS; i++)
         {
-            m_lampPositions.Add(Vector4.zero);
-            m_lampRanges.Add(0.0f);
+            m_lampVectors.Add(Vector4.zero);
         }
     }
 
@@ -108,9 +106,8 @@ public static class Ai_Manager
     private static void CreateGlobalValues()
     {
         if (m_globalValuesInitialised) return;
-        Shader.SetGlobalInt("LampCount", MAX_LAMPS);
-        Shader.SetGlobalVectorArray("LampPositionsArray", m_lampPositions);
-        Shader.SetGlobalFloatArray("LampRangesArray", m_lampRanges);
+        m_lampShaderArrayId = Shader.PropertyToID("Lamps");
+        Shader.SetGlobalVectorArray(m_lampShaderArrayId, m_lampVectors);
         m_globalValuesInitialised = true;
     }
 
