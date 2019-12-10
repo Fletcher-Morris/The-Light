@@ -1,84 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1102 &-9048640842020480420
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DruidYelling
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7b8caec941fa6734db9b0b27aaa8f5f1, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &-8027994539203284167
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DruidAppear
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7205d507f1cb634418fcf9fd5ef2afbf, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &-6261109422051397634
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DruidAngry2
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 50ff27a9cd0ef6648825b80d39735551, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &-5996687113098840132
+--- !u!1102 &-4727127393480631574
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -104,7 +26,33 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-2613091034884971936
+--- !u!1102 &-4206311221951907237
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DruidAngry1
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 8ff0ff7dc18d1684e9e979641eda32d9, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &-1760346633923470667
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -130,14 +78,14 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-2154320319253299036
+--- !u!1102 &-1345150541450809640
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mixamo_com
+  m_Name: DruidSitting
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -150,21 +98,20 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 3a336a7f53afe87489a7614fdda797ab,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: d46c25fc5c680574cac4ad36c7434ece, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-81034868759186825
+--- !u!1102 &-721650586530804440
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mixamo_com
+  m_Name: DruidSittingIDLE
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -177,8 +124,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 59ee0d5560191c9448f54f763147acc6,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: e55cfdac60b54ab4ca481ff77598fa9c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -216,80 +162,57 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 3071804942700980455}
-    m_Position: {x: 302, y: 175, z: 0}
+    m_State: {fileID: 966215833789902343}
+    m_Position: {x: 100, y: 490, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -2154320319253299036}
-    m_Position: {x: 331, y: 231, z: 0}
+    m_State: {fileID: -4727127393480631574}
+    m_Position: {x: 80, y: 620, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 6583291073037930394}
-    m_Position: {x: 175, y: 328, z: 0}
+    m_State: {fileID: -721650586530804440}
+    m_Position: {x: 260, y: 120, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 8487548865911411248}
-    m_Position: {x: 229, y: 265, z: 0}
+    m_State: {fileID: 1097418901558467821}
+    m_Position: {x: 90, y: 750, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -81034868759186825}
-    m_Position: {x: 80, y: 413, z: 0}
+    m_State: {fileID: -1760346633923470667}
+    m_Position: {x: 552.16455, y: 675.84314, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 3426181849317167021}
-    m_Position: {x: 406, y: 407, z: 0}
+    m_State: {fileID: 1922709284802006417}
+    m_Position: {x: 31.463501, y: 810.6128, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 5367721806319423286}
-    m_Position: {x: 302, y: 456, z: 0}
+    m_State: {fileID: -4206311221951907237}
+    m_Position: {x: 75.67859, y: 304.20932, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 5039957323668817494}
-    m_Position: {x: 337, y: 521, z: 0}
+    m_State: {fileID: 6620841539780427424}
+    m_Position: {x: 80, y: 370, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 3590220789945648516}
-    m_Position: {x: 372, y: 586, z: 0}
+    m_State: {fileID: 4277898372601058297}
+    m_Position: {x: 100, y: 440, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 6766089817459149455}
-    m_Position: {x: 407, y: 651, z: 0}
+    m_State: {fileID: 1644415315430713542}
+    m_Position: {x: 120, y: 560, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 3434318162256520523}
-    m_Position: {x: 442, y: 716, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -9048640842020480420}
-    m_Position: {x: 477, y: 781, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 6123898015892560502}
-    m_Position: {x: 512, y: 846, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -6261109422051397634}
-    m_Position: {x: 547, y: 911, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -5996687113098840132}
-    m_Position: {x: 582, y: 976, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -2613091034884971936}
-    m_Position: {x: 617, y: 1041, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -8027994539203284167}
-    m_Position: {x: 30, y: 260, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 5299483632305972918}
-    m_Position: {x: 119.157104, y: 534.5786, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1927700442697395421}
-    m_Position: {x: 154.1571, y: 599.5786, z: 0}
+    m_State: {fileID: -1345150541450809640}
+    m_Position: {x: 110, y: 690, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
-  m_EntryTransitions: []
+  m_EntryTransitions:
+  - {fileID: 4259774198324571196}
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 3071804942700980455}
---- !u!1102 &1927700442697395421
+  m_DefaultState: {fileID: -721650586530804440}
+--- !u!1102 &966215833789902343
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DruidAppeqr
+  m_Name: DruidComplain1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -302,67 +225,13 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f6b0e70dc0d078846b646d4c2e2e464b, type: 2}
+  m_Motion: {fileID: 7400000, guid: fe4f39caa3ff1e247ac95a10dd8d0611, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &3071804942700980455
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: mixamo_com
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 4a157bd6da6f7e240a9deb8247a12b2a,
-    type: 3}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &3426181849317167021
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: mixamo_com
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: fd675f09a44ac4641a681ea58beb7035,
-    type: 3}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &3434318162256520523
+--- !u!1102 &1097418901558467821
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -388,59 +257,7 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &3590220789945648516
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DruidSitting
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d46c25fc5c680574cac4ad36c7434ece, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &5039957323668817494
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DruidSit
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: fe4f39caa3ff1e247ac95a10dd8d0611, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &5299483632305972918
+--- !u!1102 &1644415315430713542
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -466,14 +283,14 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &5367721806319423286
+--- !u!1102 &1922709284802006417
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mixamo_com
+  m_Name: DruidYelling
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -486,21 +303,34 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: cc77eccadd7331b459160c1adba89747,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: 7b8caec941fa6734db9b0b27aaa8f5f1, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &6123898015892560502
+--- !u!1109 &4259774198324571196
+AnimatorTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -721650586530804440}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 1
+--- !u!1102 &4277898372601058297
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DruidAngry1
+  m_Name: DruidAppear
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -513,20 +343,20 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 8ff0ff7dc18d1684e9e979641eda32d9, type: 2}
+  m_Motion: {fileID: 7400000, guid: f6b0e70dc0d078846b646d4c2e2e464b, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &6583291073037930394
+--- !u!1102 &6620841539780427424
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mixamo_com
+  m_Name: DruidAngry2
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -539,61 +369,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: f37b75102bcb589468a791d41530f782,
-    type: 3}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &6766089817459149455
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DruidSittingIDLE
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e55cfdac60b54ab4ca481ff77598fa9c, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &8487548865911411248
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: mixamo_com
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 2e2e43500fed54843a77bd42c60b0408,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: 50ff27a9cd0ef6648825b80d39735551, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
