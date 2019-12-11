@@ -33,6 +33,8 @@ public class Darkcloud : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Player_Controller.Singleton() == null) return;
+
 
         vector_PlayerToThis = this.gameObject.transform.position - Player_Controller.Singleton().transform.position;
         distance = Mathf.Sqrt(vector_PlayerToThis.x * vector_PlayerToThis.x + vector_PlayerToThis.y * vector_PlayerToThis.y + vector_PlayerToThis.z * vector_PlayerToThis.z);
