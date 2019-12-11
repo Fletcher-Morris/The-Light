@@ -96,9 +96,9 @@ public class Convert_Materials : Editor
 
         if (allFoundFences.Count <= 0) return;
 
-        foreach(GameObject g in allFoundFences)
+        foreach (GameObject g in allFoundFences)
         {
-            if(g.name.Contains("(Clone)"))
+            if (g.name.Contains("(Clone)"))
             {
                 if (g.name.Contains("fence00"))
                 {
@@ -131,7 +131,7 @@ public class Convert_Materials : Editor
             }
         }
 
-        for(int i = 0; i < fenceMainWorldPositions.Count; i++)
+        for (int i = 0; i < fenceMainWorldPositions.Count; i++)
         {
             GameObject newFence = Instantiate(fenceMainPrefab, fenceMainWorldPositions[i], fenceMainWorldRotations[i], fenceMainParents[i]);
         }
@@ -141,6 +141,15 @@ public class Convert_Materials : Editor
         }
 
         Debug.Log($"Replaced {(fenceMainWorldPositions.Count + fenceEndWorldPositions.Count).ToString()} fences with prefabs!");
+    }
+
+    [MenuItem("Tools/Fix Grass")]
+    public static void FixGrass()
+    {
+        foreach (Terain_Grass_Extract grass in FindObjectsOfType<Terain_Grass_Extract>())
+        {
+            grass.refresh = true;
+        }
     }
 }
 

@@ -24,17 +24,19 @@ public class Environment_Transition : MonoBehaviour
 
     private void Start()
     {
+        Init();
+
+        LerpToEnvironment(m_initialEnvironment, 1.0f, true);
+    }
+
+    private bool m_initialized = false;
+    private void Init()
+    {
         m_ambientColorProperty = Shader.PropertyToID("AmbientColor");
         m_lightColorProperty = Shader.PropertyToID("LightColor");
         m_cloudColorProperty = Shader.PropertyToID("CloudColor");
-
-        if (m_mainLight == null) m_mainLight = GameObject.Find("Directional Light").GetComponent<Light>();
-
-        if (m_initialEnvironment)
-        {
-            m_currentEnvironment = m_initialEnvironment;
-            Transition(m_initialEnvironment, 0.5f);
-        }
+        m_mainLight = GameObject.Find("Directional Light").GetComponent<Light>();
+        m_initialized = true;
     }
 
     public void Transition(EnvironmentSettings _settings)
@@ -56,22 +58,8 @@ public class Environment_Transition : MonoBehaviour
         while(t <= _time)
         {
             lerp = (float)(t / _time);
-
             lerp = lerp.Clamp01();
-
-            if(m_mainLight) m_mainLight.color = Color.Lerp(m_currentEnvironment.LightColor, _environment.LightColor, lerp);
-            if(m_mainLight) m_mainLight.intensity = Mathf.Lerp(m_currentEnvironment.LightIntensity, _environment.LightIntensity, lerp);
-
-            Shader.SetGlobalColor(m_ambientColorProperty, Color.Lerp(m_currentEnvironment.AmbientColor, _environment.AmbientColor, lerp));
-            Shader.SetGlobalColor(m_lightColorProperty, Color.Lerp(m_currentEnvironment.LightColor, _environment.LightColor, lerp));
-            Shader.SetGlobalColor(m_cloudColorProperty, Color.Lerp(m_currentEnvironment.CloudColor, _environment.CloudColor, lerp));
-
-            Color col = Color.Lerp(m_currentEnvironment.SkyColor, _environment.SkyColor, lerp);
-            foreach(Camera cam in m_cameras)
-            {
-                cam.backgroundColor = col;
-            }
-
+            LerpToEnvironment(_environment, lerp, false);
             t += GameTime.deltaTime;
             yield return new WaitForEndOfFrame();
         }
@@ -79,6 +67,31 @@ public class Environment_Transition : MonoBehaviour
         m_currentEnvironment = _environment;
         m_isTransitioning = false;
         yield return null;
+    }
+
+    public void LerpToEnvironment(EnvironmentSettings _environment, float _lerp, bool _setCurrent)
+    {
+        if (m_initialized == false) Init();
+        if (_environment == null) return;
+        if (m_currentEnvironment == null) m_currentEnvironment = m_initialEnvironment;
+
+        _lerp = _lerp.Clamp01();
+        if (m_mainLight) m_mainLight.color = Color.Lerp(m_currentEnvironment.LightColor, _environment.LightColor, _lerp);
+        if (m_mainLight) m_mainLight.intensity = Mathf.Lerp(m_currentEnvironment.LightIntensity, _environment.LightIntensity, _lerp);
+        Shader.SetGlobalColor(m_ambientColorProperty, Color.Lerp(m_currentEnvironment.AmbientColor, _environment.AmbientColor, _lerp));
+        Shader.SetGlobalColor(m_lightColorProperty, Color.Lerp(m_currentEnvironment.LightColor, _environment.LightColor, _lerp));
+        Shader.SetGlobalColor(m_cloudColorProperty, Color.Lerp(m_currentEnvironment.CloudColor, _environment.CloudColor, _lerp));
+        Color col = Color.Lerp(m_currentEnvironment.SkyColor, _environment.SkyColor, _lerp);
+        foreach (Camera cam in m_cameras) { cam.backgroundColor = col; }
+
+        if (_setCurrent) m_currentEnvironment = _environment;
+    }
+
+    public EnvironmentSettings GetCurrentEnvironment()
+    {
+        if (m_currentEnvironment != null) return m_currentEnvironment;
+        else if (m_initialEnvironment != null) return m_initialEnvironment;
+        else return null;
     }
 
     private void Update()

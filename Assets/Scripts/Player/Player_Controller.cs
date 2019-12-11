@@ -468,4 +468,15 @@ public class Player_Controller : MonoBehaviour
         m_gameOverGroup.interactable = true;
         yield return null;
     }
+
+    public void TeleportPlayer(Vector3 _newPosition, Vector3 _newForward, Vector2 _camRotation)
+    {
+        _newForward.y = 0;
+        _newForward.Normalize();
+        m_moveDirection = _newForward;
+        transform.position = _newPosition;
+        CamYAxis().eulerAngles = new Vector3(0, _camRotation.y, 0);
+        m_camXAngle = _camRotation.x;
+        Physics.SyncTransforms();
+    }
 }
