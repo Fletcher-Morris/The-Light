@@ -36,6 +36,7 @@ public class Inventory_Controller : MonoBehaviour
         {
             m_selectedItemSpawnedObject.transform.Rotate(Vector3.up, m_selectedItemRotateSpeed * Time.deltaTime);
         }
+        m_selectedItemCam.enabled = m_inventoryPanel.gameObject.activeInHierarchy;
     }
 
     //  The individual stacks of items.

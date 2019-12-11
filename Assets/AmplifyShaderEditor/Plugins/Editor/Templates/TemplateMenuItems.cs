@@ -56,8 +56,13 @@ namespace AmplifyShaderEditor
 		{
 			AmplifyShaderEditorWindow.CreateNewTemplateShader( "e1de45c0d41f68c41b2cc20c8b9c05ef" );
 		}
-		[MenuItem( "Assets/Create/Amplify Shader/UI_On_Top", false, 85 )]
+		[MenuItem( "Assets/Create/Amplify Shader/Quest_Text_Shader", false, 85 )]
 		public static void ApplyTemplate10()
+		{
+			AmplifyShaderEditorWindow.CreateNewTemplateShader( "b0fa8acb73e50c24eb9044e92a98eead" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/UI_On_Top", false, 85 )]
+		public static void ApplyTemplate11()
 		{
 			AmplifyShaderEditorWindow.CreateNewTemplateShader( "d95a2c5b2e0ff8543889d9990636fd77" );
 		}

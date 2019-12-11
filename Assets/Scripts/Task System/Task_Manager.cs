@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Task_Manager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Task_Manager : MonoBehaviour
 
     [SerializeField] private List<GameTask> m_activeTasks;
     [SerializeField] private List<GameTask> m_completedTasks;
+
+    [SerializeField] private GameObject m_popupPrefab;
 
 
     private void Awake()
@@ -35,6 +38,11 @@ public class Task_Manager : MonoBehaviour
         Debug.Log("Activated Task '" + _task.TaskName + "'!");
         _task.OnTaskStarted();
         UpdateTasks();
+
+        GameObject popup = Instantiate(Singleton().m_popupPrefab, Player_Controller.Singleton().transform.GetChild(0));
+        Text txt = popup.transform.GetChild(0).GetComponent<Text>();
+        txt.text = $"Quest Started : {_task.TaskName}";
+        GameObject.Destroy(popup, 10.0f);
     }
 
     public static void UpdateTasks()
