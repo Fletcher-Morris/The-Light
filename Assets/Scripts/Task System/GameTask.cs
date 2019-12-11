@@ -19,9 +19,14 @@ public class GameTask : ScriptableObject
 
     public GameTask (GameTask _task)
     {
+        Set(_task);
+    }
+    public GameTask Set(GameTask _task)
+    {
         this.TaskName = _task.TaskName;
         this.TaskDescription = _task.TaskDescription;
         this.Requirements = _task.Requirements;
+        return this;
     }
 
 

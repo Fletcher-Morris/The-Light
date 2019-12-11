@@ -34,7 +34,7 @@ public class Task_Manager : MonoBehaviour
     public static void ActivateTask(GameTask _task)
     {
         RemoveTask(_task.name);
-        Singleton().m_activeTasks.Add(new GameTask(_task));
+        Singleton().m_activeTasks.Add(GameTask.CreateInstance<GameTask>().Set(_task));
         Debug.Log("Activated Task '" + _task.TaskName + "'!");
         _task.OnTaskStarted();
         UpdateTasks();
