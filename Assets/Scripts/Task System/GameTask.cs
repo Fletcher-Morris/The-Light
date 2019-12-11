@@ -10,6 +10,7 @@ public class GameTask : ScriptableObject
 {
     [SerializeField] private string taskName;
     public string TaskName { get => taskName; set => taskName = value; }
+    [Multiline]
     [SerializeField] private string taskDescription;
     public string TaskDescription { get => taskDescription; set => taskDescription = value; }
 

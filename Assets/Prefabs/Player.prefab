@@ -4146,7 +4146,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.095318615, g: 0.1829882, b: 0.3207547, a: 0}
+  m_BackGroundColor: {r: 0.6123621, g: 0.8356603, b: 0.9339623, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -7743,7 +7743,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4746211373312194229}
-  m_LocalRotation: {x: -0.8303813, y: 0.038371403, z: -0.36424768, w: 0.4199027}
+  m_LocalRotation: {x: -0.83038104, y: 0.03837143, z: -0.36424798, w: 0.41990274}
   m_LocalPosition: {x: 0, y: 0.064, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -12716,7 +12716,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.2
+  m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -12905,9 +12905,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807f6fe8e71c8ce4092bff0566166baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_health: 10
-  m_maxHealth: 10
-  m_regen: 0
+  m_health: 50
+  m_maxHealth: 50
+  m_regen: 1
   OnHealthZero:
     m_PersistentCalls:
       m_Calls: []
