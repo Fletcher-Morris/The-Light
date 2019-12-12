@@ -691,7 +691,6 @@ namespace AmplifyShaderEditor
 							actionItem.ActionData = optionItems[ optionsIdx ].Substring( 0, optIndex );
 							actionItem.ActionBuffer = optionItems[ optionsIdx ].Substring( optIndex + 1, optionItems[ optionsIdx ].Length - optIndex - 1);
 						}
-						//Debug.Log( "CreateActionItem:SetShaderProperty" );
 					}break;
 					case AseOptionsActionType.SetPropertyOnPass:
 					case AseOptionsActionType.SetPropertyOnSubShader:

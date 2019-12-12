@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightColor: {r: 0.9150943, g: 0.7928828, b: 0.2460395, a: 1}
   m_lightIntensity: 0.5
-  skyColor: {r: 0.091000006, g: 0.091000006, b: 0.091000006, a: 1}
-  cloudColor: {r: 0.07, g: 0.07, b: 0.07, a: 1}
+  skyColor: {r: 0.042, g: 0.042, b: 0.042, a: 1}
+  cloudColor: {r: 0.035, g: 0.035, b: 0.035, a: 1}
   ambientColor: {r: 0.11662093, g: 0.11213955, b: 0.2264151, a: 1}
   m_rain: 0

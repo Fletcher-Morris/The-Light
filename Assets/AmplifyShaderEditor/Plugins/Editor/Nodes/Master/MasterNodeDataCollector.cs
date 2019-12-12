@@ -424,7 +424,7 @@ namespace AmplifyShaderEditor
 
 		public void AddToInput( int nodeId, string interpName, WirePortDataType dataType, PrecisionType precision = PrecisionType.Float, bool addSemiColon = true )
 		{
-			string value = UIUtils.FinalPrecisionWirePortToCgType( precision, dataType ) + " " + interpName;
+			string value = UIUtils.PrecisionWirePortToCgType( precision, dataType ) + " " + interpName;
 			AddToInput( nodeId, value, addSemiColon );
 
 			if( !m_customShadowCoordsDict.ContainsKey( interpName ) )
@@ -684,6 +684,13 @@ namespace AmplifyShaderEditor
 			return m_properties;
 		}
 
+		public bool ContainsProperty( string propertyName )
+		{
+			// TODO: this needs to change, find the property should be dependant of have a "("
+			List<PropertyDataCollector> list = new List<PropertyDataCollector>( m_propertiesDict.Values );
+			return list.Find( x => x.PropertyName.Contains( propertyName+"(" ) ) != null;
+		}
+
 		public string[] BuildUnformatedPropertiesStringArr()
 		{
 			List<PropertyDataCollector> list = new List<PropertyDataCollector>( m_propertiesDict.Values );
@@ -706,7 +713,7 @@ namespace AmplifyShaderEditor
 			if( list[ list.Count - 1 ].PropertyName.Contains( "[Header(" ) )
 			{
 				//Check if this is a complete property or just a standalone header
-				Match match = Regex.Match( list[ list.Count - 1 ].PropertyName, TemplateHelperFunctions.PropertiesPatternE );
+				Match match = Regex.Match( list[ list.Count - 1 ].PropertyName, TemplateHelperFunctions.PropertiesPatternG );
 				if( !match.Success )
 				{
 					list.RemoveAt( list.Count - 1 );
@@ -767,6 +774,19 @@ namespace AmplifyShaderEditor
 		//	}
 		//}
 
+		public string GenerateInstanced(PrecisionType precisionType, WirePortDataType dataType,string propertyName )
+		{
+			if( IsSRP )
+			{
+				return string.Format( IOUtils.LWSRPInstancedPropertiesElement, UIUtils.PrecisionWirePortToCgType( precisionType, dataType ), propertyName );
+			}
+			else
+			{
+				return string.Format( IOUtils.InstancedPropertiesElement, UIUtils.PrecisionWirePortToCgType( precisionType, dataType ), propertyName );
+			}
+		}
+
+
 		public void SoftRegisterUniform( TemplateShaderPropertyData data )
 		{
 
@@ -777,6 +797,19 @@ namespace AmplifyShaderEditor
 			{
 				m_uniformsDict.Add( uniformName, new PropertyDataCollector( -1, uniformName ) );
 			}
+
+			string instancedUniform = GenerateInstanced( PrecisionType.Float, data.PropertyDataType, data.PropertyName );
+			if( !m_uniformsDict.ContainsKey( instancedUniform ) )
+			{
+				m_uniformsDict.Add( instancedUniform, new PropertyDataCollector( -1, instancedUniform ) );
+			}
+
+			instancedUniform = GenerateInstanced( PrecisionType.Half, data.PropertyDataType, data.PropertyName );
+			if( !m_uniformsDict.ContainsKey( instancedUniform ) )
+			{
+				m_uniformsDict.Add( instancedUniform, new PropertyDataCollector( -1, instancedUniform ) );
+			}
+
 		}
 
 		public void AddToUniforms( int nodeId, string dataType, string dataName, bool checkSRPBatch = false )
@@ -822,11 +855,17 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public void AddToMisc( string value, int orderIndex = -1 )
+		public void AddToDirectives( string value, int orderIndex = -1 , AdditionalLineType type = AdditionalLineType.Custom )
 		{
 			if( string.IsNullOrEmpty( value ) )
 				return;
 
+			switch( type )
+			{
+				case AdditionalLineType.Include:value = "#include " + value;break;
+				case AdditionalLineType.Define:value = "#define " + value; break;
+				case AdditionalLineType.Pragma:value = "#pragma " + value; break;
+			}
 			if( !m_additionalDirectivesDict.ContainsKey( value ) )
 			{
 				PropertyDataCollector data = new PropertyDataCollector( -1, value, orderIndex );
@@ -1024,9 +1063,10 @@ namespace AmplifyShaderEditor
 			return AddLocalVariable( nodeId, value );
 		}
 
-		public bool AddLocalVariable( int nodeId, string name, string value, bool ignoreDuplicates = false )
+		public bool AddLocalVariable( int nodeId, string name, string value, bool ignoreDuplicates = false , bool addSemiColon = false )
 		{
-			return AddLocalVariable( nodeId, name + " = " + value, ignoreDuplicates );
+			string finalValue = addSemiColon ? name + " = " + value + ";" : name + " = " + value;
+			return AddLocalVariable( nodeId, finalValue, ignoreDuplicates );
 		}
 
 		public bool AddLocalVariable( int nodeId, string value, bool ignoreDuplicates = false )
@@ -1901,8 +1941,8 @@ namespace AmplifyShaderEditor
 		public List<PropertyDataCollector> InstancedPropertiesList { get { return m_instancedPropertiesList; } }
 		public List<PropertyDataCollector> UniformsList { get { return m_uniformsList; } }
 		public List<PropertyDataCollector> MiscList { get { return m_additionalDirectivesList; } }
-		public List<PropertyDataCollector> BeforeNativeMiscList { get { return m_additionalDirectivesList.FindAll( obj => obj.OrderIndex < 0 ); } }
-		public List<PropertyDataCollector> AfterNativeMiscList { get { return m_additionalDirectivesList.FindAll( obj => obj.OrderIndex > 0 ); } }
+		public List<PropertyDataCollector> BeforeNativeDirectivesList { get { return m_additionalDirectivesList.FindAll( obj => obj.OrderIndex < 0 ); } }
+		public List<PropertyDataCollector> AfterNativeDirectivesList { get { return m_additionalDirectivesList.FindAll( obj => obj.OrderIndex > 0 ); } }
 		public List<PropertyDataCollector> IncludesList { get { return m_includesList; } }
 		//public List<PropertyDataCollector> TagsList { get { return m_tagsList; } }
 		public List<PropertyDataCollector> PragmasList { get { return m_pragmasList; } }

@@ -79,7 +79,8 @@ namespace AmplifyShaderEditor
 
 	public enum TemplateShaderPropertiesIdx
 	{
-		Name = 2,
+		Identation = 1,
+		Name = 3,
 		InspectorName,
 		Type
 	}
@@ -788,6 +789,7 @@ namespace AmplifyShaderEditor
 		public static readonly string HDPBRTag = "UNITY_MATERIAL_LIT";
 		public static readonly Dictionary<string, TemplateSRPType> TagToRenderPipeline = new Dictionary<string, TemplateSRPType>()
 		{
+			{ "UniversalPipeline",TemplateSRPType.Lightweight },
 			{ "LightweightPipeline",TemplateSRPType.Lightweight },
 			{ "HDRenderPipeline",TemplateSRPType.HD }
 		};
@@ -798,6 +800,8 @@ namespace AmplifyShaderEditor
 		public static string CoreCommonLib = "CoreRP/ShaderLibrary/Common.hlsl";
 		public static string CoreColorLib = "CoreRP/ShaderLibrary/Color.hlsl";
 #endif
+
+		public static string FetchSubShaderBody = @"(SubShader.*)\/\*ase_lod\*\/";
 		public static string TemplateCustomUI = @"\/\*CustomNodeUI:(\w*)\*\/";
 		public static string HidePassPattern = @"\/\*ase_hide_pass[:]*([a-zA-Z:]*)\*\/";
 		public static string ASEPassPattern = @"\/\*ase_pass[:]*([a-zA-Z:]*)\*\/";
@@ -830,7 +834,7 @@ namespace AmplifyShaderEditor
 
 		public static readonly string LocalVarPattern = @"\/\*ase_local_var[:]*(\w*)\*\/\s*(\w*)\s+(\w*)";
 
-		public static readonly string SubShaderLODPattern = @"LOD\s+(\w+)";
+		public static readonly string SubShaderLODPattern = @"\sLOD\s+(\w+)";
 
 		public static readonly string PassNamePattern = "Name\\s+\\\"([\\w\\+\\-\\*\\/\\(\\) ]*)\\\"";
 
@@ -844,7 +848,10 @@ namespace AmplifyShaderEditor
 		//public static readonly string PropertiesPatternB = "(\\w*)\\s*\\(\\s*\"([\\w ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)";
 		//public static readonly string PropertiesPatternC = "^\\s*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)";
 		//public static readonly string PropertiesPatternD = "(\\/\\/\\s*)*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)";
-		public static readonly string PropertiesPatternE = "(\\/\\/\\s*)*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)\\s*=\\s*[\\w,()\" {}]*";
+		//public static readonly string PropertiesPatternE = "(\\/\\/\\s*)*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)\\s*=\\s*[\\w,()\" {}]*";
+		//public static readonly string PropertiesPatternF = "^(\\/\\/)*\\s*(\\[[\\[\\]\\w\\s\\(\\)\\_\\,]*\\])*\\s*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)\\s*=\\s*[\\w,()\" {}]*";
+		//public static readonly string PropertiesPatternG = "^(\\s*)(\\[[\\[\\]\\w\\s\\(\\)\\_\\,]*\\])*\\s*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)\\s*=\\s*[\\w,()\" {}]*";
+		public static readonly string PropertiesPatternG = "^(\\s*)(\\[[\\[\\]\\w\\s\\(\\)_,\\.]*\\])*\\s*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)\\s*=\\s*[\\w,()\" {}]*";
 		public static readonly string CullModePattern = @"^\s*Cull\s+(\[*\w+\]*)";
 		public static readonly string ColorMaskPattern = @"^\s*ColorMask\s+([\d\w\[\]]+)(\s*\d)*";
 		//public static readonly string BlendModePattern = @"\s*Blend\s+(\w+)\s+(\w+)(?:[\s,]+(\w+)\s+(\w+)|)";
@@ -871,7 +878,8 @@ namespace AmplifyShaderEditor
 		public static readonly string TemplateVariableDecl = "{0} = {1};";
 		public static readonly string TemplateVarFormat = "{0}.{1}";
 
-		public static readonly string StructsRemoval = @"struct\s+\w+\s+{[\s\w;\/\*]+};";
+		//public static readonly string StructsRemoval = @"struct\s+\w+\s+{[\s\w;\/\*]+};";
+		public static readonly string StructsRemoval = @"struct\s+\w+\s+{[\s\w\(\).;:=,\/\*]+};";
 
 		public static readonly string SRPBatcherFindTag = @"CBUFFER_START\s*\(\s*UnityPerMaterial\s*\)\s*\n(\s*)";
 
@@ -991,28 +999,27 @@ namespace AmplifyShaderEditor
 
 		public static void CreateShaderPropertiesList( string propertyData, ref List<TemplateShaderPropertyData> propertiesList, ref Dictionary<string, TemplateShaderPropertyData> duplicatesHelper )
 		{
+			int identationIdx = (int)TemplateShaderPropertiesIdx.Identation;
 			int nameIdx = (int)TemplateShaderPropertiesIdx.Name;
 			int typeIdx = (int)TemplateShaderPropertiesIdx.Type;
 			int inspectorNameIdx = (int)TemplateShaderPropertiesIdx.InspectorName;
 
-			foreach( Match match in Regex.Matches( propertyData, PropertiesPatternE ) )
+			foreach( Match match in Regex.Matches( propertyData, PropertiesPatternG,RegexOptions.Multiline ) )
 			{
 				if( match.Groups.Count > 1 )
 				{
-					if( !match.Groups[ 1 ].Value.Contains( "//" ) )
+					if( !duplicatesHelper.ContainsKey( match.Groups[ nameIdx ].Value ) && PropertyToWireType.ContainsKey( match.Groups[ typeIdx ].Value ) )
 					{
-						if( !duplicatesHelper.ContainsKey( match.Groups[ nameIdx ].Value ) && PropertyToWireType.ContainsKey( match.Groups[ typeIdx ].Value ) )
-						{
-							TemplateShaderPropertyData newData = new TemplateShaderPropertyData(	match.Index,
-																									match.Value,
-																									match.Groups[ inspectorNameIdx ].Value,
-																									match.Groups[ nameIdx ].Value,
-																									PropertyToWireType[ match.Groups[ typeIdx ].Value ],
-																									PropertyType.Property );
-							propertiesList.Add( newData );
-							duplicatesHelper.Add( newData.PropertyName, newData );
-						}
-					}
+						TemplateShaderPropertyData newData = new TemplateShaderPropertyData(	match.Index,
+																								match.Value,
+																								match.Groups[ identationIdx ].Value,
+																								match.Groups[ inspectorNameIdx ].Value,
+																								match.Groups[ nameIdx ].Value,
+																								PropertyToWireType[ match.Groups[ typeIdx ].Value ],
+																								PropertyType.Property );
+						propertiesList.Add( newData );
+						duplicatesHelper.Add( newData.PropertyName, newData );
+					}	
 				}
 			}
 		}
@@ -1032,7 +1039,8 @@ namespace AmplifyShaderEditor
 				{
 					if( !duplicatesHelper.ContainsKey( lineMatch.Groups[ nameIdx ].Value ) && CgToWirePortType.ContainsKey( lineMatch.Groups[ typeIdx ].Value ) )
 					{
-						TemplateShaderPropertyData newData = new TemplateShaderPropertyData(	-1,
+						TemplateShaderPropertyData newData = new TemplateShaderPropertyData( -1,
+																								string.Empty,
 																								string.Empty,
 																								string.Empty,
 																								lineMatch.Groups[ nameIdx ].Value,
@@ -1802,10 +1810,12 @@ namespace AmplifyShaderEditor
 					}
 					if( minVal > maxVal )
 					{
-						int aux = minVal;
-						minVal = maxVal;
-						maxVal = aux;
+						//int aux = minVal;
+						//minVal = maxVal;
+						//maxVal = aux;
+						maxVal = minVal;
 					}
+
 					for( int i = minVal; i <= maxVal; i++ )
 					{
 						interpDataObj.AvailableInterpolators.Add( new TemplateInterpElement( IntToSemantic[ i ] ) );
@@ -1965,6 +1975,14 @@ namespace AmplifyShaderEditor
 				inspectorContainer.Index = match.Index;
 				inspectorContainer.Id = match.Groups[ 0 ].Value;
 				inspectorContainer.Data = match.Groups[ 1 ].Value;
+
+#if UNITY_2019_3_OR_NEWER
+				if( ASEPackageManagerHelper.CurrentHDVersion > ASESRPVersions.ASE_SRP_6_9_1 )
+				{
+					if( inspectorContainer.Data.Equals( "UnityEditor.Experimental.Rendering.HDPipeline.HDLitGUI" ) )
+						inspectorContainer.Data = "UnityEditor.Rendering.HighDefinition.HDLitGUI";
+				}
+#endif
 			}
 			else
 			{
@@ -1997,7 +2015,7 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public static string AutoSwizzleData( string dataVar, WirePortDataType from, WirePortDataType to )
+		public static string AutoSwizzleData( string dataVar, WirePortDataType from, WirePortDataType to, bool isPosition )
 		{
 			switch( from )
 			{
@@ -2017,7 +2035,7 @@ namespace AmplifyShaderEditor
 					{
 						switch( to )
 						{
-							case WirePortDataType.FLOAT4: dataVar = string.Format( "float4({0},0)", dataVar ); break;
+							case WirePortDataType.FLOAT4: dataVar = string.Format( "float4({0},{1})", dataVar,(isPosition?1:0) ); break;
 							case WirePortDataType.FLOAT2: dataVar += ".xy"; break;
 							case WirePortDataType.INT:
 							case WirePortDataType.FLOAT: dataVar += ".x"; break;
@@ -2028,7 +2046,7 @@ namespace AmplifyShaderEditor
 					{
 						switch( to )
 						{
-							case WirePortDataType.FLOAT4: dataVar = string.Format( "float4({0},0,0)", dataVar ); break;
+							case WirePortDataType.FLOAT4: dataVar = string.Format( "float4({0},0,{1})", dataVar , (isPosition ? 1 : 0) ); break;
 							case WirePortDataType.FLOAT3: dataVar = string.Format( "float3({0},0)", dataVar ); break;
 							case WirePortDataType.INT:
 							case WirePortDataType.FLOAT: dataVar += ".x"; break;
@@ -2039,7 +2057,7 @@ namespace AmplifyShaderEditor
 					{
 						switch( to )
 						{
-							case WirePortDataType.FLOAT4: dataVar = string.Format( "float4({0},0,0,0)", dataVar ); break;
+							case WirePortDataType.FLOAT4: dataVar = string.Format( "float4({0},0,0,{1})", dataVar, ( isPosition ? 1 : 0 ) ); break;
 							case WirePortDataType.FLOAT3: dataVar = string.Format( "float3({0},0,0)", dataVar ); break;
 							case WirePortDataType.FLOAT2: dataVar = string.Format( "float2({0},0)", dataVar ); break;
 						}
@@ -2261,6 +2279,17 @@ namespace AmplifyShaderEditor
 				}
 			}
 			return false;
+		}
+
+		public static string GetSubShaderFrom( string shaderBody )
+		{
+			Match match = Regex.Match( shaderBody, FetchSubShaderBody, RegexOptions.Singleline );
+			if( match.Success && match.Groups.Count > 1 )
+			{
+				return match.Groups[ 1 ].Value;
+			}
+
+			return string.Empty;
 		}
 	}
 }

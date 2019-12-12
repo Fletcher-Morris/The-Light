@@ -358,6 +358,12 @@ public class Player_Controller : MonoBehaviour
     {
         Health.HealthUpdate(GameTime.deltaTime);
         Shader.SetGlobalFloat(m_shaderHealthIntId, Health.HealthFloat / Health.MaxHealth);
+
+        if(Health.HealthFloat > 0.0f)
+        {
+            m_gameOverGroup.alpha = 0.0f;
+            m_gameOverGroup.interactable = false;
+        }
     }
 
     //  DIALOGUE STUFF

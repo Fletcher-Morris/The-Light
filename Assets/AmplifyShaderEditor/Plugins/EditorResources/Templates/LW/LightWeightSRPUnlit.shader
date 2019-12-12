@@ -18,6 +18,9 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPUnlit" /*end*/
 			Option:Built-in Fog:false,true:false
 				true:SetDefine:ASE_FOG 1
 				false:RemoveDefine:ASE_FOG 1
+			Option:LOD CrossFade:false,true:false
+				true:SetDefine:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:pragma multi_compile _ LOD_FADE_CROSSFADE
 		*/
 
         Tags{ "RenderPipeline" = "LightweightPipeline" "RenderType"="Opaque" "Queue"="Geometry"}
@@ -60,7 +63,6 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPUnlit" /*end*/
             #pragma vertex vert
             #pragma fragment frag
 
-            /*ase_pragma*/
 
             // Lighting include is needed because of GI
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Core.hlsl"
@@ -68,6 +70,8 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPUnlit" /*end*/
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/ShaderGraphFunctions.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/Shaders/UnlitInput.hlsl"
+
+            /*ase_pragma*/
 
 			/*ase_globals*/
 
@@ -127,13 +131,19 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPUnlit" /*end*/
 		        float3 Color = /*ase_frag_out:Color;Float3;0*/float3(1,1,1)/*end*/;
 		        float Alpha = /*ase_frag_out:Alpha;Float;1;-1;_Alpha*/1/*end*/;
 		        float AlphaClipThreshold = /*ase_frag_out:Alpha Clip Threshold;Float;2;-1;_AlphaClip*/0/*end*/;
-         #if _AlphaClip
-                clip(Alpha - AlphaClipThreshold);
-        #endif
+			
+			#if _AlphaClip
+				clip(Alpha - AlphaClipThreshold);
+			#endif
 
-				#ifdef ASE_FOG
+			#ifdef ASE_FOG
 				Color = MixFog( Color, IN.fogCoord );
-				#endif
+			#endif
+
+			#ifdef LOD_FADE_CROSSFADE
+				LODDitheringTransition (IN.clipPos.xyz, unity_LODFade.x);
+			#endif
+
                 return half4(Color, Alpha);
             }
             ENDHLSL
@@ -160,12 +170,13 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPUnlit" /*end*/
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
 
-            /*ase_pragma*/
 
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/ShaderGraphFunctions.hlsl"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+
+            /*ase_pragma*/
 
 			/*ase_globals*/
 
@@ -244,9 +255,13 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPUnlit" /*end*/
 
 				float Alpha = /*ase_frag_out:Alpha;Float;0;-1;_Alpha*/1/*end*/;
 				float AlphaClipThreshold = /*ase_frag_out:Alpha Clip Threshold;Float;1;-1;_AlphaClip*/AlphaClipThreshold/*end*/;
-         #if _AlphaClip
+			#if _AlphaClip
         		clip(Alpha - AlphaClipThreshold);
-        #endif
+			#endif
+
+			#ifdef LOD_FADE_CROSSFADE
+				LODDitheringTransition (IN.clipPos.xyz, unity_LODFade.x);
+			#endif
                 return 0;
             }
 
@@ -277,12 +292,13 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPUnlit" /*end*/
             #pragma vertex vert
             #pragma fragment frag
 
-            /*ase_pragma*/
 
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/ShaderGraphFunctions.hlsl"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+
+            /*ase_pragma*/
 
 			/*ase_globals*/
 
@@ -336,10 +352,13 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPUnlit" /*end*/
 				float Alpha = /*ase_frag_out:Alpha;Float;0;-1;_Alpha*/1/*end*/;
 				float AlphaClipThreshold = /*ase_frag_out:Alpha Clip Threshold;Float;1;-1;_AlphaClip*/AlphaClipThreshold/*end*/;
 
-         #if _AlphaClip
+			#if _AlphaClip
         		clip(Alpha - AlphaClipThreshold);
-        #endif
+			#endif
                 return 0;
+			#ifdef LOD_FADE_CROSSFADE
+				LODDitheringTransition (IN.clipPos.xyz, unity_LODFade.x);
+			#endif
             }
             ENDHLSL
         }

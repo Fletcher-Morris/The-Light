@@ -50,7 +50,6 @@ namespace AmplifyShaderEditor
 			m_insideSize.Set( 50, 0 );
 			m_showPreview = false;
 			m_selectedLocation = PreviewLocation.BottomCenter;
-			m_precisionString = UIUtils.FinalPrecisionWirePortToCgType( m_currentPrecisionType, m_outputPorts[ 0 ].DataType );
 			m_availableAttribs.Add( new PropertyAttributes( "Toggle", "[Toggle]" ) );
 			m_availableAttribs.Add( new PropertyAttributes( "Int Range", "[IntRange]" ) );
 			m_availableAttribs.Add( new PropertyAttributes( "Enum", "[Enum]" ) );
@@ -423,7 +422,7 @@ namespace AmplifyShaderEditor
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
 			base.GenerateShaderForOutput( outputId, ref dataCollector, ignoreLocalvar );
-			m_precisionString = UIUtils.FinalPrecisionWirePortToCgType( m_currentPrecisionType, m_outputPorts[ 0 ].DataType );
+			m_precisionString = UIUtils.PrecisionWirePortToCgType( CurrentPrecisionType, m_outputPorts[ 0 ].DataType );
 
 			if ( m_currentParameterType != PropertyType.Constant )
 				return PropertyData( dataCollector.PortCategory );
@@ -463,8 +462,11 @@ namespace AmplifyShaderEditor
 
 		public override void ForceUpdateFromMaterial( Material material )
 		{
-			if ( UIUtils.IsProperty( m_currentParameterType ) && material.HasProperty( m_propertyName ) )
+			if( UIUtils.IsProperty( m_currentParameterType ) && material.HasProperty( m_propertyName ) )
+			{
 				m_materialValue = material.GetFloat( m_propertyName );
+				PreviewIsDirty = true;
+			}
 		}
 
 		public override void ReadFromString( ref string[] nodeParams )

@@ -49,7 +49,7 @@ namespace AmplifyShaderEditor
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
 			if( dataCollector.MasterNodeCategory == AvailableShaderTypes.SurfaceShader )
-				UIUtils.ShowMessage( HelperMessage, MessageSeverity.Warning );
+				UIUtils.ShowMessage( UniqueId, HelperMessage, MessageSeverity.Warning );
 
 			if( m_outputPorts[ 0 ].IsLocalValue( dataCollector.PortCategory ) )
 				return m_outputPorts[ 0 ].LocalValue( dataCollector.PortCategory );

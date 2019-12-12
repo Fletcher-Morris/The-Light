@@ -411,7 +411,22 @@ namespace AmplifyShaderEditor
 		private string SamplerWrappedData( ref MasterNodeDataCollector dataCollector )
 		{
 			m_internalData = "_Sampler" + PortId + UIUtils.GetNode( m_nodeId ).OutputId;
-			dataCollector.AddToUniforms( m_nodeId, "uniform sampler2D " + m_internalData + ";" );
+			ParentGraph outsideGraph = UIUtils.CurrentWindow.OutsideGraph;
+			if( outsideGraph.SamplingThroughMacros )
+			{
+				if( outsideGraph.IsSRP )
+				{
+					dataCollector.AddToUniforms( m_nodeId, string.Format( Constants.TexDeclarationNoSamplerSRPMacros[ TextureType.Texture2D ], m_internalData ));
+				}
+				else
+				{
+					dataCollector.AddToUniforms( m_nodeId, string.Format( Constants.TexDeclarationNoSamplerStandardMacros[ TextureType.Texture2D ], m_internalData ));
+				}
+			}
+			else
+			{
+				dataCollector.AddToUniforms( m_nodeId, "uniform sampler2D " + m_internalData + ";" );
+			}
 
 			return m_internalData;
 		}
@@ -520,6 +535,21 @@ namespace AmplifyShaderEditor
 			if( connID < m_externalReferences.Count )
 			{
 				return UIUtils.GetNode( m_externalReferences[ connID ].NodeId ).GetOutputPortByUniqueId( m_externalReferences[ connID ].PortId );
+			}
+			return null;
+		}
+
+		public ParentNode GetOutputNodeWhichIsNotRelay( int connID = 0 )
+		{
+			if( connID < m_externalReferences.Count )
+			{
+				ParentNode node = UIUtils.GetNode( m_externalReferences[ connID ].NodeId );
+				if( node is WireNode || node is RelayNode )
+				{
+					return node.InputPorts[ 0 ].GetOutputNodeWhichIsNotRelay( connID );
+				}
+
+				return node;
 			}
 			return null;
 		}

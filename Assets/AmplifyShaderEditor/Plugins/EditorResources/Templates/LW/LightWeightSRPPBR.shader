@@ -16,6 +16,16 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
 			Option:Receive Shadows:false,true:true
 				true:RemoveDefine:_RECEIVE_SHADOWS_OFF 1
 				false:SetDefine:_RECEIVE_SHADOWS_OFF 1
+			Option:LOD CrossFade:false,true:true
+				true:SetDefine:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:pragma multi_compile _ LOD_FADE_CROSSFADE
+			Option:Built-in Fog:false,true:true
+				true:SetDefine:pragma multi_compile_fog
+				true:SetDefine:ASE_FOG 1
+				false:RemoveDefine:pragma multi_compile_fog
+				false:RemoveDefine:ASE_FOG 1
+			Port:Base:Emission
+				On:SetDefine:_EMISSION
 		*/
         Tags
 		{
@@ -72,13 +82,13 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
             #pragma vertex vert
         	#pragma fragment frag
 
-        	/*ase_pragma*/
-
         	#include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Core.hlsl"
         	#include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Lighting.hlsl"
         	#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
         	#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/UnityInstancing.hlsl"
         	#include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/ShaderGraphFunctions.hlsl"
+		
+			/*ase_pragma*/
 
 			/*ase_globals*/
 
@@ -148,7 +158,11 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
         	    OUTPUT_SH(lwWNormal, o.lightmapUVOrVertexSH.xyz);
 
         	    half3 vertexLight = VertexLighting(vertexInput.positionWS, lwWNormal);
+			#ifdef ASE_FOG
         	    half fogFactor = ComputeFogFactor(vertexInput.positionCS.z);
+			#else
+				half fogFactor = 0;
+			#endif
         	    o.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
         	    o.clipPos = vertexInput.positionCS;
 
@@ -194,16 +208,17 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
             #endif
         #endif
 
-        #if !SHADER_HINT_NICE_QUALITY
+			#if !SHADER_HINT_NICE_QUALITY
         	    // viewDirection should be normalized here, but we avoid doing it as it's close enough and we save some ALU.
         	    inputData.viewDirectionWS = WorldSpaceViewDirection;
-        #else
+			#else
         	    inputData.viewDirectionWS = normalize(WorldSpaceViewDirection);
-        #endif
+			#endif
 
         	    inputData.shadowCoord = IN.shadowCoord;
-
+			#ifdef ASE_FOG
         	    inputData.fogCoord = IN.fogFactorAndVertexLight.x;
+			#endif
         	    inputData.vertexLighting = IN.fogFactorAndVertexLight.yzw;
         	    inputData.bakedGI = SAMPLE_GI(IN.lightmapUVOrVertexSH.xy, IN.lightmapUVOrVertexSH.xyz, inputData.normalWS);
 
@@ -217,11 +232,13 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
         			Emission, 
         			Alpha);
 
+		#ifdef ASE_FOG
 			#ifdef TERRAIN_SPLAT_ADDPASS
 				color.rgb = MixFogColor(color.rgb, half3( 0, 0, 0 ), IN.fogFactorAndVertexLight.x );
 			#else
 				color.rgb = MixFog(color.rgb, IN.fogFactorAndVertexLight.x);
 			#endif
+		#endif
 
         #if _AlphaClip
         		clip(Alpha - AlphaClipThreshold);
@@ -229,6 +246,10 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
 
 		#if ASE_LW_FINAL_COLOR_ALPHA_MULTIPLY
 				color.rgb *= color.a;
+		#endif
+		
+		#ifdef LOD_FADE_CROSSFADE
+				LODDitheringTransition (IN.clipPos.xyz, unity_LODFade.x);
 		#endif
         		return color;
             }
@@ -259,12 +280,13 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
 
-            /*ase_pragma*/
 
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/ShaderGraphFunctions.hlsl"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+
+            /*ase_pragma*/
 
             struct GraphVertexInput
             {
@@ -348,7 +370,11 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
          #if _AlphaClip
         		clip(Alpha - AlphaClipThreshold);
         #endif
-                return 0;
+
+		#ifdef LOD_FADE_CROSSFADE
+				LODDitheringTransition (IN.clipPos.xyz, unity_LODFade.x);
+		#endif
+				return 0;
             }
 
             ENDHLSL
@@ -376,12 +402,13 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
             #pragma vertex vert
             #pragma fragment frag
 
-            /*ase_pragma*/
 
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/ShaderGraphFunctions.hlsl"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+
+            /*ase_pragma*/
 
 			/*ase_globals*/
 
@@ -442,7 +469,10 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
          #if _AlphaClip
         		clip(Alpha - AlphaClipThreshold);
         #endif
-                return 0;
+		#ifdef LOD_FADE_CROSSFADE
+				LODDitheringTransition (IN.clipPos.xyz, unity_LODFade.x);
+		#endif
+				return 0;
             }
             ENDHLSL
         }
@@ -465,21 +495,18 @@ Shader /*ase_name*/ "Hidden/Templates/LightWeightSRPPBR" /*end*/
             #pragma vertex vert
             #pragma fragment frag
 
-            /*ase_pragma*/
-
-			uniform float4 _MainTex_ST;
 			
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/MetaInput.hlsl"
             #include "Packages/com.unity.render-pipelines.lightweight/ShaderLibrary/ShaderGraphFunctions.hlsl"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 
+            /*ase_pragma*/
+
 			/*ase_globals*/
 
             #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-            #pragma shader_feature EDITOR_VISUALIZATION
-
-
+            
             struct GraphVertexInput
             {
                 float4 vertex : POSITION;

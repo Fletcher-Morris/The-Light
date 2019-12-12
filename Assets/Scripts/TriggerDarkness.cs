@@ -6,51 +6,36 @@ using UnityEngine.Playables;
 
 public class TriggerDarkness : MonoBehaviour
 {
-    bool triggered=false;
-    public PlayableDirector director;
-    public List<GameObject> Darkclouds = new List<GameObject>();
-    public GameObject CM, CC;
-    public GameObject Beaconlight;
-   
+    [SerializeField] private PlayableDirector director;
+    [SerializeField] private List<GameObject> Darkclouds = new List<GameObject>();
+    [SerializeField] private Camera m_cinematicCam, m_mainCam;
+    [SerializeField] private GameObject Beaconlight;
 
     [SerializeField] private Environment_Transition m_environmentTransition;
     [SerializeField] private EnvironmentSettings m_darkEnvironment;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!triggered)
-        {
-            
-            if (other.CompareTag("Player"))
-            {
-              
-                    triggered = true;
-                
-                
-                    Darkcome();
-              
-            }
-        }
-    }
-    void Darkcome()
+    public void Darkcome()
     {
         Player_Controller.Singleton().InCutscene = true;
-        CM.SetActive(false);
-        CC.SetActive(true);
+        m_cinematicCam.enabled = true;
+        m_mainCam.enabled = false;
         m_environmentTransition.Transition(m_darkEnvironment, 5.0f);
         director.Play();
     }
+
     public void Turnoffbeacon()
     {
         Beaconlight.SetActive(false);
     }
-   public void BackToGame()
+
+    public void BackToGame()
     {
-        CC.SetActive(false);
-        CM.SetActive(true);
+        m_cinematicCam.enabled = false;
+        m_mainCam.enabled = true;
         Player_Controller.Singleton().InCutscene = false;
         
     }
+
     public void ActiveDarkclouds()
     {
         foreach(GameObject g in Darkclouds)
