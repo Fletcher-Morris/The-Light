@@ -30,8 +30,16 @@ public class Player_Controller : MonoBehaviour
     private int m_animatorDeadHash;
     private bool m_hasLamp = false;
     [SerializeField] private GameObject m_lampObject;
+
     [SerializeField] private bool m_inCutscene = false;
     public bool InCutscene { get => m_inCutscene; set => m_inCutscene = value; }
+    private bool m_camMovementEnabled = true;
+    public void EnterCutscene(bool _disableCam) { InCutscene = true; m_camMovementEnabled = !_disableCam; }
+    public void EnterCutscene() { EnterCutscene(true); }
+    public void ExitCutscene() { InCutscene = false; m_camMovementEnabled = true; }
+
+    [SerializeField] private Transform m_moveToPosition;
+    public Transform MoveToPos { get => m_moveToPosition; set => m_moveToPosition = value; }
 
     [Header("Interactions")]
 
@@ -266,6 +274,13 @@ public class Player_Controller : MonoBehaviour
             if (PlayerInput.Walk) speed = m_walkSpeed;
             m_moveDirection = Quaternion.Euler(0, m_cameraPivotY.eulerAngles.y, 0) * PlayerInput.XYZNormalized * speed;
         }
+        else if(m_moveToPosition != null)
+        {
+            Vector3 dir = m_moveToPosition.position - transform.position;
+            dir.y = 0.0f;
+            dir.Normalize();
+            m_moveDirection = dir * m_runSpeed;
+        }
         else
         {
             m_moveDirection = Vector3.zero;
@@ -344,8 +359,8 @@ public class Player_Controller : MonoBehaviour
         RaycastHit hit;
         if (Physics.SphereCast(rayStart, 0.2f, m_cameraTarget.position - rayStart, out hit, newDist, LayerTools.Default().AddLayer("Ground").AddLayer("Terrain"), QueryTriggerInteraction.Ignore)) newDist = hit.distance;
 
-        if (m_inCutscene) return;
         if (GameTime.IsPaused()) return;
+        if (m_camMovementEnabled == false) return;
 
         newDist *= -1.0f;
         //m_cameraTarget.localPosition = new Vector3(0.0f, 0.0f, newDist);
