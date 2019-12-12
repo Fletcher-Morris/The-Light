@@ -16,11 +16,12 @@ public class TriggerDarkness : MonoBehaviour
 
     public void Darkcome()
     {
-        Player_Controller.Singleton().InCutscene = true;
+        Player_Controller.Singleton().EnterCutscene();
         m_cinematicCam.enabled = true;
         m_mainCam.enabled = false;
         m_environmentTransition.Transition(m_darkEnvironment, 5.0f);
         director.Play();
+        Player_Controller.Singleton().TeleportPlayer(new Vector3(98.5f, 62.5f, -441.5f), Vector3.right, new Vector2(0, 82.5f));
     }
 
     public void Turnoffbeacon()
@@ -32,7 +33,7 @@ public class TriggerDarkness : MonoBehaviour
     {
         m_cinematicCam.enabled = false;
         m_mainCam.enabled = true;
-        Player_Controller.Singleton().InCutscene = false;
+        Player_Controller.Singleton().ExitCutscene();
         
     }
 

@@ -11,7 +11,7 @@ public class BirdController : MonoBehaviour
     {
         m_mainCam.enabled = false;
         m_cinematicCam.enabled = true;
-        Player_Controller.Singleton().InCutscene = true;
+        Player_Controller.Singleton().EnterCutscene();
     }
 
     public void Backtogame()
@@ -19,6 +19,6 @@ public class BirdController : MonoBehaviour
         bird.SetActive(false);
         m_cinematicCam.enabled = false;
         m_mainCam.enabled = true;
-        Player_Controller.Singleton().InCutscene = false;
+        Player_Controller.Singleton().ExitCutscene();
     }
 }
