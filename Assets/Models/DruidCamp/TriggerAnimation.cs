@@ -17,7 +17,7 @@ public class TriggerAnimation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject == Player_Controller.Singleton().gameObject)
         {
             if (ToHide != null)
                 ToHide.SetActive(true);

@@ -13,26 +13,31 @@ public class Player_Trigger : MonoBehaviour
 
     [SerializeField] private UnityEvent OnTrigger;
 
+    private bool m_triggered = false;
+
     private void OnTriggerEnter(Collider other)
     {
         if (m_triggerOnEnter == false) return;
+        if (m_triggered && m_singleUse) return;
         if(other.gameObject == Player_Controller.Singleton().gameObject)
         {
             Debug.Log("Triggered [" + gameObject + "]");
             if (m_damageValue != 0.0f) Player_Controller.Singleton().Health?.DoDamage(m_damageValue);
             OnTrigger.Invoke();
-            enabled = !m_singleUse;
+            m_triggered = true;
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (m_triggerOnStay == false) return;
+        if (m_triggered && m_singleUse) return;
         if (other.gameObject == Player_Controller.Singleton().gameObject)
         {
             Debug.Log("Triggered [" + gameObject + "]");
             if (m_damageValue != 0.0f) Player_Controller.Singleton().Health?.DoDamage(m_damageValue);
             OnTrigger.Invoke();
+            m_triggered = true;
         }
     }
 }

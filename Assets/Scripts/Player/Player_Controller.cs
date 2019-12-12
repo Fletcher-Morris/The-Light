@@ -358,12 +358,6 @@ public class Player_Controller : MonoBehaviour
     {
         Health.HealthUpdate(GameTime.deltaTime);
         Shader.SetGlobalFloat(m_shaderHealthIntId, Health.HealthFloat / Health.MaxHealth);
-
-        if(Health.HealthFloat > 0.0f)
-        {
-            m_gameOverGroup.alpha = 0.0f;
-            m_gameOverGroup.interactable = false;
-        }
     }
 
     //  DIALOGUE STUFF
@@ -461,17 +455,20 @@ public class Player_Controller : MonoBehaviour
     private IEnumerator OnDeathCoroutine()
     {
         yield return new WaitForSecondsRealtime(3.0f);
-        m_gameOverGroup.gameObject.SetActive(true);
-        m_gameOverGroup.interactable = false;
-        float t = 0.0f;
-        while(t < 1.0f)
+        if(m_gameOverGroup.alpha == 0.0f)
         {
-            t += Time.deltaTime;
-            m_gameOverGroup.alpha = t;
-            yield return new WaitForEndOfFrame();
-        }
-        m_gameOverGroup.alpha = 1.0f;
-        m_gameOverGroup.interactable = true;
+            m_gameOverGroup.gameObject.SetActive(true);
+            m_gameOverGroup.interactable = false;
+            float t = 0.0f;
+            while (t < 1.0f)
+            {
+                t += Time.deltaTime;
+                m_gameOverGroup.alpha = t;
+                yield return new WaitForEndOfFrame();
+            }
+            m_gameOverGroup.alpha = 1.0f;
+            m_gameOverGroup.interactable = true;
+        }        
         yield return null;
     }
 
