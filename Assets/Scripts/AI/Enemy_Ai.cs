@@ -461,6 +461,11 @@ public class Enemy_Ai : MonoBehaviour
                 if (m_playerVisible)
                 {
                     m_aiState = Ai_State.Chasing;
+                    if(Vector3.Distance(transform.position, Player_Controller.Singleton().transform.position) <= m_aiSettings.attackRange)
+                    {
+                        m_aiState = Ai_State.Attacking;
+                        Player_Controller.Singleton().Health.DoDamage(m_aiSettings.damageValue * m_updateInterval * (float)GameTime.IsPausedInt());
+                    }
                 }
                 else
                 {
@@ -502,7 +507,8 @@ public class Enemy_Ai : MonoBehaviour
                 m_navTarget = transform.position;
                 break;
             case Ai_State.Fleeing:
-                m_navTarget = transform.position + (m_lightDirection * m_aiSettings.fleeDistanceMultiplier);
+                m_navTarget = transform.position + (m_lightDirection.normalized * m_aiSettings.fleeDistanceMultiplier);
+                m_navTarget.y = transform.position.y;
                 break;
             default:
                 m_navTarget = Ai_Manager.GetPlayerTransform().position;
@@ -558,6 +564,9 @@ public class Enemy_Ai : MonoBehaviour
             else { currentPoint = m_navMeshAgent.path.corners[i-1]; nextPoint = m_navMeshAgent.path.corners[i]; }
             Debug.DrawLine(currentPoint, nextPoint, Color.magenta);
         }
+
+        Debug.DrawLine(transform.position, m_lightDirection, Color.white);
+        Debug.DrawLine(transform.position, m_navTarget, Color.yellow);
 
         transform.name = m_originalObjectName + " [" + m_aiState.ToString() + "]";
     }

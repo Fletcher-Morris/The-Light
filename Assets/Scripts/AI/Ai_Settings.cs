@@ -38,6 +38,8 @@ public class Ai_Settings : ScriptableObject
     public AnimationCurve detectionCurve = AnimationCurve.Linear(0.0f, 1.0f, 1.0f, 0.0f);
 
     [Header("Behaviour Settings")]
+    //  The damage the AI does to the player per second.
+    public float damageValue = 10.0f;
     //  Should the AI be battracted to lamps?
     public bool attractedToLight = false;
     //  Should the AI flee from lamps?

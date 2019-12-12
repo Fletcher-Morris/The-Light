@@ -18,7 +18,7 @@ MonoBehaviour:
   stopChaseRange: 50
   attackRange: 1
   wanderMoveSpeed: 5
-  searchMoveSpeed: 6
+  searchMoveSpeed: 7.5
   chaseMoveSpeed: 10
   fleeMoveSpeed: 10
   visionObstructors:
@@ -49,11 +49,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  damageValue: 15
   attractedToLight: 0
   runAwayFromLight: 0
   fleeDuration: 3
   fleeDistanceMultiplier: 3
-  braveness: 0
+  braveness: 1
   stunResistance: 1
   waypointChoice: 2
   randomStartWaypoint: 1

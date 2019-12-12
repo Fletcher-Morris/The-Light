@@ -6,7 +6,6 @@ using UnityEngine.Events;
 public class Player_Trigger : MonoBehaviour
 {
     [SerializeField] private bool m_singleUse = true;
-    private bool m_triggered = false;
     [SerializeField] private float m_damageValue = 0.0f;
 
     [SerializeField] private bool m_triggerOnEnter = true;
@@ -22,6 +21,7 @@ public class Player_Trigger : MonoBehaviour
             Debug.Log("Triggered [" + gameObject + "]");
             if (m_damageValue != 0.0f) Player_Controller.Singleton().Health?.DoDamage(m_damageValue);
             OnTrigger.Invoke();
+            enabled = !m_singleUse;
         }
     }
 
