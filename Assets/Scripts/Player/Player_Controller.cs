@@ -89,6 +89,8 @@ public class Player_Controller : MonoBehaviour
     private int m_shaderPausedIntId;
     private int m_shaderHealthIntId;
 
+    [SerializeField] private GameObject m_fogObject;
+
 
     private void Awake()
     {
@@ -99,6 +101,7 @@ public class Player_Controller : MonoBehaviour
         m_cameraPivotY.parent = null;
         m_camera.transform.parent = null;
         m_healthOverlay.enabled = true;
+        m_fogObject.SetActive(true);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

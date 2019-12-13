@@ -98,7 +98,7 @@ public class Convert_Materials : Editor
 
         foreach (GameObject g in allFoundFences)
         {
-            if (g.name.Contains("(Clone)"))
+            if (g != fenceMainPrefab && g != fenceEndPrefab)
             {
                 if (g.name.Contains("fence00"))
                 {
