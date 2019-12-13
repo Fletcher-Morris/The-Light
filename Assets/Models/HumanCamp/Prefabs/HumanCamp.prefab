@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8434509429997323857}
   - component: {fileID: 1900137723006837296}
   - component: {fileID: 521522972}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: WizardTent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 9129923007365443004}
   - component: {fileID: 3453386661332141202}
   - component: {fileID: 8838349731677401508}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 1597644463840909571}
   - component: {fileID: 4313074010435640225}
   - component: {fileID: 521522971}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: BenchWithBooks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1527566911341096833}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fioles_grp 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 6821761019018643304}
   - component: {fileID: 6394957462214058367}
   - component: {fileID: 1240696741052223381}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole3 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 8029496964828650753}
   - component: {fileID: 9129092552523088298}
   - component: {fileID: 7007573607197763170}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Pen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 4047471860748686662}
   - component: {fileID: 7394032689129752316}
   - component: {fileID: 5866651403381300624}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 7069489150380018679}
   - component: {fileID: 3060048415042653874}
   - component: {fileID: 3048116894823616039}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -750,7 +750,7 @@ GameObject:
   - component: {fileID: 735774256892527383}
   - component: {fileID: 5469655375281106784}
   - component: {fileID: 521522961}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: SoldierTent (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -828,7 +828,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.13499708, y: 0.096864164, z: 0.16110767}
+  m_Size: {x: 0.11, y: 0.096864164, z: 0.12}
   m_Center: {x: -0.0000019073486, y: 0.0000000037252903, z: 0.00000047683716}
 --- !u!1 &1898860420530612871
 GameObject:
@@ -841,7 +841,7 @@ GameObject:
   - component: {fileID: 4814580748972227984}
   - component: {fileID: 9090262423845930578}
   - component: {fileID: 7269632586319990179}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +920,7 @@ GameObject:
   - component: {fileID: 1144910859093099768}
   - component: {fileID: 6550139735558930757}
   - component: {fileID: 521522969}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Chest1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1012,7 +1012,7 @@ GameObject:
   - component: {fileID: 2474266423960980335}
   - component: {fileID: 8187883104308609662}
   - component: {fileID: 5087804657752321390}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 8896761300333823474}
   - component: {fileID: 4699688363685208838}
   - component: {fileID: 8531389960230069852}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole5 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1200,7 +1200,7 @@ GameObject:
   - component: {fileID: 875515060604297429}
   - component: {fileID: 3624607563104612384}
   - component: {fileID: 521522964}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1289,7 +1289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3621667644953816492}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: PileOfBook_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1324,7 +1324,7 @@ GameObject:
   - component: {fileID: 6260580813875636146}
   - component: {fileID: 7681753684449777265}
   - component: {fileID: 8926528625739533764}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1403,7 +1403,7 @@ GameObject:
   - component: {fileID: 7237405269855211395}
   - component: {fileID: 1977805577438986508}
   - component: {fileID: 521522966}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: MasterTent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1498,7 +1498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5859654134783526075}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1534,7 +1534,7 @@ GameObject:
   - component: {fileID: 1395888098365435606}
   - component: {fileID: 8670232690414651987}
   - component: {fileID: 1915821031183786569}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1610,7 +1610,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4419037230960336756}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fioles_grp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1648,7 +1648,7 @@ GameObject:
   - component: {fileID: 2435058994486545113}
   - component: {fileID: 1606908685371409770}
   - component: {fileID: 8878228134553959310}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1726,7 +1726,7 @@ GameObject:
   - component: {fileID: 7716680533348933133}
   - component: {fileID: 8461013217549286482}
   - component: {fileID: 3850005869806438502}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Recipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1805,7 +1805,7 @@ GameObject:
   - component: {fileID: 2690675320296593311}
   - component: {fileID: 8669494532701773143}
   - component: {fileID: 521522967}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: PotionMaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1896,7 +1896,7 @@ GameObject:
   - component: {fileID: 6691068915742892330}
   - component: {fileID: 740769334756251454}
   - component: {fileID: 389546472763578820}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1975,7 +1975,7 @@ GameObject:
   - component: {fileID: 7946766328784741007}
   - component: {fileID: 8303459298968643820}
   - component: {fileID: 521522968}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Chest2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2068,7 +2068,7 @@ GameObject:
   - component: {fileID: 8666156796604794656}
   - component: {fileID: 7829481745583099695}
   - component: {fileID: 521522962}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: SoldierTent (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2146,7 +2146,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.13499707, y: 0.096864164, z: 0.16110766}
+  m_Size: {x: 0.11, y: 0.096864164, z: 0.12}
   m_Center: {x: 0, y: 0.0000000037252903, z: 0}
 --- !u!1 &4728109411256462952
 GameObject:
@@ -2237,7 +2237,7 @@ GameObject:
   - component: {fileID: 2052652791031541246}
   - component: {fileID: 3452027894002183168}
   - component: {fileID: 565260084237054421}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: OpenBooks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2315,7 +2315,7 @@ GameObject:
   - component: {fileID: 8978236095171026025}
   - component: {fileID: 1766681615684240388}
   - component: {fileID: 175218948146931076}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2393,7 +2393,7 @@ GameObject:
   - component: {fileID: 1305586694040743148}
   - component: {fileID: 739794261029133024}
   - component: {fileID: 1656633271724684305}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books1 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2471,7 +2471,7 @@ GameObject:
   - component: {fileID: 7897472229503871270}
   - component: {fileID: 5730682822497788518}
   - component: {fileID: 432226165537096936}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2549,7 +2549,7 @@ GameObject:
   - component: {fileID: 8809888443883130524}
   - component: {fileID: 5841791874766919828}
   - component: {fileID: 2957007661153157278}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2705,7 +2705,7 @@ GameObject:
   - component: {fileID: 1610784368183735804}
   - component: {fileID: 8269835127846063793}
   - component: {fileID: 8784502309889781914}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2861,7 +2861,7 @@ GameObject:
   - component: {fileID: 4857548840505266495}
   - component: {fileID: 445787859456115662}
   - component: {fileID: 5235143339031245731}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2937,7 +2937,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 578351901229163590}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: PileOfBook_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2975,7 +2975,7 @@ GameObject:
   - component: {fileID: 3233253067308303016}
   - component: {fileID: 4587613693486277972}
   - component: {fileID: 521522970}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3068,7 +3068,7 @@ GameObject:
   - component: {fileID: 3866826994899448910}
   - component: {fileID: 7616453362957366113}
   - component: {fileID: 2586119852292555643}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: OpenBooks1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3147,7 +3147,7 @@ GameObject:
   - component: {fileID: 544235985462152312}
   - component: {fileID: 4982189552219569483}
   - component: {fileID: 6110920085075155101}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Bench1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3223,7 +3223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 315086980516337207}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: PileOfBook_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3334,7 +3334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4771829833923812985}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Chest_grp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3369,7 +3369,7 @@ GameObject:
   - component: {fileID: 898863278728518844}
   - component: {fileID: 8037488013632810768}
   - component: {fileID: 6092807817899070012}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: ParchmentWithOrder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3526,7 +3526,7 @@ GameObject:
   - component: {fileID: 7942909907766339731}
   - component: {fileID: 8995439762380966454}
   - component: {fileID: 521522960}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: SoldierTent (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3604,7 +3604,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.13499708, y: 0.096864164, z: 0.16110767}
+  m_Size: {x: 0.11, y: 0.096864164, z: 0.12}
   m_Center: {x: 0, y: 0.0000000037252903, z: -0.0000009536743}
 --- !u!1 &6615024663884810638
 GameObject:
@@ -3617,7 +3617,7 @@ GameObject:
   - component: {fileID: 5360260466076371668}
   - component: {fileID: 5277830012434825214}
   - component: {fileID: 3883100731358194696}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3695,7 +3695,7 @@ GameObject:
   - component: {fileID: 5585654677461991496}
   - component: {fileID: 4122938917321862014}
   - component: {fileID: 3542288961886348838}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books2 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3773,7 +3773,7 @@ GameObject:
   - component: {fileID: 7656414853588500955}
   - component: {fileID: 6117963512889436896}
   - component: {fileID: 7842354030987084584}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Bench2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3944,7 +3944,7 @@ GameObject:
   - component: {fileID: 3502883781817504544}
   - component: {fileID: 3095633174696505761}
   - component: {fileID: 521522963}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: SoldierTent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4022,7 +4022,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.13499708, y: 0.096864164, z: 0.16110767}
+  m_Size: {x: 0.11, y: 0.096864164, z: 0.12}
   m_Center: {x: 0, y: 0.0000000037252903, z: 0.000002861023}
 --- !u!1 &7196040432039855969
 GameObject:
@@ -4035,7 +4035,7 @@ GameObject:
   - component: {fileID: 6349686133518657187}
   - component: {fileID: 9154165089350557354}
   - component: {fileID: 8275576771602222780}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4289,7 +4289,7 @@ GameObject:
   - component: {fileID: 6114724435681639379}
   - component: {fileID: 7940164678477094086}
   - component: {fileID: 4936288678518991302}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole4 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4367,7 +4367,7 @@ GameObject:
   - component: {fileID: 9100329718825721814}
   - component: {fileID: 6316660189119765020}
   - component: {fileID: 4313034789197493704}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Fiole2 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4445,7 +4445,7 @@ GameObject:
   - component: {fileID: 4509761036877671492}
   - component: {fileID: 1799616633356409183}
   - component: {fileID: 147936242767466675}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Books2 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4524,7 +4524,7 @@ GameObject:
   - component: {fileID: 896975010764490130}
   - component: {fileID: 292706708451689181}
   - component: {fileID: 521522965}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4767,7 +4767,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9204576696652264409}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Tents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4996,6 +4996,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Transporter
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: c586a4150742b3945ab140d03aa91971,
+        type: 3}
+      propertyPath: m_Layer
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: c586a4150742b3945ab140d03aa91971,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c586a4150742b3945ab140d03aa91971,
         type: 3}

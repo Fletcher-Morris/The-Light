@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6836551973226878208}
   - component: {fileID: 2574732371758690102}
   - component: {fileID: 8108660863795975119}
-  - component: {fileID: 1989178174888918564}
   - component: {fileID: 1007859305622955216}
+  - component: {fileID: 3106481682248019038}
   m_Layer: 21
   m_Name: Fence_End_Prefab
   m_TagString: Untagged
@@ -80,19 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1989178174888918564
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7546649878483035923}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 1.4633627, z: 0.5}
-  m_Center: {x: 0, y: 0.5409758, z: 0.0011323355}
 --- !u!136 &1007859305622955216
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -107,3 +94,22 @@ CapsuleCollider:
   m_Height: 1.73
   m_Direction: 1
   m_Center: {x: 0, y: 0.5409758, z: 0.0011323355}
+--- !u!205 &3106481682248019038
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7546649878483035923}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0.5409758, z: 0.0011323392}
+  m_Size: 1.4633627
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.031032862
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 8108660863795975119}
+  m_Enabled: 1
