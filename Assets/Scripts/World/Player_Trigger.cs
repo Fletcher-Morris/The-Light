@@ -21,7 +21,7 @@ public class Player_Trigger : MonoBehaviour
         if (m_triggered && m_singleUse) return;
         if(other.gameObject == Player_Controller.Singleton().gameObject)
         {
-            Debug.Log("Triggered [" + gameObject + "]");
+            //Debug.Log("Triggered [" + gameObject + "]");
             if (m_damageValue != 0.0f) Player_Controller.Singleton().Health?.DoDamage(m_damageValue);
             OnTrigger.Invoke();
             m_triggered = true;
@@ -34,7 +34,7 @@ public class Player_Trigger : MonoBehaviour
         if (m_triggered && m_singleUse) return;
         if (other.gameObject == Player_Controller.Singleton().gameObject)
         {
-            Debug.Log("Triggered [" + gameObject + "]");
+            //Debug.Log("Triggered [" + gameObject + "]");
             if (m_damageValue != 0.0f) Player_Controller.Singleton().Health?.DoDamage(m_damageValue);
             OnTrigger.Invoke();
             m_triggered = true;

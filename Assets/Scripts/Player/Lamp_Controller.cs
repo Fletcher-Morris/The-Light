@@ -109,7 +109,7 @@ public class Lamp_Controller : MonoBehaviour
             }
         }
 
-        if(m > 0) Debug.Log("Used '" + _powder.PowderName + "' on " + m + " monsters.");
+        if(m > 0) Debug.Log("Used '" + _powder.GetName() + "' on " + m + " monsters.");
     }
 
     private float m_timer = 0.0f;

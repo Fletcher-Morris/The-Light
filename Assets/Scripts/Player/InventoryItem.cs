@@ -6,6 +6,9 @@ using UnityEngine;
 [System.Serializable]
 public class InventoryItem : ScriptableObject
 {
+
+    [Header("Inventory Item Data")]
+
     [SerializeField]
     [Tooltip("The name of the item visible to the player.")]
     private string m_itemName;

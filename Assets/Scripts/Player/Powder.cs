@@ -4,23 +4,13 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Powder", menuName = "Powder", order = 1)]
 [System.Serializable]
-public class Powder : ScriptableObject
+public class Powder : InventoryItem
 {
-    [Header("Properties")]
-
-
-    [Tooltip("The name of the powder, visible to the player.")]
-    [SerializeField] private string m_powderName;
-    public string PowderName { get => m_powderName; }
+    [Header("Powder Properties")]
 
     [Tooltip("The color associated with this powder, for UI etc.")]
     [SerializeField] private Color m_powderColor;
     public Color PowderColor { get => m_powderColor; }
-
-    [Tooltip("The description of this powder, visible to the player.")]
-    [Multiline]
-    [SerializeField] private string m_description;
-    public string Description { get => m_description; }
 
     [Tooltip("When true, the effects of this powder affect the player.")]
     [SerializeField] private bool m_affectsPlayer;
@@ -31,7 +21,7 @@ public class Powder : ScriptableObject
     public bool AffectsMonsters { get => m_affectsMonsters; set => m_affectsMonsters = value; }
 
 
-    [Header("Recipes")]
+    [Header("Powder Recipes")]
 
 
     [Tooltip("The list or recipes that can create this powder")]
@@ -39,7 +29,7 @@ public class Powder : ScriptableObject
     public List<PowderRecipe> GetRecipes() { return m_recipes; }
 
 
-    [Header("Effects")]
+    [Header("Powder Effects")]
 
     [Tooltip("The how long the lingering effect of this powder last for in seconds.")]
     [SerializeField] private float m_burnTime = 5.0f;

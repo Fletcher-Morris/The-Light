@@ -105,9 +105,11 @@ public class Inventory_Controller : MonoBehaviour
     //  Add a quantity of items to the inventory via a reference.
     public void AddItemToInventory(InventoryItem _item, int _quantity)
     {
-        //  Non-stackable items.
-        if(_item.DoesStack() == false)
+        if (_quantity <= 0) return;
+
+        if (_item.DoesStack() == false)
         {
+            //  Non-stackable items.
             for(int i = 0; i < _quantity; i++)
             {
                 bool added = false;
@@ -120,27 +122,66 @@ public class Inventory_Controller : MonoBehaviour
                         break;
                     }
                 }
-                if(added == false) m_itemStacks.Add(new ItemStack(_item));
+                if(added == false)
+                {
+                    m_itemStacks.Add(new ItemStack(_item));
+                }
             }
             Debug.Log("Added " + _quantity + " non-stackable items (" + _item.GetName() + ") to inventory.");
-            RefreshMainInventory();
-            return;
         }
-
-        //  Stackable items.
-        foreach(ItemStack stack in m_itemStacks)
+        else
         {
-            if(stack.item == _item)
+            //  Stackable items.
+            bool added = false;
+            foreach (ItemStack stack in m_itemStacks)
             {
-                stack.quantity += _quantity;
-                Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
-                RefreshMainInventory();
-                return;
+                if (stack.item == _item)
+                {
+                    stack.quantity += _quantity;
+                    Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
+                    added = true;
+                    break;
+                }
+            }
+            if(added == false) m_itemStacks.Add(new ItemStack(_item, _quantity));
+            Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
+        }        
+        RefreshMainInventory();
+
+
+        if(Player_Controller.Singleton().ActivePowderStack.item == null)
+        {
+            if(_item is Powder)
+            {
+                Debug.Log("Added Item Is Powder");
+                Player_Controller.Singleton().ActivePowderStack = GetPowderItemStack();
+            }
+            else
+            {
+                Debug.Log("Added Item Is Not Powder");
             }
         }
-        m_itemStacks.Add(new ItemStack(_item, _quantity));
-        RefreshMainInventory();
-        Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
+        else
+        {
+            Debug.Log("Active Powder Stack Is Not Null");
+        }
+    }
+
+    //  Get Powder Item Stack
+    ItemStack GetPowderItemStack()
+    {
+        foreach(ItemStack stack in m_itemStacks)
+        {
+            if(stack.item is Powder)
+            {
+                if(stack.quantity > 0)
+                {
+                    return stack;
+                }
+            }
+        }
+        Debug.Log("Couldnt find powder item stack with quantity at least 1!");
+        return null;
     }
 
     //  Add a single item to the inventory by reference.
@@ -419,89 +460,89 @@ public class Inventory_Controller : MonoBehaviour
         m_powdersWheelTab.enabled = false;
         RefreshMainInventory();
     }
-    //  Show the powders mix tab.
-    public void ShowPowdersMixTab()
-    {
-        m_inventoryPanel.gameObject.SetActive(false);
-        m_inventoryTab.enabled = false;
-        m_powdersMixPanel.gameObject.SetActive(true);
-        m_powdersMixTab.enabled = true;
-        m_powdersWheelPanel.gameObject.SetActive(false);
-        m_powdersWheelTab.enabled = false;
-    }
-    //  Show the powders wheel tab.
-    public void ShowPowdersWheelTab()
-    {
-        m_inventoryPanel.gameObject.SetActive(false);
-        m_inventoryTab.enabled = false;
-        m_powdersMixPanel.gameObject.SetActive(false);
-        m_powdersMixTab.enabled = false;
-        m_powdersWheelPanel.gameObject.SetActive(true);
-        m_powdersWheelTab.enabled = true;
-        RefreshPowdersInventory();
-    }
+    ////  Show the powders mix tab.
+    //public void ShowPowdersMixTab()
+    //{
+    //    m_inventoryPanel.gameObject.SetActive(false);
+    //    m_inventoryTab.enabled = false;
+    //    m_powdersMixPanel.gameObject.SetActive(true);
+    //    m_powdersMixTab.enabled = true;
+    //    m_powdersWheelPanel.gameObject.SetActive(false);
+    //    m_powdersWheelTab.enabled = false;
+    //}
+    ////  Show the powders wheel tab.
+    //public void ShowPowdersWheelTab()
+    //{
+    //    m_inventoryPanel.gameObject.SetActive(false);
+    //    m_inventoryTab.enabled = false;
+    //    m_powdersMixPanel.gameObject.SetActive(false);
+    //    m_powdersMixTab.enabled = false;
+    //    m_powdersWheelPanel.gameObject.SetActive(true);
+    //    m_powdersWheelTab.enabled = true;
+    //    RefreshPowdersInventory();
+    //}
 
 
 
-    public int GetPowderId(Powder _powder)
-    {
-        int id = -1;
-        for (int i = 0; i < m_allPowders.Count; i++)
-        {
-            if (m_allPowders[i] == _powder)
-            {
-                id = i;
-                break;
-            }
-        }
-        return id;
-    }
+    //public int GetPowderId(Powder _powder)
+    //{
+    //    int id = -1;
+    //    for (int i = 0; i < m_allPowders.Count; i++)
+    //    {
+    //        if (m_allPowders[i] == _powder)
+    //        {
+    //            id = i;
+    //            break;
+    //        }
+    //    }
+    //    return id;
+    //}
 
-    public void AddPowderToInventory(Powder _powder)
-    {
-        AddPowderToInventory(_powder, 1);
-    }
-    public void AddPowderToInventory(Powder _powder, int _quantity)
-    {
-        int id = GetPowderId(_powder);
-        if (id == -1)
-        {
-            id = m_allPowders.Count;
-            m_allPowders.Add(_powder);
-            m_powderQuantities.Add(_quantity);
-        }
-        RefreshPowdersInventory();
-    }
+    //public void AddPowderToInventory(Powder _powder)
+    //{
+    //    AddPowderToInventory(_powder, 1);
+    //}
+    //public void AddPowderToInventory(Powder _powder, int _quantity)
+    //{
+    //    int id = GetPowderId(_powder);
+    //    if (id == -1)
+    //    {
+    //        id = m_allPowders.Count;
+    //        m_allPowders.Add(_powder);
+    //        m_powderQuantities.Add(_quantity);
+    //    }
+    //    RefreshPowdersInventory();
+    //}
 
-    public void RefreshPowdersInventory()
-    {
-        if (!m_powdersWheelPanel.gameObject.activeInHierarchy) return;
-        foreach (Transform child in m_powdersItems)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Powder powder in m_allPowders)
-        {
-            GameObject pow = new GameObject(powder.PowderName);
-            pow.transform.SetParent(m_powdersItems);
-            pow.transform.localScale = Vector3.one;
-            Image img = pow.AddComponent<Image>();
-            img.color = powder.PowderColor;
-            img.sprite = m_powderSprite;
-            Button btn = pow.AddComponent<Button>();
-            btn.onClick.AddListener(() => SelectInventoryPowder(powder));
-        }
-    }
+    //public void RefreshPowdersInventory()
+    //{
+    //    if (!m_powdersWheelPanel.gameObject.activeInHierarchy) return;
+    //    foreach (Transform child in m_powdersItems)
+    //    {
+    //        Destroy(child.gameObject);
+    //    }
+    //    foreach (Powder powder in m_allPowders)
+    //    {
+    //        GameObject pow = new GameObject(powder.GetName());
+    //        pow.transform.SetParent(m_powdersItems);
+    //        pow.transform.localScale = Vector3.one;
+    //        Image img = pow.AddComponent<Image>();
+    //        img.color = powder.PowderColor;
+    //        img.sprite = m_powderSprite;
+    //        Button btn = pow.AddComponent<Button>();
+    //        btn.onClick.AddListener(() => SelectInventoryPowder(powder));
+    //    }
+    //}
 
-    private Powder m_selectedPowder;
-    private int m_selectedPowderId;
+    //private Powder m_selectedPowder;
+    //private int m_selectedPowderId;
 
-    public void SelectInventoryPowder(Powder _powder)
-    {
-        m_selectedPowder = _powder;
-        m_selectedPowderId = GetPowderId(_powder);
+    //public void SelectInventoryPowder(Powder _powder)
+    //{
+    //    m_selectedPowder = _powder;
+    //    m_selectedPowderId = GetPowderId(_powder);
 
-    }
+    //}
 
 }
 

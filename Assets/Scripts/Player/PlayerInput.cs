@@ -17,6 +17,7 @@ public static class PlayerInput
     public static bool Walk;
     public static bool Interact;
     public static bool Hide;
+    public static bool UsePowder;
 
     public static Vector2 MouseVector;
 

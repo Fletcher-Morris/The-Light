@@ -83,7 +83,7 @@ public class Interact_Trigger : MonoBehaviour
     {
         float s = 0.25f * ((Mathf.Sin(Time.time * 1.5f)));
         m_interactUi?.transform.SetPositionAndRotation(m_uiAnchor.position + m_uiOffset + new Vector3(0, s, 0), m_mainCam.transform.rotation);
-        m_interactUi.SetActive(m_isClosest);
+        m_interactUi.SetActive(Player_Controller.Singleton().ClosestInteraction == this);
     }
 
     public void TriggerInteraction()

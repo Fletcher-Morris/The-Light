@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbcf8ac9a3bd8e647bf7e9d5ba18d059, type: 3}
+  m_Name: Purple_Powder
+  m_EditorClassIdentifier: 
+  m_itemName: 
+  m_itemDesc: 
+  m_droppable: 1
+  m_sprite: {fileID: 0}
+  m_modelPrefab: {fileID: 0}
+  m_stackable: 1
+  m_persistent: 0
+  m_droppedPrefab: {fileID: 0}
+  m_inventoryItemScale: 1
+  m_inventoryItemOffset: {x: 0, y: 0, z: 0}
+  m_powderColor: {r: 0.7833333, g: 0, b: 1, a: 1}
+  m_affectsPlayer: 0
+  m_affectsMonsters: 0
+  m_recipes:
+  - Powders:
+    - {fileID: 11400000, guid: c92c4909c89b1e94bbce0bf77846c627, type: 2}
+    - {fileID: 11400000, guid: 8424bbaf598c83b4d9281a1b8ab5287d, type: 2}
+    Yield: 2
+  m_burnTime: 1
+  m_stunPower: 5
+  m_fearIntensity: 5

@@ -68,7 +68,7 @@ public class Powder_Wheel : MonoBehaviour
                 //  Open the inventory.
                 CloseWheel();
                 Inventory_Controller.Singleton().OpenInventory();
-                Inventory_Controller.Singleton().ShowPowdersWheelTab();
+                //Inventory_Controller.Singleton().ShowPowdersWheelTab();
                 return;
             }
 

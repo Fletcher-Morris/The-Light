@@ -29,7 +29,7 @@ public class Player_Controller : MonoBehaviour
     private int m_animatorFlipHash;
     private int m_animatorDeadHash;
     private bool m_hasLamp = false;
-    [SerializeField] private GameObject m_lampObject;
+    [SerializeField] private Lamp_Controller m_lampObject;
 
     [SerializeField] private bool m_inCutscene = false;
     public bool InCutscene { get => m_inCutscene; set => m_inCutscene = value; }
@@ -45,7 +45,7 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] private List<Interact_Trigger> m_sceneInteractions;
     public void AddInteraction(Interact_Trigger _interaction) { m_sceneInteractions.Add(_interaction); }
-    [SerializeField] private Interact_Trigger m_closestInteraction;
+    [HideInInspector] public Interact_Trigger ClosestInteraction;
     public KeyCode InteractKey = KeyCode.E;
 
     [Header("Dialogue")]
@@ -90,6 +90,8 @@ public class Player_Controller : MonoBehaviour
     private int m_shaderHealthIntId;
 
     [SerializeField] private GameObject m_fogObject;
+    [SerializeField] private ParticleSystem m_powderParticles;
+    public ItemStack ActivePowderStack;
 
 
     private void Awake()
@@ -132,6 +134,7 @@ public class Player_Controller : MonoBehaviour
         UpdateCamera();
         Movement();
         HandleInteractionTriggers();
+        HandlePowderUse();
         HandleHealth();
         UpdateAnimations();
     }
@@ -175,7 +178,7 @@ public class Player_Controller : MonoBehaviour
 
     private void HandleInteractionTriggers()
     {
-        m_closestInteraction = null;
+        ClosestInteraction = null;
         float closestDist = 1000;
         if (m_sceneInteractions.Count >= 1)
         {
@@ -190,25 +193,28 @@ public class Player_Controller : MonoBehaviour
                         {
                             if (dist < closestDist)
                             {
-                                m_closestInteraction = trigger;
+                                ClosestInteraction = trigger;
                                 closestDist = dist;
                             }
-                            else
-                            {
-                                trigger.SetAsClosest(false);
-                            }
-                        }
-                        else
-                        {
-                            trigger.SetAsClosest(false);
                         }
                     }
                 }
             }
         }
         if (m_animator == null) return;
-        m_closestInteraction?.SetAsClosest(true);
-        if (PlayerInput.Interact && IsAlive()) { m_closestInteraction?.TriggerInteraction(); }
+        if (PlayerInput.Interact && IsAlive()) { ClosestInteraction?.TriggerInteraction(); }
+    }
+
+    private void HandlePowderUse()
+    {
+        if (ActivePowderStack == null) return;
+        if (ActivePowderStack.quantity <= 0) return;
+        if ((ActivePowderStack.item is Powder) == false) { Debug.LogWarning("Active Powder Stack Is Not Of Type 'Powder'!"); return; }
+        if(PlayerInput.UsePowder)
+        {
+            Inventory_Controller.Singleton().RemoveItemFromInventory(ActivePowderStack.item);
+            UsePowder((Powder)ActivePowderStack.item);
+        }
     }
 
     private void GroundCheck()
@@ -240,6 +246,7 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.Interact = Input.GetKeyDown(KeyCode.E);
         PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         PlayerInput.PowderWheel = Input.GetKey(KeyCode.Q);
+        PlayerInput.UsePowder = Input.GetMouseButtonDown(0);
 
         if (m_inCutscene) return;
 
@@ -301,7 +308,7 @@ public class Player_Controller : MonoBehaviour
         {
             m_hasLamp = Inventory_Controller.Singleton().HasItemInInventory("The Lamp");
         }
-        m_lampObject.SetActive(m_hasLamp);
+        m_lampObject.gameObject.SetActive(m_hasLamp);
 
         m_animator.speed = GameTime.IsPausedInt();
 
@@ -453,7 +460,14 @@ public class Player_Controller : MonoBehaviour
 
     public void UsePowder(Powder _powder)
     {
-
+        float h, s, v;
+        Color.RGBToHSV(_powder.PowderColor, out h, out s, out v);
+        Color min = Color.HSVToRGB(h - 0.05f, s, v);
+        Color max = Color.HSVToRGB(h + 0.05f, s, v);
+        var main = m_powderParticles.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(min, max);
+        m_powderParticles.Play();
+        m_lampObject.UsePowder(_powder);
     }
 
     public bool IsDead()

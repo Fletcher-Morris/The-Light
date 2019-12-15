@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbcf8ac9a3bd8e647bf7e9d5ba18d059, type: 3}
+  m_Name: Blue_Powder
+  m_EditorClassIdentifier: 
+  m_itemName: Blue Powder
+  m_itemDesc: Blue powder induces a trance-like state in those who observe it, stunning
+    them for a short time.
+  m_droppable: 1
+  m_sprite: {fileID: 0}
+  m_modelPrefab: {fileID: 0}
+  m_stackable: 1
+  m_persistent: 0
+  m_droppedPrefab: {fileID: 0}
+  m_inventoryItemScale: 1
+  m_inventoryItemOffset: {x: 0, y: 0, z: 0}
+  m_powderColor: {r: 0, g: 0, b: 1, a: 1}
+  m_affectsPlayer: 0
+  m_affectsMonsters: 1
+  m_recipes:
+  - Powders:
+    - {fileID: 11400000}
+    Yield: 1
+  m_burnTime: 1
+  m_stunPower: 5
+  m_fearIntensity: 0
