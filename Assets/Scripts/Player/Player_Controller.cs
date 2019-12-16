@@ -94,6 +94,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private Material m_lampMaterial;
     public ItemStack ActivePowderStack;
     private float m_powderCooldown = 0.0f;
+    [SerializeField] private AudioSource m_lampWooshSource;
 
 
     private void Awake()
@@ -222,7 +223,10 @@ public class Player_Controller : MonoBehaviour
         {
             //if(m_powderParticles.isPlaying == false) m_powderParticles.Play();
             m_lampMaterial.SetColor("_Color", m_lampLerpColor);
-            m_lamp.LampColor = m_lampLerpColor;
+            float h, s, v;
+            Color.RGBToHSV(m_lampLerpColor, out h, out s, out v);
+            s = 0.5f;
+            m_lamp.LampColor = Color.HSVToRGB(h,s,v);
         }
 
         if (GameTime.IsPaused()) return;
@@ -265,7 +269,7 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.Interact = Input.GetKeyDown(KeyCode.E);
         PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         PlayerInput.PowderWheel = Input.GetKey(KeyCode.Q);
-        PlayerInput.UsePowder = Input.GetMouseButtonDown(0);
+        PlayerInput.UsePowder = Input.GetMouseButton(0);
 
         if (m_inCutscene) return;
 
@@ -487,11 +491,14 @@ public class Player_Controller : MonoBehaviour
         m_powderCooldown = 2.0f;
         float chargeUp = 0.0f;
         Color c = m_lampLerpColor;
-        while (chargeUp < 0.5f)
+        m_lampWooshSource.Play();
+        float startRadius = m_lamp.GetRange();
+        while (chargeUp < 0.4f)
         {
             chargeUp += GameTime.deltaTime;
-            chargeUp = chargeUp.Clamp(0.0f, 0.5f);
+            chargeUp = chargeUp.Clamp(0.0f, 0.4f);
             m_lampLerpColor = Color.Lerp(c, _powder.PowderColor, chargeUp);
+            m_lamp.SetRange(Mathf.Lerp(startRadius, startRadius * 0.6f, chargeUp / 0.4f));
             yield return new WaitForEndOfFrame();
         }
         float h, s, v;
@@ -509,11 +516,21 @@ public class Player_Controller : MonoBehaviour
             m_powderCooldown -= GameTime.deltaTime;
             m_powderCooldown = m_powderCooldown.Clamp(0.0f, 2.0f);
             m_lampLerpColor = Color.Lerp(_powder.PowderColor, c, 1.0f - (m_powderCooldown / 2.0f));
+            m_lamp.SetRange(Mathf.Lerp(startRadius, startRadius * 2.0f, (m_powderCooldown / 2.0f)));
+            yield return new WaitForEndOfFrame();
+        }
+        m_lamp.SetRange(startRadius * 2.0f);
+        m_powderCooldown = 0.0f;
+        float t = 3.0f;
+        while (t > 0.0f)
+        {
+            t -= GameTime.deltaTime;
+            m_lamp.SetRange(Mathf.Lerp(startRadius, startRadius * 2.0f, (t / 3.0f)));
             yield return new WaitForEndOfFrame();
         }
 
-        m_powderCooldown = 0.0f;
         m_lampLerpColor = m_lampStartColor;
+        m_lamp.SetRange(startRadius);
 
         yield return null;
     }

@@ -29,6 +29,13 @@ public class Audio_Manager : MonoBehaviour
     public List<AudioClip> playerFootstepsWood;
     public List<AudioClip> playerFootstepsWater;
     private int m_maxFootstepId = 0;
+
+
+
+    [SerializeField] private AudioSource m_forrestSource;
+
+
+
     public int MaxFootstepId() { return m_maxFootstepId; }
     public AudioClip GetFootstepAudio(GroundAudioType _type, int _index)
     {
@@ -59,7 +66,87 @@ public class Audio_Manager : MonoBehaviour
     }
 
 
-    [Header("Enemy")]
-    public AudioClip wolfHowl;
+    [Header("Random Sounds")]
+    public float owlTimer = 15.0f, owlChance = 40.0f;
+    public AudioSource owlSource;
+    public float thunderTimer = 20.0f, thunderChance = 30.0f;
+    public AudioSource thunderSource;
+    public float leavesTimer = 10.0f, leavesChance = 50.0f;
+    public AudioSource leavesSource;
 
+
+    private bool m_forrestMusicEnabled = false;
+    public void EnableForrestMusic()
+    {
+        m_forrestMusicEnabled = true;
+        owlSource.enabled = true;
+    }
+    public void DisableForrestMusic()
+    {
+        m_forrestMusicEnabled = false;
+        owlSource.enabled = false;
+    }
+
+
+    private float m_forrestMusicTimer = 1.0f;
+    private void Update()
+    {
+        if(m_forrestMusicEnabled)
+        {
+            m_forrestMusicTimer -= GameTime.deltaTime;
+        }
+        if(m_forrestMusicTimer <= 0.0f)
+        {
+            m_forrestSource.Play();
+            m_forrestMusicTimer = 160.0f;
+        }
+
+        if(GameTime.IsPaused() == false)
+        {
+            RandomAmbiance();
+        }
+    }
+
+
+    private float m_randomNoiseTimer = 10.0f;
+    private void RandomAmbiance()
+    {
+        //  Thunder
+        thunderTimer -= GameTime.deltaTime;
+        if(thunderTimer <= 0)
+        {
+            int random = Random.Range(0, 100);
+            if(random < thunderChance)
+            {
+                thunderSource.Play();
+                owlSource.Stop();
+                owlTimer = 15.0f;
+            }
+                thunderTimer = 20.0f;
+        }
+
+        //  Owl
+        owlTimer -= GameTime.deltaTime;
+        if (owlTimer <= 0)
+        {
+            int random = Random.Range(0, 100);
+            if (random < owlChance)
+            {
+                owlSource.Play();
+            }
+                owlTimer = 15.0f;
+        }
+
+        //  Leaves
+        leavesTimer -= GameTime.deltaTime;
+        if (leavesTimer <= 0)
+        {
+            int random = Random.Range(0, 100);
+            if (random < leavesChance)
+            {
+                leavesSource.Play();
+            }
+                leavesTimer = 10.0f;
+        }
+    }
 }

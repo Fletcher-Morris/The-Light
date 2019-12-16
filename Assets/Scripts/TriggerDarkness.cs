@@ -14,9 +14,12 @@ public class TriggerDarkness : MonoBehaviour
     [SerializeField] private Environment_Transition m_environmentTransition;
     [SerializeField] private EnvironmentSettings m_darkEnvironment;
 
+    [SerializeField] private AudioSource m_source;
+
     public void Darkcome()
     {
         Player_Controller.Singleton().EnterCutscene();
+        m_source.Play();
         m_cinematicCam.enabled = true;
         m_mainCam.enabled = false;
         m_environmentTransition.Transition(m_darkEnvironment, 5.0f);

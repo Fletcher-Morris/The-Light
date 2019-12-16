@@ -11,6 +11,10 @@ public class Lamp_Controller : MonoBehaviour
 
 
     [SerializeField] private float m_range = 7.5f;
+    public void SetRange(float _range)
+    {
+        m_range = _range;
+    }
     public float GetRange()
     {
         return m_range;
@@ -42,6 +46,7 @@ public class Lamp_Controller : MonoBehaviour
     public float GetEnabledRange()
     {
         if (!m_on) return 0.0f;
+        if (gameObject.activeInHierarchy == false) return 0.0f;
         return GetRange();
     }
 
@@ -58,6 +63,7 @@ public class Lamp_Controller : MonoBehaviour
     public float GetNoisyEnabledRange()
     {
         if (!m_on) return 0.0f;
+        if (gameObject.activeInHierarchy == false) return 0.0f;
         return GetNoisyRange();
     }
 
