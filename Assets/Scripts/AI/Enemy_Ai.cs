@@ -75,7 +75,7 @@ public class Enemy_Ai : MonoBehaviour
     //  The original name of the GameObject.
     private string m_originalObjectName;
     //  Is this AI enabled?
-    [SerializeField] private bool m_aiEnabled = true; 
+    [SerializeField] private bool m_aiEnabled = true;
 
     private void Start()
     {
@@ -509,6 +509,10 @@ public class Enemy_Ai : MonoBehaviour
             case Ai_State.Fleeing:
                 m_navTarget = transform.position + (m_lightDirection.normalized * m_aiSettings.fleeDistanceMultiplier);
                 m_navTarget.y = transform.position.y;
+                if (m_navMeshAgent.CalculatePath(m_navTarget, new NavMeshPath()) == false)
+                {
+                    m_navTarget = m_spawnPos;
+                }
                 break;
             default:
                 m_navTarget = Ai_Manager.GetPlayerTransform().position;

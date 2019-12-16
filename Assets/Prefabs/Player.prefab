@@ -7835,7 +7835,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4746211373312194229}
-  m_LocalRotation: {x: -0.8303813, y: 0.038371414, z: -0.36424768, w: 0.41990265}
+  m_LocalRotation: {x: -0.83038104, y: 0.038371526, z: -0.36424807, w: 0.41990295}
   m_LocalPosition: {x: 0, y: 0.064, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -7947,6 +7947,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   m_on: 1
   m_rotationLerp: 10
+  LampColor: {r: 1, g: 0.8352941, b: 0, a: 1}
   m_repeatTime: 0.5
   m_powders: []
 --- !u!136 &5719719326575247756
@@ -11864,9 +11865,9 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    minVertexDistance: 0.1
+    minVertexDistance: 0.05
     textureMode: 0
-    ribbonCount: 1
+    ribbonCount: 50
     shadowBias: 0.5
     worldSpace: 1
     dieWithParticles: 0
@@ -17532,7 +17533,7 @@ MonoBehaviour:
   m_gravity: 10
   m_walkKey: 304
   m_animator: {fileID: 2630606829920573452}
-  m_lampObject: {fileID: 7101117165758894840}
+  m_lamp: {fileID: 7101117165758894840}
   m_inCutscene: 0
   m_moveToPosition: {fileID: 0}
   m_sceneInteractions:
