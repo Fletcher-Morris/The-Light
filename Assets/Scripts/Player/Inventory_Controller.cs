@@ -127,7 +127,7 @@ public class Inventory_Controller : MonoBehaviour
                     m_itemStacks.Add(new ItemStack(_item));
                 }
             }
-            Debug.Log("Added " + _quantity + " non-stackable items (" + _item.GetName() + ") to inventory.");
+            //Debug.Log("Added " + _quantity + " non-stackable items (" + _item.GetName() + ") to inventory.");
         }
         else
         {
@@ -138,13 +138,13 @@ public class Inventory_Controller : MonoBehaviour
                 if (stack.item == _item)
                 {
                     stack.quantity += _quantity;
-                    Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
+                    //Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
                     added = true;
                     break;
                 }
             }
             if(added == false) m_itemStacks.Add(new ItemStack(_item, _quantity));
-            Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
+            //Debug.Log("Added " + _quantity + " stackable items (" + _item.GetName() + ") to inventory.");
         }        
         RefreshMainInventory();
 
@@ -153,17 +153,8 @@ public class Inventory_Controller : MonoBehaviour
         {
             if(_item is Powder)
             {
-                Debug.Log("Added Item Is Powder");
                 Player_Controller.Singleton().ActivePowderStack = GetPowderItemStack();
             }
-            else
-            {
-                Debug.Log("Added Item Is Not Powder");
-            }
-        }
-        else
-        {
-            Debug.Log("Active Powder Stack Is Not Null");
         }
     }
 
@@ -180,7 +171,7 @@ public class Inventory_Controller : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Couldnt find powder item stack with quantity at least 1!");
+        //Debug.Log("Couldnt find powder item stack with quantity at least 1!");
         return null;
     }
 
@@ -215,7 +206,7 @@ public class Inventory_Controller : MonoBehaviour
             }
         }
 
-        Debug.Log("Removed " + _quantity + " items (" + _item.GetName() + ") from inventory.");
+        //Debug.Log("Removed " + _quantity + " items (" + _item.GetName() + ") from inventory.");
 
         RefreshMainInventory();
     }
@@ -236,7 +227,7 @@ public class Inventory_Controller : MonoBehaviour
                 stack.quantity = 0;
             }
         }
-        Debug.Log("Removed all of item (" + _item.GetName() + ") from inventory.");
+        //Debug.Log("Removed all of item (" + _item.GetName() + ") from inventory.");
         RefreshMainInventory();
     }
 

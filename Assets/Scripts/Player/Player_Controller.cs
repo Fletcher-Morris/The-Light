@@ -91,7 +91,9 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] private GameObject m_fogObject;
     [SerializeField] private ParticleSystem m_powderParticles;
+    [SerializeField] private Material m_lampMaterial;
     public ItemStack ActivePowderStack;
+    private float m_powderCooldown = 0.0f;
 
 
     private void Awake()
@@ -115,6 +117,9 @@ public class Player_Controller : MonoBehaviour
 
         m_shaderPausedIntId = Shader.PropertyToID("GamePausedInt");
         m_shaderHealthIntId = Shader.PropertyToID("PlayerHealth");
+
+        m_lampLerpColor = m_lampStartColor;
+        m_lampMaterial.SetColor("_Color", m_lampStartColor);
     }
 
     private void GatherComponents()
@@ -205,14 +210,25 @@ public class Player_Controller : MonoBehaviour
         if (PlayerInput.Interact && IsAlive()) { ClosestInteraction?.TriggerInteraction(); }
     }
 
+    private Color m_lampLerpColor = Color.white;
+    [SerializeField] private Color m_lampStartColor = Color.white;
     private void HandlePowderUse()
     {
+        if(GameTime.IsPaused())
+        {
+            //if(m_powderParticles.isPlaying == true) m_powderParticles.Pause();
+        }
+        else
+        {
+            //if(m_powderParticles.isPlaying == false) m_powderParticles.Play();
+            m_lampMaterial.SetColor("_Color", m_lampLerpColor);
+        }
+
         if (ActivePowderStack == null) return;
         if (ActivePowderStack.quantity <= 0) return;
         if ((ActivePowderStack.item is Powder) == false) { Debug.LogWarning("Active Powder Stack Is Not Of Type 'Powder'!"); return; }
         if(PlayerInput.UsePowder)
         {
-            Inventory_Controller.Singleton().RemoveItemFromInventory(ActivePowderStack.item);
             UsePowder((Powder)ActivePowderStack.item);
         }
     }
@@ -460,14 +476,42 @@ public class Player_Controller : MonoBehaviour
 
     public void UsePowder(Powder _powder)
     {
+        if (m_powderCooldown <= 0.0f) StartCoroutine(UsePowderCoroutine(_powder));
+    }
+    private IEnumerator UsePowderCoroutine(Powder _powder)
+    {
+        Inventory_Controller.Singleton().RemoveItemFromInventory((InventoryItem)_powder);
+        m_powderCooldown = 2.0f;
+        float chargeUp = 0.0f;
+        Color c = m_lampLerpColor;
+        while (chargeUp < 0.5f)
+        {
+            chargeUp += GameTime.deltaTime;
+            chargeUp = chargeUp.Clamp(0.0f, 0.5f);
+            m_lampLerpColor = Color.Lerp(c, _powder.PowderColor, chargeUp);
+            yield return new WaitForEndOfFrame();
+        }
         float h, s, v;
         Color.RGBToHSV(_powder.PowderColor, out h, out s, out v);
         Color min = Color.HSVToRGB(h - 0.05f, s, v);
         Color max = Color.HSVToRGB(h + 0.05f, s, v);
         var main = m_powderParticles.main;
         main.startColor = new ParticleSystem.MinMaxGradient(min, max);
+        var trails = m_powderParticles.trails;
+        trails.colorOverLifetime = main.startColor;
         m_powderParticles.Play();
         m_lampObject.UsePowder(_powder);
+        while(m_powderCooldown > 0.0f)
+        {
+            m_powderCooldown -= GameTime.deltaTime;
+            m_powderCooldown = m_powderCooldown.Clamp(0.0f, 2.0f);
+            m_lampLerpColor = Color.Lerp(_powder.PowderColor, c, 1.0f - (m_powderCooldown / 2.0f));
+            yield return new WaitForEndOfFrame();
+        }
+
+        m_powderCooldown = 0.0f;
+
+        yield return null;
     }
 
     public bool IsDead()
