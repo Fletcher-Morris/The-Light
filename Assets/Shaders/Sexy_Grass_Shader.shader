@@ -2,8 +2,6 @@
 {
 	Properties
 	{
-		//Color stuff
-		_Color("Color", Color) = (1,1,1,1)
 		_GradientMap("Gradient map", 2D) = "white" {}
 		_TipColor("Tip Color", Color) = (0.2574063,0.3773585,0,0)
 		_RootColor("Root Color", Color) = (0.1116701,0.245283,0,0)
@@ -47,7 +45,6 @@
 				float4 col : COLOR;
 			};
 
-			fixed4 _Color;
 			sampler2D _GradientMap;
 			sampler2D _PlacementTexture;
 			sampler2D _PlacementTexture_ST;
@@ -72,9 +69,11 @@
 			float4 _TipColor;
 
 			float4 Lamps[16];
+			float4 Colors[16];
 			float3 PlayerPosition;
 			float4 AmbientColor;
 			float4 LightColor = (1,1,1,1);
+			float OverrideLamps;
 
 			float random(float2 st) {
 				return frac(sin(dot(st.xy,
@@ -184,12 +183,26 @@
 				return 0;
 			}
 
+			int LampColor(float3 WorldPos)
+			{
+				for (int i = 0; i < 16; i++)
+				{
+					float d = distance(WorldPos, Lamps[i].xyz);
+					if (d < Lamps[i].w)
+					{
+						return Colors[i];
+					}
+				}
+				return float3(0,0,0);
+			}
+
 			fixed4 frag(g2f i) : SV_Target
 			{
 				fixed4 gradientMapCol = tex2D(_GradientMap, float2(i.col.x, 0.0));
 				fixed4 col = lerp(_RootColor, _TipColor, i.col.x);
 
-				fixed4 colAdjust = lerp(AmbientColor, LightColor, LampCheck(i.worldPos.xyz));
+				fixed4 lampCol = lerp(LampColor(i.worldPos.xyz), LightColor, OverrideLamps);
+				fixed4 colAdjust = lerp(AmbientColor, lampCol, LampCheck(i.worldPos.xyz));
 
 				col *= colAdjust;
 				return col;

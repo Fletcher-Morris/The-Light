@@ -56,7 +56,9 @@ public static class Ai_Manager
 
 
     private static List<Vector4> m_lampVectors = new List<Vector4>();
+    private static List<Vector4> m_lampColors = new List<Vector4>();
     private static int m_lampShaderArrayId;
+    private static int m_lampColorsArrayId;
 
     public static void ResetLamps(Lamp_Controller _lamp)
     {
@@ -85,20 +87,24 @@ public static class Ai_Manager
                     Vector4 newVec = m_lamps[i].transform.position;
                     newVec.w = m_lamps[i].GetNoisyEnabledRange();
                     m_lampVectors[added] = newVec;
+                    m_lampColors[added] = m_lamps[i].LampColor;
                     added++;
                 }
                 i++;
             }
             Shader.SetGlobalVectorArray("Lamps", m_lampVectors);
+            Shader.SetGlobalVectorArray("Colors", m_lampColors);
         }
     }
 
     private static void ResetLampLists()
     {
         m_lampVectors = new List<Vector4>(MAX_LAMPS);
+        m_lampColors = new List<Vector4>(MAX_LAMPS);
         for (int i = 0; i < MAX_LAMPS; i++)
         {
             m_lampVectors.Add(Vector4.zero);
+            m_lampColors.Add(Color.black);
         }
     }
 
@@ -107,7 +113,9 @@ public static class Ai_Manager
     {
         if (m_globalValuesInitialised) return;
         m_lampShaderArrayId = Shader.PropertyToID("Lamps");
+        m_lampColorsArrayId = Shader.PropertyToID("Colors");
         Shader.SetGlobalVectorArray(m_lampShaderArrayId, m_lampVectors);
+        Shader.SetGlobalVectorArray(m_lampColorsArrayId, m_lampVectors);
         m_globalValuesInitialised = true;
     }
 

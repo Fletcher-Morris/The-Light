@@ -29,7 +29,7 @@ public class Player_Controller : MonoBehaviour
     private int m_animatorFlipHash;
     private int m_animatorDeadHash;
     private bool m_hasLamp = false;
-    [SerializeField] private Lamp_Controller m_lampObject;
+    [SerializeField] private Lamp_Controller m_lamp;
 
     [SerializeField] private bool m_inCutscene = false;
     public bool InCutscene { get => m_inCutscene; set => m_inCutscene = value; }
@@ -222,7 +222,10 @@ public class Player_Controller : MonoBehaviour
         {
             //if(m_powderParticles.isPlaying == false) m_powderParticles.Play();
             m_lampMaterial.SetColor("_Color", m_lampLerpColor);
+            m_lamp.LampColor = m_lampLerpColor;
         }
+
+        if (GameTime.IsPaused()) return;
 
         if (ActivePowderStack == null) return;
         if (ActivePowderStack.quantity <= 0) return;
@@ -324,7 +327,7 @@ public class Player_Controller : MonoBehaviour
         {
             m_hasLamp = Inventory_Controller.Singleton().HasItemInInventory("The Lamp");
         }
-        m_lampObject.gameObject.SetActive(m_hasLamp);
+        m_lamp.gameObject.SetActive(m_hasLamp);
 
         m_animator.speed = GameTime.IsPausedInt();
 
@@ -500,7 +503,7 @@ public class Player_Controller : MonoBehaviour
         var trails = m_powderParticles.trails;
         trails.colorOverLifetime = main.startColor;
         m_powderParticles.Play();
-        m_lampObject.UsePowder(_powder);
+        m_lamp.UsePowder(_powder);
         while(m_powderCooldown > 0.0f)
         {
             m_powderCooldown -= GameTime.deltaTime;
@@ -510,6 +513,7 @@ public class Player_Controller : MonoBehaviour
         }
 
         m_powderCooldown = 0.0f;
+        m_lampLerpColor = m_lampStartColor;
 
         yield return null;
     }
