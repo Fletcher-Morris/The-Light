@@ -52,8 +52,8 @@ MonoBehaviour:
   damageValue: 15
   attractedToLight: 0
   runAwayFromLight: 0
-  fleeDuration: 3
-  fleeDistanceMultiplier: 3
+  fleeDuration: 6
+  fleeDistanceMultiplier: 10
   braveness: 1
   stunResistance: 1
   waypointChoice: 2
