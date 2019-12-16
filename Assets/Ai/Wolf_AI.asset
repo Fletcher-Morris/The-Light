@@ -59,4 +59,4 @@ MonoBehaviour:
   waypointChoice: 2
   randomStartWaypoint: 1
   waypointTollerance: 2
-  wanderRadius: 500
+  wanderRadius: 125

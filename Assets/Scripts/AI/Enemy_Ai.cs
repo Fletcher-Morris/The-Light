@@ -298,8 +298,6 @@ public class Enemy_Ai : MonoBehaviour
                     break;
                 case Ai_State.Chasing:
                     SetAnimState("running");
-                    if(m_audioSource)
-                    m_audioSource.PlayOneShot(Audio_Manager.Singleton().wolfHowl);
                     break;
                 case Ai_State.Attacking:
                     SetAnimState("attacking");
