@@ -9,6 +9,7 @@ public class Watermill : MonoBehaviour
     bool firsttimemovebasket = true;
     List<Rotator> rotators = new List<Rotator>();
     bool machinerunning = false;
+    [SerializeField] private AudioSource m_source;
 
     IEnumerator Movewheelup()
     {
@@ -17,6 +18,7 @@ public class Watermill : MonoBehaviour
         vt = wheelupplace.transform.position - waterwheel.transform.position;
         vt.x = 0;
         vt.z = 0;
+        m_source.Stop();
         for (int i=0;i<100; i++)
         {
             waterwheel.transform.position += vt / 100;
@@ -31,6 +33,7 @@ public class Watermill : MonoBehaviour
         vt = wheeldownplace.transform.position - waterwheel.transform.position;
         vt.x = 0;
         vt.z = 0;
+        m_source.Play();
         for (int i = 0; i < 100; i++)
         {
             waterwheel.transform.position += vt / 100;
