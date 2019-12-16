@@ -9,6 +9,8 @@ public class Falltree : MonoBehaviour
     [SerializeField] bool RandomFall=true;
     float angle = 0f;
     bool fallen = false;
+
+    private AudioSource m_audio;
     float No_0_random(float rmin,float rmax)
     {
         float a=0;
@@ -41,6 +43,9 @@ public class Falltree : MonoBehaviour
     }
     IEnumerator TreeFall()
     {
+        m_audio = GetComponent<AudioSource>();
+        m_audio.Play();
+        Debug.Log("Tree Is Falling! : " + gameObject);
         while (angle < 90)
         {
             float x = Time.deltaTime * fspeed;
