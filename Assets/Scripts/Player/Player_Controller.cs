@@ -94,6 +94,8 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private Material m_lampMaterial;
     public ItemStack ActivePowderStack;
     private float m_powderCooldown = 0.0f;
+    [SerializeField] private AudioSource m_lampAmbianceSource;
+    [SerializeField] private AudioSource m_lampWooshSource;
 
 
     private void Awake()
@@ -234,6 +236,7 @@ public class Player_Controller : MonoBehaviour
         {
             UsePowder((Powder)ActivePowderStack.item);
         }
+        m_lampAmbianceSource.volume -= GameTime.deltaTime * 0.2f;
     }
 
     private void GroundCheck()
@@ -502,6 +505,9 @@ public class Player_Controller : MonoBehaviour
         main.startColor = new ParticleSystem.MinMaxGradient(min, max);
         var trails = m_powderParticles.trails;
         trails.colorOverLifetime = main.startColor;
+        m_lampAmbianceSource.volume = 1.0f;
+        m_lampWooshSource.Play();
+        m_lampAmbianceSource.Play();
         m_powderParticles.Play();
         m_lamp.UsePowder(_powder);
         while(m_powderCooldown > 0.0f)

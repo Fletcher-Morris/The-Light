@@ -119,10 +119,10 @@ public class Audio_Manager : MonoBehaviour
             if(random < thunderChance)
             {
                 thunderSource.Play();
-                thunderTimer = 20.0f;
-                owlTimer = 15.0f;
                 owlSource.Stop();
+                owlTimer = 15.0f;
             }
+                thunderTimer = 20.0f;
         }
 
         //  Owl
@@ -133,8 +133,8 @@ public class Audio_Manager : MonoBehaviour
             if (random < owlChance)
             {
                 owlSource.Play();
-                owlTimer = 15.0f;
             }
+                owlTimer = 15.0f;
         }
 
         //  Leaves
@@ -145,8 +145,8 @@ public class Audio_Manager : MonoBehaviour
             if (random < leavesChance)
             {
                 leavesSource.Play();
-                leavesTimer = 15.0f;
             }
+                leavesTimer = 10.0f;
         }
     }
 }
