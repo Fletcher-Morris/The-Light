@@ -15,7 +15,7 @@ MonoBehaviour:
   m_itemName: The Lamp
   m_itemDesc: The magic Lamp
   m_droppable: 0
-  m_sprite: {fileID: 0}
+  m_sprite: {fileID: 21300000, guid: 64c801a473e089e4da31092a5a493f2b, type: 3}
   m_modelPrefab: {fileID: 5125534563796239631, guid: 18318c617c82ab14093856f529af5934,
     type: 3}
   m_stackable: 0

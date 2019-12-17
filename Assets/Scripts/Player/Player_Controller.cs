@@ -275,8 +275,8 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.Walk = Input.GetKey(m_walkKey);
         PlayerInput.Interact = Input.GetKeyDown(KeyCode.E);
         PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        PlayerInput.PowderWheel = Input.GetKey(KeyCode.Q);
-        PlayerInput.UsePowder = Input.GetMouseButton(0);
+        PlayerInput.PowderWheel = Input.GetKey(KeyCode.M);
+        PlayerInput.UsePowder = Input.GetKeyDown(KeyCode.Q);
 
         if (m_inCutscene) return;
 

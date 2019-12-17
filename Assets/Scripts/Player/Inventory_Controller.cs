@@ -75,7 +75,7 @@ public class Inventory_Controller : MonoBehaviour
     //  The individual stacks of items.
     [SerializeField] private RenderTexture m_selectedItemRt;
     //  The camera for the render texture.
-    private Camera m_selectedItemCam;
+    [SerializeField] private Camera m_selectedItemCam;
     //  The UI image for the selected item.
     [SerializeField] private RawImage m_selectedItemImage;
     //  The UI text for the selected item name.
@@ -314,7 +314,7 @@ public class Inventory_Controller : MonoBehaviour
                 GameObject stackUi = GameObject.Instantiate(m_itemUiPrefab, m_inventoryItems);
                 if (!item.IsDroppable())
                 {
-                    stackUi.transform.GetChild(0).GetComponent<Image>().color = Color.red;
+                    //stackUi.transform.GetChild(0).GetComponent<Image>().color = Color.red;
                 }
                 stackUi.transform.GetChild(1).GetComponent<Text>().text = item.GetName();
                 Sprite useSprite = item.GetSprite();
@@ -424,16 +424,7 @@ public class Inventory_Controller : MonoBehaviour
     {
         if(m_selectedItemCam == null)
         {
-            GameObject newCam = new GameObject("INVENTORY_ITEM_CAMERA");
-            m_selectedItemCam = newCam.AddComponent<Camera>();
-            m_selectedItemCam.transform.position = new Vector3(0, -1000, 0);
-            m_selectedItemCam.cullingMask = LayerTools.CreateLayerMask("SelectedItem");
-            m_selectedItemCam.targetTexture = m_selectedItemRt;
-            m_selectedItemCam.clearFlags = CameraClearFlags.Depth;
-            PostProcessLayer post = newCam.AddComponent<PostProcessLayer>();
-            post.volumeTrigger = newCam.transform;
-            post.volumeLayer = LayerMask.NameToLayer("PostProcessing");
-            post.antialiasingMode = PostProcessLayer.Antialiasing.None;
+            m_selectedItemCam = GameObject.Find("INVENTORY_ITEM_CAMERA").GetComponent<Camera>();
         }
     }
 
