@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6faa4729b4481bf48bc5d09ae213aab1, type: 3}
   m_Name: Scare_Away_Wolf
   m_EditorClassIdentifier: 
-  taskName: Scare Away Wolves Using Red Powder
-  taskDescription: Use the red powder [RMB] to scare away wolves.
+  taskName: Scare Away Wolves Using Red Powder [Q]
+  taskDescription: Use the red powder [Q] to scare away wolves.
   requirements: []
