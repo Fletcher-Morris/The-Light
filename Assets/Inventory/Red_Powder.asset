@@ -15,10 +15,10 @@ MonoBehaviour:
   m_itemName: Red Powder
   m_itemDesc: Red powder induces fear in the hearts of mortals.
   m_droppable: 0
-  m_sprite: {fileID: 0}
+  m_sprite: {fileID: 21300000, guid: b46c7d0701430f649b552d054aeb289b, type: 3}
   m_modelPrefab: {fileID: 0}
   m_stackable: 1
-  m_persistent: 0
+  m_persistent: 1
   m_droppedPrefab: {fileID: 0}
   m_inventoryItemScale: 1
   m_inventoryItemOffset: {x: 0, y: 0, z: 0}

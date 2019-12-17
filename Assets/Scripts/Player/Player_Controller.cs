@@ -93,8 +93,13 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private ParticleSystem m_powderParticles;
     [SerializeField] private Material m_lampMaterial;
     public ItemStack ActivePowderStack;
-    private float m_powderCooldown = 0.0f;
+    private bool m_powderCooldown = false;
     [SerializeField] private AudioSource m_lampWooshSource;
+    [SerializeField] private bool m_powderEnabled;
+    public void EnablePowderUse()
+    {
+        m_powderEnabled = true;
+    }
 
 
     private void Awake()
@@ -107,6 +112,8 @@ public class Player_Controller : MonoBehaviour
         m_camera.transform.parent = null;
         m_healthOverlay.enabled = true;
         m_fogObject.SetActive(true);
+
+        GameTime.UnPause();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -225,7 +232,7 @@ public class Player_Controller : MonoBehaviour
             m_lampMaterial.SetColor("_Color", m_lampLerpColor);
             float h, s, v;
             Color.RGBToHSV(m_lampLerpColor, out h, out s, out v);
-            s = 0.5f;
+            s = 0.8f;
             m_lamp.LampColor = Color.HSVToRGB(h,s,v);
         }
 
@@ -268,8 +275,8 @@ public class Player_Controller : MonoBehaviour
         PlayerInput.Walk = Input.GetKey(m_walkKey);
         PlayerInput.Interact = Input.GetKeyDown(KeyCode.E);
         PlayerInput.MouseVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        PlayerInput.PowderWheel = Input.GetKey(KeyCode.Q);
-        PlayerInput.UsePowder = Input.GetMouseButton(0);
+        PlayerInput.PowderWheel = Input.GetKey(KeyCode.M);
+        PlayerInput.UsePowder = Input.GetKeyDown(KeyCode.Q);
 
         if (m_inCutscene) return;
 
@@ -483,24 +490,26 @@ public class Player_Controller : MonoBehaviour
 
     public void UsePowder(Powder _powder)
     {
-        if (m_powderCooldown <= 0.0f) StartCoroutine(UsePowderCoroutine(_powder));
+        if (m_powderEnabled == false) return;
+        if (m_powderCooldown == false) StartCoroutine(UsePowderCoroutine(_powder));
     }
     private IEnumerator UsePowderCoroutine(Powder _powder)
     {
+        m_powderCooldown = true;
         Inventory_Controller.Singleton().RemoveItemFromInventory((InventoryItem)_powder);
-        m_powderCooldown = 2.0f;
-        float chargeUp = 0.0f;
         Color c = m_lampLerpColor;
         m_lampWooshSource.Play();
         float startRadius = m_lamp.GetRange();
-        while (chargeUp < 0.4f)
+        float t = 0.4f;
+        while (t > 0.0f)
         {
-            chargeUp += GameTime.deltaTime;
-            chargeUp = chargeUp.Clamp(0.0f, 0.4f);
-            m_lampLerpColor = Color.Lerp(c, _powder.PowderColor, chargeUp);
-            m_lamp.SetRange(Mathf.Lerp(startRadius, startRadius * 0.6f, chargeUp / 0.4f));
+            t -= GameTime.deltaTime;
+            m_lampLerpColor = Color.Lerp(_powder.PowderColor, c, t / 0.4f);
+            m_lamp.SetRange(Mathf.Lerp(startRadius * 0.5f, startRadius, t / 0.4f));
             yield return new WaitForEndOfFrame();
         }
+        m_lampLerpColor = _powder.PowderColor;
+        m_lamp.SetRange(startRadius * 0.5f);
         float h, s, v;
         Color.RGBToHSV(_powder.PowderColor, out h, out s, out v);
         Color min = Color.HSVToRGB(h - 0.05f, s, v);
@@ -511,27 +520,27 @@ public class Player_Controller : MonoBehaviour
         trails.colorOverLifetime = main.startColor;
         m_powderParticles.Play();
         m_lamp.UsePowder(_powder);
-        while(m_powderCooldown > 0.0f)
+        t = 1.0f;
+        while(t > 0.0f)
         {
-            m_powderCooldown -= GameTime.deltaTime;
-            m_powderCooldown = m_powderCooldown.Clamp(0.0f, 2.0f);
-            m_lampLerpColor = Color.Lerp(_powder.PowderColor, c, 1.0f - (m_powderCooldown / 2.0f));
-            m_lamp.SetRange(Mathf.Lerp(startRadius, startRadius * 2.0f, (m_powderCooldown / 2.0f)));
+            t -= GameTime.deltaTime;
+            m_lamp.SetRange(Mathf.Lerp(startRadius, startRadius * 2.0f, 1.0f - t));
+            m_lamp.UsePowder(_powder);
             yield return new WaitForEndOfFrame();
         }
+        m_lampLerpColor = c;
         m_lamp.SetRange(startRadius * 2.0f);
-        m_powderCooldown = 0.0f;
-        float t = 3.0f;
+        t = 3.0f;
         while (t > 0.0f)
         {
             t -= GameTime.deltaTime;
-            m_lamp.SetRange(Mathf.Lerp(startRadius, startRadius * 2.0f, (t / 3.0f)));
+            m_lampLerpColor = Color.Lerp(c, _powder.PowderColor, t / 3.0f);
+            m_lamp.SetRange(Mathf.Lerp(startRadius, startRadius * 2.0f, t / 3.0f));
             yield return new WaitForEndOfFrame();
         }
-
-        m_lampLerpColor = m_lampStartColor;
+        m_lampLerpColor = c;
         m_lamp.SetRange(startRadius);
-
+        m_powderCooldown = false;
         yield return null;
     }
 

@@ -318,6 +318,9 @@ public class Enemy_Ai : MonoBehaviour
         m_prevAiState = m_aiState;
     }
 
+    private static bool PlayerSpotted = false;
+    private static bool ScaredWolf = false;
+
     //  Check if this AI can see the player.
     private void CheckForPlayer()
     {
@@ -348,6 +351,18 @@ public class Enemy_Ai : MonoBehaviour
             }
             if (hitPlayer)
             {
+
+                if(PlayerSpotted == false)
+                {
+                    if(TryGetComponent<Control_Task>(out Control_Task _task))
+                    {
+                        PlayerSpotted = true;
+                        _task.ActivateTask();
+                        Player_Controller.Singleton().EnablePowderUse();
+                        Destroy(_task);
+                    }
+                }
+
                 m_playerVisible = true;
                 if (m_playerDetectionValue >= 1.0f)
                 {
@@ -427,6 +442,14 @@ public class Enemy_Ai : MonoBehaviour
                 if(effect.Powder.FearIntensity > m_aiSettings.braveness)
                 {
                     m_isAfraid = true;
+                    if(ScaredWolf == false)
+                    {
+                        if (TryGetComponent<Control_Task>(out Control_Task _task))
+                        {
+                            ScaredWolf = true;
+                            _task.ActivateTask();
+                        }
+                    }
                 }
             }
         }

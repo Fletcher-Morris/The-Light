@@ -21,7 +21,7 @@ MonoBehaviour:
     the battle will start. Many of us won\u2019t make it but we are glad to sacrifice
     our life and let a warrior reach the main city and save us all.\r\n"
   m_droppable: 1
-  m_sprite: {fileID: 0}
+  m_sprite: {fileID: 21300000, guid: 28c642ebc0fbe46498d92e08fd507f8c, type: 3}
   m_modelPrefab: {fileID: 3822805213672841303, guid: 9f4cddd37ba9ac54891932fe6380e823,
     type: 3}
   m_stackable: 0
