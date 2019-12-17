@@ -71,7 +71,7 @@ public class Lamp_Controller : MonoBehaviour
     {
         m_animTime += GameTime.deltaTime;
 
-        if(m_rotationLerp > 0.0f)
+        if(m_rotationLerp > 0.00001f)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, new Quaternion(0, 0, 0, 1), m_rotationLerp * GameTime.deltaTime);
         }

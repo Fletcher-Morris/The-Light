@@ -95,6 +95,11 @@ public class Player_Controller : MonoBehaviour
     public ItemStack ActivePowderStack;
     private bool m_powderCooldown = false;
     [SerializeField] private AudioSource m_lampWooshSource;
+    [SerializeField] private bool m_powderEnabled;
+    public void EnablePowderUse()
+    {
+        m_powderEnabled = true;
+    }
 
 
     private void Awake()
@@ -107,6 +112,8 @@ public class Player_Controller : MonoBehaviour
         m_camera.transform.parent = null;
         m_healthOverlay.enabled = true;
         m_fogObject.SetActive(true);
+
+        GameTime.UnPause();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -483,6 +490,7 @@ public class Player_Controller : MonoBehaviour
 
     public void UsePowder(Powder _powder)
     {
+        if (m_powderEnabled == false) return;
         if (m_powderCooldown == false) StartCoroutine(UsePowderCoroutine(_powder));
     }
     private IEnumerator UsePowderCoroutine(Powder _powder)

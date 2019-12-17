@@ -71,6 +71,13 @@ public static class Ai_Manager
             m_lamps = new List<Lamp_Controller>();
         }
     }
+    public static void ResetLamps(bool _force)
+    {
+        if (_force)
+        {
+            m_lamps = new List<Lamp_Controller>();
+        }
+    }
     public static void UpdateShaderArray(Lamp_Controller _lamp)
     {
         if (m_lamps.Count <= 0) return;
@@ -97,7 +104,7 @@ public static class Ai_Manager
         }
     }
 
-    private static void ResetLampLists()
+    public static void ResetLampLists()
     {
         m_lampVectors = new List<Vector4>(MAX_LAMPS);
         m_lampColors = new List<Vector4>(MAX_LAMPS);
@@ -109,7 +116,7 @@ public static class Ai_Manager
     }
 
     private static bool m_globalValuesInitialised;
-    private static void CreateGlobalValues()
+    public static void CreateGlobalValues()
     {
         if (m_globalValuesInitialised) return;
         m_lampShaderArrayId = Shader.PropertyToID("Lamps");
