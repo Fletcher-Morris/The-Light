@@ -13,7 +13,7 @@ public class Ai_Waypoint : MonoBehaviour
     private void Awake()
     {
         if(m_autoPosition) AutoPosition();
-        Ai_Manager.AddWaypoint(this);
+        Ai_Manager.Singleton().AddWaypoint(this);
     }
 
     private void AutoPosition()

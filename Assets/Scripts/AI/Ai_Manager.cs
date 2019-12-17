@@ -2,25 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Ai_Manager
+public class Ai_Manager : MonoBehaviour
 {
+    private static Ai_Manager m_singleton;
+    public static Ai_Manager Singleton() { return m_singleton; }
+
+
     const int MAX_LAMPS = 16;
 
-    private static int m_lastAiId = -1;
-    public static int GetNewAiId()
+    private int m_lastAiId = -1;
+    public int GetNewAiId()
     {
         m_lastAiId++;
         return m_lastAiId;
     }
 
-    private static List<Enemy_Ai> m_enemyAiList = new List<Enemy_Ai>();
-    public static int AddAi(Enemy_Ai _ai)
+    [SerializeField] private List<Enemy_Ai> m_enemyAiList = new List<Enemy_Ai>();
+    public int AddAi(Enemy_Ai _ai)
     {
         m_enemyAiList.Add(_ai);
         return GetNewAiId();
     }
 
-    public static List<Enemy_Ai> GetEnemyAiInRange(float _range, Vector3 _pos)
+    public List<Enemy_Ai> GetEnemyAiInRange(float _range, Vector3 _pos)
     {
         List<Enemy_Ai> inRange = new List<Enemy_Ai>();
         foreach(Enemy_Ai enemy in m_enemyAiList)
@@ -33,16 +37,12 @@ public static class Ai_Manager
         return inRange;
     }
 
-    private static Transform m_playerTransform;
-    public static Transform GetPlayerTransform() { return m_playerTransform; }
-    public static void SetPlayerTransform(Transform _player) { m_playerTransform = _player; }
+    private float m_playerHeight = 1.75f;
+    public float GetPlayerHeight() { return m_playerHeight; }
 
-    private static float m_playerHeight = 1.75f;
-    public static float GetPlayerHeight() { return m_playerHeight; }
-
-    private static List<Lamp_Controller> m_lamps = new List<Lamp_Controller>();
-    public static List<Lamp_Controller> GetLamps() { return m_lamps; }
-    public static void AddLamp(Lamp_Controller _lamp)
+    [SerializeField] private List<Lamp_Controller> m_lamps = new List<Lamp_Controller>();
+    public List<Lamp_Controller> GetLamps() { return m_lamps; }
+    public void AddLamp(Lamp_Controller _lamp)
     {
         if(m_lamps.Contains(_lamp))
         {
@@ -55,12 +55,12 @@ public static class Ai_Manager
     }
 
 
-    private static List<Vector4> m_lampVectors = new List<Vector4>();
-    private static List<Vector4> m_lampColors = new List<Vector4>();
-    private static int m_lampShaderArrayId;
-    private static int m_lampColorsArrayId;
+    [SerializeField] private List<Vector4> m_lampVectors = new List<Vector4>();
+    [SerializeField] private List<Vector4> m_lampColors = new List<Vector4>();
+    [SerializeField] private int m_lampShaderArrayId;
+    [SerializeField] private int m_lampColorsArrayId;
 
-    public static void ResetLamps(Lamp_Controller _lamp)
+    public void ResetLamps(Lamp_Controller _lamp)
     {
         if (m_lamps.Count == 0)
         {
@@ -71,40 +71,37 @@ public static class Ai_Manager
             m_lamps = new List<Lamp_Controller>();
         }
     }
-    public static void ResetLamps(bool _force)
+    public void ResetLamps(bool _force)
     {
         if (_force)
         {
             m_lamps = new List<Lamp_Controller>();
         }
     }
-    public static void UpdateShaderArray(Lamp_Controller _lamp)
+    public void UpdateShaderArray()
     {
         if (m_lamps.Count <= 0) return;
-        if(m_lamps[0] == _lamp)
+        ResetLampLists();
+        CreateGlobalValues();
+        int added = 0;
+        for (int i = 0; i < MAX_LAMPS; i += 0)
         {
-            ResetLampLists();
-            CreateGlobalValues();
-            int added = 0;
-            for(int i = 0; i < MAX_LAMPS; i+=0)
+            if (i >= m_lamps.Count) break;
+            if (m_lamps[i] != null)
             {
-                if (i >= m_lamps.Count) break;
-                if(m_lamps[i] != null)
-                {
-                    Vector4 newVec = m_lamps[i].transform.position;
-                    newVec.w = m_lamps[i].GetNoisyEnabledRange();
-                    m_lampVectors[added] = newVec;
-                    m_lampColors[added] = m_lamps[i].LampColor;
-                    added++;
-                }
-                i++;
+                Vector4 newVec = m_lamps[i].transform.position;
+                newVec.w = m_lamps[i].GetNoisyEnabledRange();
+                m_lampVectors[added] = newVec;
+                m_lampColors[added] = m_lamps[i].LampColor;
+                added++;
             }
-            Shader.SetGlobalVectorArray("Lamps", m_lampVectors);
-            Shader.SetGlobalVectorArray("Colors", m_lampColors);
+            i++;
         }
+        Shader.SetGlobalVectorArray("Lamps", m_lampVectors);
+        Shader.SetGlobalVectorArray("Colors", m_lampColors);
     }
 
-    public static void ResetLampLists()
+    public void ResetLampLists()
     {
         m_lampVectors = new List<Vector4>(MAX_LAMPS);
         m_lampColors = new List<Vector4>(MAX_LAMPS);
@@ -115,8 +112,8 @@ public static class Ai_Manager
         }
     }
 
-    private static bool m_globalValuesInitialised;
-    public static void CreateGlobalValues()
+    [SerializeField] private bool m_globalValuesInitialised;
+    public void CreateGlobalValues()
     {
         if (m_globalValuesInitialised) return;
         m_lampShaderArrayId = Shader.PropertyToID("Lamps");
@@ -126,9 +123,9 @@ public static class Ai_Manager
         m_globalValuesInitialised = true;
     }
 
-    private static List<Ai_Waypoint> m_waypoints = new List<Ai_Waypoint>();
-    public static List<Ai_Waypoint> GetWaypoints() { return m_waypoints; }
-    public static void AddWaypoint(Ai_Waypoint _waypoint)
+    [SerializeField] private List<Ai_Waypoint> m_waypoints = new List<Ai_Waypoint>();
+    public List<Ai_Waypoint> GetWaypoints() { return m_waypoints; }
+    public void AddWaypoint(Ai_Waypoint _waypoint)
     {
         if(m_waypoints.Contains(_waypoint))
         {
@@ -138,6 +135,18 @@ public static class Ai_Manager
         {
             m_waypoints.Add(_waypoint);
         }
+    }
+
+    private void Awake()
+    {
+        m_singleton = this;
+        Enemy_Ai.ScaredWolf = false;
+        Enemy_Ai.PlayerSpotted = false;
+    }
+
+    private void LateUpdate()
+    {
+        UpdateShaderArray();
     }
 
 }

@@ -33,14 +33,9 @@ public class Lamp_Controller : MonoBehaviour
 
     public Color LampColor = Color.white;
 
-    private void Awake()
-    {
-        Ai_Manager.ResetLamps(this);
-    }
-
     private void Start()
     {
-        Ai_Manager.AddLamp(this);
+        Ai_Manager.Singleton().AddLamp(this);
     }
 
     public float GetEnabledRange()
@@ -85,11 +80,6 @@ public class Lamp_Controller : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
-    {
-        Ai_Manager.UpdateShaderArray(this);
-    }
-
     public void Toggle(bool _on)
     {
         m_on = _on;
@@ -107,7 +97,8 @@ public class Lamp_Controller : MonoBehaviour
         int m = 0;
         if(_powder.AffectsMonsters)
         {
-            foreach (Enemy_Ai enemy in Ai_Manager.GetEnemyAiInRange(GetEnabledRange(), transform.position))
+            if(Ai_Manager.Singleton())
+            foreach (Enemy_Ai enemy in Ai_Manager.Singleton().GetEnemyAiInRange(GetEnabledRange(), transform.position))
             {
                 if(enemy != null)
                 {

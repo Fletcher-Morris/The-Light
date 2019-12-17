@@ -82,6 +82,7 @@ public class Interact_Trigger : MonoBehaviour
     private void Update()
     {
         float s = 0.25f * ((Mathf.Sin(Time.time * 1.5f)));
+        if (m_mainCam == null) m_mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
         m_interactUi?.transform.SetPositionAndRotation(m_uiAnchor.position + m_uiOffset + new Vector3(0, s, 0), m_mainCam.transform.rotation);
         m_interactUi.SetActive(Player_Controller.Singleton().ClosestInteraction == this);
     }
