@@ -9,13 +9,8 @@ public class Dialogue_Controller : MonoBehaviour
 
     private Player_Controller m_player;
 
-    private void Start()
-    {
-        m_player = Ai_Manager.GetPlayerTransform().GetComponent<Player_Controller>();
-    }
-
     public void ActivateDialogue()
     {
-        m_player.DisplayDialogue(m_dialogue, m_pauseGame);
+        Player_Controller.Singleton().DisplayDialogue(m_dialogue, m_pauseGame);
     }
 }

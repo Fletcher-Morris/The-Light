@@ -105,7 +105,6 @@ public class Player_Controller : MonoBehaviour
     private void Awake()
     {
         m_singleton = this;
-        Ai_Manager.SetPlayerTransform(transform);
         GatherComponents();
         m_visual.parent = null;
         m_cameraPivotY.parent = null;

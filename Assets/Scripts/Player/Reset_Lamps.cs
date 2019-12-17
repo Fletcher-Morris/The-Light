@@ -6,8 +6,8 @@ public class Reset_Lamps : MonoBehaviour
 {
     public void ResetLamps()
     {
-        Ai_Manager.ResetLamps(true);
-        Ai_Manager.ResetLampLists();
-        Ai_Manager.CreateGlobalValues();
+        Ai_Manager.Singleton().ResetLamps(true);
+        Ai_Manager.Singleton().ResetLampLists();
+        Ai_Manager.Singleton().CreateGlobalValues();
     }
 }

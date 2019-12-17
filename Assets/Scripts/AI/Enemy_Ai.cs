@@ -79,7 +79,7 @@ public class Enemy_Ai : MonoBehaviour
 
     private void Start()
     {
-        m_aiId = Ai_Manager.AddAi(this);
+        m_aiId = Ai_Manager.Singleton().AddAi(this);
         GetComponentsOnStart();
         m_spawnPos = transform.position;
         if (m_autoWaypoints) GetAutoWaypoints();
@@ -120,7 +120,7 @@ public class Enemy_Ai : MonoBehaviour
 
     private void GetAutoWaypoints()
     {
-        foreach(Ai_Waypoint waypoint in Ai_Manager.GetWaypoints())
+        foreach(Ai_Waypoint waypoint in Ai_Manager.Singleton().GetWaypoints())
         {
             if(waypoint.GetIncludedAi().Contains(m_aiSettings) && waypoint != null)
             {
@@ -318,16 +318,15 @@ public class Enemy_Ai : MonoBehaviour
         m_prevAiState = m_aiState;
     }
 
-    private static bool PlayerSpotted = false;
-    private static bool ScaredWolf = false;
+    public static bool PlayerSpotted = false;
+    public static bool ScaredWolf = false;
 
     //  Check if this AI can see the player.
     private void CheckForPlayer()
     {
         if (m_aiSettings.targetPlayer == false) return;
-        Transform player = Ai_Manager.GetPlayerTransform();
         m_playerVisible = false;
-        if(player)
+        if(Player_Controller.Singleton().transform)
         {
             Vector3 dir;
             Ray ray;
@@ -337,7 +336,7 @@ public class Enemy_Ai : MonoBehaviour
             for(int i = 0; i < tries; i++)
             {
                 if (hitPlayer) break;
-                dir = (player.position + new Vector3(0, Ai_Manager.GetPlayerHeight() * (i+1 / tries), 0)) - m_eyesTransform.position;
+                dir = (Player_Controller.Singleton().transform.position + new Vector3(0, Ai_Manager.Singleton().GetPlayerHeight() * (i+1 / tries), 0)) - m_eyesTransform.position;
                 ray = new Ray(m_eyesTransform.position, dir);
                 hitPlayer = false;
                 Physics.Raycast(ray, out playerHit, m_aiSettings.interestRange, m_aiSettings.visionObstructors);
@@ -367,9 +366,9 @@ public class Enemy_Ai : MonoBehaviour
                 if (m_playerDetectionValue >= 1.0f)
                 {
                     //  Player detected
-                    m_navTarget = player.position;
+                    m_navTarget = Player_Controller.Singleton().transform.position;
                     m_aiState = Ai_State.Chasing;
-                    m_lastKnownPlayerPosition = Ai_Manager.GetPlayerTransform().position;
+                    m_lastKnownPlayerPosition = Player_Controller.Singleton().transform.position;
                     m_playerAttention = m_aiSettings.attentionSpan;
                 }
                 else
@@ -396,7 +395,7 @@ public class Enemy_Ai : MonoBehaviour
     {
         m_inLight = false;
         m_lightDirection = new Vector3();
-        foreach(Lamp_Controller lamp in Ai_Manager.GetLamps())
+        foreach(Lamp_Controller lamp in Ai_Manager.Singleton().GetLamps())
         {
             if(lamp.IsOn() && lamp != null)
             {
@@ -516,10 +515,10 @@ public class Enemy_Ai : MonoBehaviour
                 m_navTarget = m_lastKnownPlayerPosition;
                 break;
             case Ai_State.Chasing:
-                m_navTarget = Ai_Manager.GetPlayerTransform().position;
+                m_navTarget = Player_Controller.Singleton().transform.position;
                 break;
             case Ai_State.Attacking:
-                m_navTarget = Ai_Manager.GetPlayerTransform().position;
+                m_navTarget = Player_Controller.Singleton().transform.position;
                 break;
             case Ai_State.Stunned:
                 m_navTarget = transform.position;
@@ -536,7 +535,7 @@ public class Enemy_Ai : MonoBehaviour
                 }
                 break;
             default:
-                m_navTarget = Ai_Manager.GetPlayerTransform().position;
+                m_navTarget = Player_Controller.Singleton().transform.position;
                 break;
         }
     }
